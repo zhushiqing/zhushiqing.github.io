@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>SunnyZhu&#39;blog</title>
+  <title>算法之二分查找(java版本) | SunnyZhu&#39;blog</title>
   <meta name="author" content="zhushiqing">
   
   <meta name="description" content="zsq66zsq">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="算法之二分查找(java版本)"/>
   <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
 
   
@@ -199,122 +199,44 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-  <article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-24T02:20:29.000Z"><a href="/2014/08/24/LittleThing/">8月 24 2014</a></time>
+        <time datetime="2014-07-21T00:57:38.000Z"><a href="/2014/07/21/Algorithms3/">7月 21 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/24/LittleThing/">那些笑cry的面向对象总结</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>看到别人写的总结，不忍直视，特意一转！<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/24/LittleThing/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-18T05:39:51.000Z"><a href="/2014/08/18/ClassLoader/">8月 18 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/18/ClassLoader/">Java虚拟机中ClassLoader的机制分析</a></h1>
+    <h1 class="title">算法之二分查找(java版本)</h1>
   
 
     </header>
     <div class="entry">
       
-        <h2 id="首先我们得明白什么是类加载器（ClassLoader）：">首先我们得明白什么是类加载器（ClassLoader）：</h2>
-<p><em>A</em>【类加载的作用】：java中的类加载器就是把java字节码（class文件）从硬盘中加载到内存中,然后做一些处理，这就是类加载器。</p>
-<p>一般来说，类加载器本身是一个java类，但是BootStrap加载器是C++写成的。是所有加载器的根。<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/18/ClassLoader/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
+        <p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br><a id="more"></a><br>在我的理解中：</p>
+<p>1.拿要找的数与数组的中间数做比较，如果数组中的数大于就取0，到中值为新数组，否则则是（mid，last）作为新数组<br>2.拿新数组重复1步骤<br>3.重复1，2步骤直到找到那个值</p>
+<h3 id="代码实习如下">代码实习如下</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch</span>(<span class="keyword">int</span>[] x, <span class="keyword">int</span> n){</div><div class="line">	<span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">	<span class="keyword">int</span> mid = -<span class="number">1</span>;</div><div class="line">	<span class="keyword">int</span> end = x.length - <span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span>(start &lt;= end){</div><div class="line">		mid = (start + end)/<span class="number">2</span>;</div><div class="line">		<span class="keyword">if</span>(x[mid] == n){</div><div class="line">			<span class="keyword">return</span> mid;</div><div class="line">		}<span class="keyword">else</span> <span class="keyword">if</span>(x[mid] &gt; n){</div><div class="line">			end = mid - <span class="number">1</span>;</div><div class="line">		}<span class="keyword">else</span> <span class="keyword">if</span>(x[mid] &lt; n){</div><div class="line">			start = mid + <span class="number">1</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">			</div><div class="line">	<span class="keyword">int</span>[] nums = {<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">11</span>,<span class="number">45</span>,<span class="number">89</span>,<span class="number">102</span>,<span class="number">99</span>,<span class="number">47</span>,<span class="number">66</span>};</div><div class="line">	Arrays.sort(nums);</div><div class="line">		</div><div class="line">	<span class="comment">//</span></div><div class="line">	<span class="keyword">int</span> index = binarySearch(nums,<span class="number">47</span>);</div><div class="line">	System.out.println(index);</div><div class="line">}</div></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-13T11:06:01.000Z"><a href="/2014/08/13/Proxy/">8月 13 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/13/Proxy/">Proxy机制（java动态代理机制）</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>什么是动态代理？</p>
-<h2 id="java动态代理机制">java动态代理机制</h2>
-<ul>
-<li>Q1：什么叫做动态代理机制？</li>
-<li>Q2：动态代理机制有什么好处？</li>
-<li>Q3：什么地方用到动态代理？</li>
-</ul>
+<p>这样就是一个简单的实现了。</p>
 <hr>
+<h2 id="积累是一种习惯！">积累是一种习惯！</h2>
 
       
     </div>
     <footer>
       
         
-          <div class="alignleft">
-            <a href="/2014/08/13/Proxy/#more" class="more-link">阅读全文</a>
-          </div>
+  
+  <div class="categories">
+    <a href="/categories/Algorithms/">Algorithms</a>
+  </div>
+
         
-        
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
       
       <div class="clearfix"></div>
     </footer>
@@ -324,99 +246,37 @@
 
 
 
+<nav id="pagination" >
+    
+    <a href="/2014/07/22/Algorithm1/" class="alignleft prev" >上一页</a>
+    
+    
+    <a href="/2014/07/20/Thread1/" class="alignright next" >下一页</a>
+    
+    <div class="clearfix"></div>
+</nav>
+<section id="comment">
+<!-- 多说评论框 start -->	
+<div class="ds-thread" data-thread-key="item.path" data-title="item.title" data-url="item.link"></div>
+<!-- 多说评论框 end -->
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zhushiqing"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
 
 
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-13T06:07:55.000Z"><a href="/2014/08/13/hashmapOutOfmemory/">8月 13 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/13/hashmapOutOfmemory/">Java中Hashmap存不下那些数据怎么办（有一堆数据）？</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h1 id="突然想起前几天有人问的关于HashMap一个问题">突然想起前几天有人问的关于HashMap一个问题</h1>
-<hr>
-<p>假如hashmap中存入了大量的数据，存不下了怎么办呢！？好吧，当时我就惊呆了。hashmap还有内存溢出的情况简直是不能忍！次奥，但是左思右想总是想不出答案来。好吧，我承认又得补脑了<br>0_0。回来各种查资料。<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/13/hashmapOutOfmemory/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-12T06:34:11.000Z"><a href="/2014/08/12/thinkingOfHttp/">8月 12 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/12/thinkingOfHttp/">关于http请求的全过程</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="这是一只菜鸟关于http请求全过程的一个了解">这是一只菜鸟关于http请求全过程的一个了解</h2>
-<hr>
-<p>有些时候真的是不问不知道，发现自己真的都是筛子，所以呢！被人问了个http请求从开始到最后都做了什么<br>我居然不知道，实在是惭愧，说实话，自己也确实没去了解过这一块的内容。<br>不过既然别人问了，那么就得好好去查漏补缺。
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/12/thinkingOfHttp/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-<nav id="pagination">
-  
-  
-    <a href="/page/2/" class="alignright next">下一页</a>
-  
-  <div class="clearfix"></div>
-</nav></div></div>
+</div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">

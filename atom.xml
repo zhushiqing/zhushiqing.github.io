@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-08-24T00:30:35.732Z</updated>
+  <updated>2014-08-24T02:27:45.567Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -13,6 +13,54 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[那些笑cry的面向对象总结]]></title>
+    <link href="http://zhushiqing.github.io/2014/08/24/LittleThing/"/>
+    <id>http://zhushiqing.github.io/2014/08/24/LittleThing/</id>
+    <published>2014-08-24T02:20:29.000Z</published>
+    <updated>2014-08-24T02:27:13.000Z</updated>
+    <content type="html"><![CDATA[<p>看到别人写的总结，不忍直视，特意一转！<br><a id="more"></a></p>
+<p>小诗一首：</p>
+<blockquote>
+<p>我能把整个世界都抽象成对象​  </p>
+<p>但是没办法把你变成我的对象​ </p>
+<p>想让你成为私有常量，外部函数无法访问你    </p>
+<p>又想让你变成全局常量，在整个生命周期随时随地都可以调用你​</p>
+<p>因为世界上没有这样的常量​ </p>
+<p>所以我无法定义你​ </p>
+<p>我可以重载甚至覆盖任何一种方法​</p>
+<p>但是我却不能重载对你的思念​</p>
+<p>也许命中注定了 你在我的世界里永远的烙上了静态的属性</p>
+<p>而我不慎调用了爱你这个方法</p>
+<p>当我义无返顾的把自己作为参数传进这个方法时</p>
+<p>我才发现“爱你”方法里面执行是一个死循环</p>
+<p>她不停的返回对你的思念存入我心里的堆栈</p>
+<p>在这无尽的无穷无尽循环中​</p>
+<p>我的内存资源已经快消耗殆尽</p>
+<p>我却依然不停的向系统申请空间换取我对你的想念</p>
+<p>终于我受不了爱你的煎熬</p>
+<p>调用了“表白”这个Public方法​</p>
+<p>将字符串 “如果你爱你，我将用尽一生去爱你，你爱我吗？” 传递给你​</p>
+<p>我却捕获一个异常－－－内存溢出,我爱的人不爱我</p>
+<p>为了解决这个异常​</p>
+<p>我偷偷修改”表白”的方法​</p>
+<p>加上了异常处理finally块​</p>
+<p>并且将返回值设为真</p>
+<p>心想这样万无一失了吧​</p>
+<p>鼓起勇气再一次调用“表白”​</p>
+<p>我却依然捕获到同样的异常​</p>
+<p>仔细调试代码原来在方法中有一段这样的代码​</p>
+<p>“如果没房没车，则执行System.exit()”​</p>
+</blockquote>
+]]></content>
+    <summary type="html"><![CDATA[<p>看到别人写的总结，不忍直视，特意一转！<br>]]></summary>
+    
+      <category term="转" scheme="http://zhushiqing.github.io/tags/%E8%BD%AC/"/>
+    
+      <category term="blog" scheme="http://zhushiqing.github.io/categories/blog/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Java虚拟机中ClassLoader的机制分析]]></title>
@@ -306,6 +354,34 @@
   </entry>
   
   <entry>
+    <title><![CDATA[算法之插入排序（java版本）]]></title>
+    <link href="http://zhushiqing.github.io/2014/07/25/Algorithm4/"/>
+    <id>http://zhushiqing.github.io/2014/07/25/Algorithm4/</id>
+    <published>2014-07-25T01:33:11.000Z</published>
+    <updated>2014-08-24T02:27:18.000Z</updated>
+    <content type="html"><![CDATA[<p>插入排序也是最常见的排序之一，他分为以下几种   </p>
+<blockquote>
+<p>1 直接插入排序<br>2 二分插入排序<br>3 希尔插入排序<br>4 链表插入排序</p>
+</blockquote>
+<hr>
+<a id="more"></a>
+
+<p>插入排序的基本操作就是：<br>跟抓牌一样，自己先定义一个有序区域，把抓到的牌放到已经排好序的牌堆里面，直到所有牌都抓完，有序区域就变成了整个<br>牌。我们预先把无序的数组认为第一个数是有序的区域，拿第二个数与之比较，然后插入，这样有序区域就变成了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Insertion</span> </span>{  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span>(Comparable []data){  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index=<span class="number">1</span>;index&lt;data.length;index++){  </div><div class="line">            Comparable key = data[index];  </div><div class="line">            <span class="keyword">int</span> position = index;  </div><div class="line">            <span class="comment">//shift larger values to the right  </span></div><div class="line">            <span class="keyword">while</span>(position&gt;<span class="number">0</span>&&data[position-<span class="number">1</span>].compareTo(key)&gt;<span class="number">0</span>){  </div><div class="line">                data[position] = data[position-<span class="number">1</span>];  </div><div class="line">                position--;  </div><div class="line">            }  </div><div class="line">            data[position]=key;  </div><div class="line">        }     </div><div class="line">    }  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String []args){  </div><div class="line">        Comparable []c={<span class="number">4</span>,<span class="number">9</span>,<span class="number">23</span>,<span class="number">1</span>,<span class="number">45</span>,<span class="number">27</span>,<span class="number">5</span>,<span class="number">2</span>};  </div><div class="line">        insertionSort(c);  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;c.length;i++)  </div><div class="line">            System.out.println(<span class="string">"插入排序："</span>+c[i]);  </div><div class="line">    }  </div><div class="line">}</div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html"><![CDATA[<p>插入排序也是最常见的排序之一，他分为以下几种   </p>
+<blockquote>
+<p>1 直接插入排序<br>2 二分插入排序<br>3 希尔插入排序<br>4 链表插入排序</p>
+</blockquote>
+<hr>
+]]></summary>
+    
+      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[算法之快排（java版本）]]></title>
     <link href="http://zhushiqing.github.io/2014/07/24/Algorithm2/"/>
     <id>http://zhushiqing.github.io/2014/07/24/Algorithm2/</id>
@@ -362,6 +438,27 @@
     
     
       <category term="算法基础" scheme="http://zhushiqing.github.io/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/"/>
+    
+      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[算法之二分查找(java版本)]]></title>
+    <link href="http://zhushiqing.github.io/2014/07/21/Algorithms3/"/>
+    <id>http://zhushiqing.github.io/2014/07/21/Algorithms3/</id>
+    <published>2014-07-21T00:57:38.000Z</published>
+    <updated>2014-08-24T01:23:38.000Z</updated>
+    <content type="html"><![CDATA[<p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br><a id="more"></a><br>在我的理解中：</p>
+<p>1.拿要找的数与数组的中间数做比较，如果数组中的数大于就取0，到中值为新数组，否则则是（mid，last）作为新数组<br>2.拿新数组重复1步骤<br>3.重复1，2步骤直到找到那个值</p>
+<h3 id="代码实习如下">代码实习如下</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch</span>(<span class="keyword">int</span>[] x, <span class="keyword">int</span> n){</div><div class="line">	<span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">	<span class="keyword">int</span> mid = -<span class="number">1</span>;</div><div class="line">	<span class="keyword">int</span> end = x.length - <span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span>(start &lt;= end){</div><div class="line">		mid = (start + end)/<span class="number">2</span>;</div><div class="line">		<span class="keyword">if</span>(x[mid] == n){</div><div class="line">			<span class="keyword">return</span> mid;</div><div class="line">		}<span class="keyword">else</span> <span class="keyword">if</span>(x[mid] &gt; n){</div><div class="line">			end = mid - <span class="number">1</span>;</div><div class="line">		}<span class="keyword">else</span> <span class="keyword">if</span>(x[mid] &lt; n){</div><div class="line">			start = mid + <span class="number">1</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">			</div><div class="line">	<span class="keyword">int</span>[] nums = {<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">11</span>,<span class="number">45</span>,<span class="number">89</span>,<span class="number">102</span>,<span class="number">99</span>,<span class="number">47</span>,<span class="number">66</span>};</div><div class="line">	Arrays.sort(nums);</div><div class="line">		</div><div class="line">	<span class="comment">//</span></div><div class="line">	<span class="keyword">int</span> index = binarySearch(nums,<span class="number">47</span>);</div><div class="line">	System.out.println(index);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>这样就是一个简单的实现了。</p>
+<hr>
+<h2 id="积累是一种习惯！">积累是一种习惯！</h2>
+]]></content>
+    <summary type="html"><![CDATA[<p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br>]]></summary>
     
       <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
     

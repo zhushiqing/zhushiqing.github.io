@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>SunnyZhu&#39;blog</title>
+  <title>那些笑cry的面向对象总结 | SunnyZhu&#39;blog</title>
   <meta name="author" content="zhushiqing">
   
   <meta name="description" content="zsq66zsq">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="那些笑cry的面向对象总结"/>
   <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
 
   
@@ -199,8 +199,7 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-  <article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
@@ -210,23 +209,64 @@
       
       
   
-    <h1 class="title"><a href="/2014/08/24/LittleThing/">那些笑cry的面向对象总结</a></h1>
+    <h1 class="title">那些笑cry的面向对象总结</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>看到别人写的总结，不忍直视，特意一转！<br>
+        <p>看到别人写的总结，不忍直视，特意一转！<br><a id="more"></a></p>
+<p>小诗一首：</p>
+<blockquote>
+<p>我能把整个世界都抽象成对象​  </p>
+<p>但是没办法把你变成我的对象​ </p>
+<p>想让你成为私有常量，外部函数无法访问你    </p>
+<p>又想让你变成全局常量，在整个生命周期随时随地都可以调用你​</p>
+<p>因为世界上没有这样的常量​ </p>
+<p>所以我无法定义你​ </p>
+<p>我可以重载甚至覆盖任何一种方法​</p>
+<p>但是我却不能重载对你的思念​</p>
+<p>也许命中注定了 你在我的世界里永远的烙上了静态的属性</p>
+<p>而我不慎调用了爱你这个方法</p>
+<p>当我义无返顾的把自己作为参数传进这个方法时</p>
+<p>我才发现“爱你”方法里面执行是一个死循环</p>
+<p>她不停的返回对你的思念存入我心里的堆栈</p>
+<p>在这无尽的无穷无尽循环中​</p>
+<p>我的内存资源已经快消耗殆尽</p>
+<p>我却依然不停的向系统申请空间换取我对你的想念</p>
+<p>终于我受不了爱你的煎熬</p>
+<p>调用了“表白”这个Public方法​</p>
+<p>将字符串 “如果你爱你，我将用尽一生去爱你，你爱我吗？” 传递给你​</p>
+<p>我却捕获一个异常－－－内存溢出,我爱的人不爱我</p>
+<p>为了解决这个异常​</p>
+<p>我偷偷修改”表白”的方法​</p>
+<p>加上了异常处理finally块​</p>
+<p>并且将返回值设为真</p>
+<p>心想这样万无一失了吧​</p>
+<p>鼓起勇气再一次调用“表白”​</p>
+<p>我却依然捕获到同样的异常​</p>
+<p>仔细调试代码原来在方法中有一段这样的代码​</p>
+<p>“如果没房没车，则执行System.exit()”​</p>
+</blockquote>
+
       
     </div>
     <footer>
       
         
-          <div class="alignleft">
-            <a href="/2014/08/24/LittleThing/#more" class="more-link">阅读全文</a>
-          </div>
+  
+  <div class="categories">
+    <a href="/categories/blog/">blog</a>
+  </div>
+
         
-        
+  
+  <div class="tags">
+    <a href="/tags/转/">转</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
       
       <div class="clearfix"></div>
     </footer>
@@ -236,187 +276,35 @@
 
 
 
+<nav id="pagination" >
+    
+    
+    <a href="/2014/08/18/ClassLoader/" class="alignright next" >下一页</a>
+    
+    <div class="clearfix"></div>
+</nav>
+<section id="comment">
+<!-- 多说评论框 start -->	
+<div class="ds-thread" data-thread-key="item.path" data-title="item.title" data-url="item.link"></div>
+<!-- 多说评论框 end -->
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zhushiqing"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
 
 
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-18T05:39:51.000Z"><a href="/2014/08/18/ClassLoader/">8月 18 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/18/ClassLoader/">Java虚拟机中ClassLoader的机制分析</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="首先我们得明白什么是类加载器（ClassLoader）：">首先我们得明白什么是类加载器（ClassLoader）：</h2>
-<p><em>A</em>【类加载的作用】：java中的类加载器就是把java字节码（class文件）从硬盘中加载到内存中,然后做一些处理，这就是类加载器。</p>
-<p>一般来说，类加载器本身是一个java类，但是BootStrap加载器是C++写成的。是所有加载器的根。<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/18/ClassLoader/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-13T11:06:01.000Z"><a href="/2014/08/13/Proxy/">8月 13 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/13/Proxy/">Proxy机制（java动态代理机制）</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>什么是动态代理？</p>
-<h2 id="java动态代理机制">java动态代理机制</h2>
-<ul>
-<li>Q1：什么叫做动态代理机制？</li>
-<li>Q2：动态代理机制有什么好处？</li>
-<li>Q3：什么地方用到动态代理？</li>
-</ul>
-<hr>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/13/Proxy/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-13T06:07:55.000Z"><a href="/2014/08/13/hashmapOutOfmemory/">8月 13 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/13/hashmapOutOfmemory/">Java中Hashmap存不下那些数据怎么办（有一堆数据）？</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h1 id="突然想起前几天有人问的关于HashMap一个问题">突然想起前几天有人问的关于HashMap一个问题</h1>
-<hr>
-<p>假如hashmap中存入了大量的数据，存不下了怎么办呢！？好吧，当时我就惊呆了。hashmap还有内存溢出的情况简直是不能忍！次奥，但是左思右想总是想不出答案来。好吧，我承认又得补脑了<br>0_0。回来各种查资料。<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/13/hashmapOutOfmemory/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-12T06:34:11.000Z"><a href="/2014/08/12/thinkingOfHttp/">8月 12 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/12/thinkingOfHttp/">关于http请求的全过程</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="这是一只菜鸟关于http请求全过程的一个了解">这是一只菜鸟关于http请求全过程的一个了解</h2>
-<hr>
-<p>有些时候真的是不问不知道，发现自己真的都是筛子，所以呢！被人问了个http请求从开始到最后都做了什么<br>我居然不知道，实在是惭愧，说实话，自己也确实没去了解过这一块的内容。<br>不过既然别人问了，那么就得好好去查漏补缺。
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/12/thinkingOfHttp/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-<nav id="pagination">
-  
-  
-    <a href="/page/2/" class="alignright next">下一页</a>
-  
-  <div class="clearfix"></div>
-</nav></div></div>
+</div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
