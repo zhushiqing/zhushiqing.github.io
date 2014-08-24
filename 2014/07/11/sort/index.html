@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>算法之快排（java版本） | SunnyZhu&#39;blog</title>
+  <title>sort | SunnyZhu&#39;blog</title>
   <meta name="author" content="zhushiqing">
   
   <meta name="description" content="zsq66zsq">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="算法之快排（java版本）"/>
+  <meta property="og:title" content="sort"/>
   <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
 
   
@@ -205,38 +205,18 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-07-24T00:01:45.000Z"><a href="/2014/07/24/Algorithm2/">7月 24 2014</a></time>
+        <time datetime="2014-07-11T02:41:04.000Z"><a href="/2014/07/11/sort/">7月 11 2014</a></time>
       
       
   
-    <h1 class="title">算法之快排（java版本）</h1>
+    <h1 class="title">sort</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>快排神马的，就是各路考官最爱问的东西：<br><a id="more"></a></p>
-<p>在我自己的理解中，快排是这样的：</p>
-<h2 id="实现原理">实现原理</h2>
-<blockquote>
-<ul>
-<li>1.先选择数组中的一个数，作为一个基准（一般情况下选第一个）</li>
-<li>2.然后对整个数组进行第一次遍历，把小于基准的数扔到及基准数的左边，大于的数扔到右边。</li>
-<li>3.一遍遍历结束后，基准左边的数都小于基准，右边都大于基准，然后以基准为界可以得到两个新数组，对新数组重复1、2步骤。</li>
-<li>4.不断递归调用之后得到的数组就是有序的。</li>
-</ul>
-</blockquote>
-<h2 id="时间复杂度">时间复杂度</h2>
-<p>像一般java中Array.sort底层实现就是采用的快排，一般快排的效率都是蛮高的，但是快排最坏的情况下时间复杂度也为O(n^2)<br>,比说一组数组本身就是有序的，倒序，然后基准为第一个数，这样用快排排数组就是最坏情况下的时间复杂度，当然一般情况下平均事件复杂度都为：O(nlog(n))</p>
-<h2 id="代码实现">代码实现</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuicklySort</span> </span>{</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMid</span>(<span class="keyword">int</span>[] num,<span class="keyword">int</span> low,<span class="keyword">int</span> high){</div><div class="line">		<span class="keyword">int</span> temp = num[low];</div><div class="line">		<span class="keyword">while</span>(low &lt; high){</div><div class="line">			<span class="keyword">while</span>(low &lt; high && num[high] &gt; temp){</div><div class="line">				high--;</div><div class="line">			}</div><div class="line">			num[low] = num [high];</div><div class="line">			<span class="keyword">while</span>(low &lt; high && num[low] &lt; temp){</div><div class="line">				low ++;</div><div class="line">			}</div><div class="line">			num[high] = num[low];</div><div class="line">		}</div><div class="line">		num [low] = temp;</div><div class="line">		<span class="keyword">return</span> low;</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">QuickSort</span>(<span class="keyword">int</span>[] num,<span class="keyword">int</span> low,<span class="keyword">int</span> high){</div><div class="line">		<span class="keyword">if</span>(low &lt; high){</div><div class="line">			<span class="keyword">int</span> mid = getMid(num, low, high);</div><div class="line">			QuickSort(num,mid+<span class="number">1</span>,high);</div><div class="line">			QuickSort(num,low,mid-<span class="number">1</span>);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span>(<span class="keyword">int</span>[] num){</div><div class="line">		<span class="keyword">if</span>(num.length &gt; <span class="number">0</span>){</div><div class="line">			QuickSort(num,<span class="number">0</span>,num.length-<span class="number">1</span>);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="annotation">@Test</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DoSort</span>(){</div><div class="line">		<span class="keyword">int</span> num[] = {<span class="number">1</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">11</span>};</div><div class="line">		sort(num);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num.length; i++) {</div><div class="line">			System.out.println(num[i]);</div><div class="line">		}</div><div class="line">	}</div></pre></td></tr></table></figure>
-
-<h3 id="其实针对最坏时间复杂度其实还有更好的解法：随机快排">其实针对最坏时间复杂度其实还有更好的解法：随机快排</h3>
-<hr>
-<p>随机定义那个基准数，就是大家所称的随机化快排，也是快排的一种变种，<br>我记得我曾看到一句戏言，这样的随机化快排遇到最坏的时间复杂度的几率只有1/(2^n),只够满足人一生的人品需求。</p>
-<p>还有就是一种就是平衡化快排，就是把基准数尽量可能的取为中值—-即每次取值在第一个数，中间那个数，最后一个数做<br>比较，据说这样能提高尽两倍的性能，实际上我也没尝试过，不过算法书上这样写应该没错把= =。</p>
-<hr>
-<p>最后说一句：算法这东西都是靠积累的，每天都要努力！come on everyone！</p>
+        <p>怎么说呢，作为程序猿，我们肯定少不了接触排序这个基础的算法！</p>
+<p>今天就让我给大家做一个我理解中应该掌握的排序算法</p>
 
       
     </div>
@@ -249,6 +229,11 @@
   </div>
 
         
+  
+  <div class="tags">
+    <a href="/tags/排序总结/">排序总结</a>
+  </div>
+
         <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
       
@@ -262,10 +247,8 @@
 
 <nav id="pagination" >
     
-    <a href="/2014/07/25/Algorithm4/" class="alignleft prev" >上一页</a>
+    <a href="/2014/07/18/hello-world/" class="alignleft prev" >上一页</a>
     
-    
-    <a href="/2014/07/22/Algorithm1/" class="alignright next" >下一页</a>
     
     <div class="clearfix"></div>
 </nav>

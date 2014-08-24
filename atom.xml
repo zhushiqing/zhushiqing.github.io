@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-08-24T02:27:45.567Z</updated>
+  <updated>2014-08-24T04:05:28.048Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -358,7 +358,7 @@
     <link href="http://zhushiqing.github.io/2014/07/25/Algorithm4/"/>
     <id>http://zhushiqing.github.io/2014/07/25/Algorithm4/</id>
     <published>2014-07-25T01:33:11.000Z</published>
-    <updated>2014-08-24T02:27:18.000Z</updated>
+    <updated>2014-08-24T02:56:26.000Z</updated>
     <content type="html"><![CDATA[<p>插入排序也是最常见的排序之一，他分为以下几种   </p>
 <blockquote>
 <p>1 直接插入排序<br>2 二分插入排序<br>3 希尔插入排序<br>4 链表插入排序</p>
@@ -366,8 +366,14 @@
 <hr>
 <a id="more"></a>
 
-<p>插入排序的基本操作就是：<br>跟抓牌一样，自己先定义一个有序区域，把抓到的牌放到已经排好序的牌堆里面，直到所有牌都抓完，有序区域就变成了整个<br>牌。我们预先把无序的数组认为第一个数是有序的区域，拿第二个数与之比较，然后插入，这样有序区域就变成了</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Insertion</span> </span>{  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span>(Comparable []data){  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index=<span class="number">1</span>;index&lt;data.length;index++){  </div><div class="line">            Comparable key = data[index];  </div><div class="line">            <span class="keyword">int</span> position = index;  </div><div class="line">            <span class="comment">//shift larger values to the right  </span></div><div class="line">            <span class="keyword">while</span>(position&gt;<span class="number">0</span>&&data[position-<span class="number">1</span>].compareTo(key)&gt;<span class="number">0</span>){  </div><div class="line">                data[position] = data[position-<span class="number">1</span>];  </div><div class="line">                position--;  </div><div class="line">            }  </div><div class="line">            data[position]=key;  </div><div class="line">        }     </div><div class="line">    }  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String []args){  </div><div class="line">        Comparable []c={<span class="number">4</span>,<span class="number">9</span>,<span class="number">23</span>,<span class="number">1</span>,<span class="number">45</span>,<span class="number">27</span>,<span class="number">5</span>,<span class="number">2</span>};  </div><div class="line">        insertionSort(c);  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;c.length;i++)  </div><div class="line">            System.out.println(<span class="string">"插入排序："</span>+c[i]);  </div><div class="line">    }  </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h2 id="实现原理">实现原理</h2>
+<p>跟抓牌一样，自己先定义一个有序区域，把抓到的牌放到已经排好序的牌堆里面，直到所有牌都抓完，有序区域就变成了整个<br>牌。<br>也就是说假设前面(n-1) [n&gt;=2]个数已经是排<br>好顺序的，现在要把第n个数插到前面的有序数中，使得这n个数<br>也是排好顺序的。如此反复循环，直到全部排好顺序</p>
+<h2 id="时间复杂度">时间复杂度</h2>
+<p>一般来说，最好情况下的插入排序时间复杂度为O(n),平均以及最坏的时间复杂度为O(n^2),而且插入排序是最稳定的排序<br>算法，在数据量小的情况下，插入排序的效率挺高的- -。</p>
+<p>下面让我用java代码实现下直接插入排序。</p>
+<h2 id="代码实现直接排序">代码实现直接排序</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Insertion</span> </span>{  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span>(<span class="keyword">int</span> []num){  </div><div class="line">    	<span class="keyword">int</span> temp = <span class="number">0</span>;</div><div class="line">       	</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;num.length;i++){</div><div class="line">       		<span class="keyword">int</span> j=i-<span class="number">1</span>;</div><div class="line">      		temp=a[i];</div><div class="line">		<span class="keyword">while</span>(j &gt;= <span class="number">0</span>&&temp &lt; a[j]){</div><div class="line">       			a[j+<span class="number">1</span>] = a[j];                <span class="comment">//将大于temp的值整体后移一个单位</span></div><div class="line">       			j--;</div><div class="line">       		}</div><div class="line"></div><div class="line">       		a[j+<span class="number">1</span>] = temp;</div><div class="line">    	}</div><div class="line">    }  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String []args){  </div><div class="line">        Comparable []c={<span class="number">4</span>,<span class="number">9</span>,<span class="number">23</span>,<span class="number">1</span>,<span class="number">45</span>,<span class="number">27</span>,<span class="number">5</span>,<span class="number">2</span>};  </div><div class="line">        insertionSort(c);  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;c.length;i++)  </div><div class="line">            System.out.println(<span class="string">"插入排序："</span>+c[i]);  </div><div class="line">    }  </div><div class="line">}</div></pre></td></tr></table></figure>
 
 ]]></content>
     <summary type="html"><![CDATA[<p>插入排序也是最常见的排序之一，他分为以下几种   </p>
@@ -386,9 +392,10 @@
     <link href="http://zhushiqing.github.io/2014/07/24/Algorithm2/"/>
     <id>http://zhushiqing.github.io/2014/07/24/Algorithm2/</id>
     <published>2014-07-24T00:01:45.000Z</published>
-    <updated>2014-08-24T00:30:29.000Z</updated>
+    <updated>2014-08-24T02:57:41.000Z</updated>
     <content type="html"><![CDATA[<p>快排神马的，就是各路考官最爱问的东西：<br><a id="more"></a></p>
 <p>在我自己的理解中，快排是这样的：</p>
+<h2 id="实现原理">实现原理</h2>
 <blockquote>
 <ul>
 <li>1.先选择数组中的一个数，作为一个基准（一般情况下选第一个）</li>
@@ -397,8 +404,9 @@
 <li>4.不断递归调用之后得到的数组就是有序的。</li>
 </ul>
 </blockquote>
-<p>像一般java中Array.sort底层实现就是采用的快排，一般快排的效率都是蛮高的，但是快排最坏的情况下时间复杂度也为O(n^2),比说一组数组本身就是有序的，倒序，然后基准为第一个数，这样用快排排数组就是最坏情况下的时间复杂度，当然一般情况下平均事件复杂度都为：O(nlog(n))</p>
-<p>接下来让我们来看下Java代码实现：</p>
+<h2 id="时间复杂度">时间复杂度</h2>
+<p>像一般java中Array.sort底层实现就是采用的快排，一般快排的效率都是蛮高的，但是快排最坏的情况下时间复杂度也为O(n^2)<br>,比说一组数组本身就是有序的，倒序，然后基准为第一个数，这样用快排排数组就是最坏情况下的时间复杂度，当然一般情况下平均事件复杂度都为：O(nlog(n))</p>
+<h2 id="代码实现">代码实现</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuicklySort</span> </span>{</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMid</span>(<span class="keyword">int</span>[] num,<span class="keyword">int</span> low,<span class="keyword">int</span> high){</div><div class="line">		<span class="keyword">int</span> temp = num[low];</div><div class="line">		<span class="keyword">while</span>(low &lt; high){</div><div class="line">			<span class="keyword">while</span>(low &lt; high && num[high] &gt; temp){</div><div class="line">				high--;</div><div class="line">			}</div><div class="line">			num[low] = num [high];</div><div class="line">			<span class="keyword">while</span>(low &lt; high && num[low] &lt; temp){</div><div class="line">				low ++;</div><div class="line">			}</div><div class="line">			num[high] = num[low];</div><div class="line">		}</div><div class="line">		num [low] = temp;</div><div class="line">		<span class="keyword">return</span> low;</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">QuickSort</span>(<span class="keyword">int</span>[] num,<span class="keyword">int</span> low,<span class="keyword">int</span> high){</div><div class="line">		<span class="keyword">if</span>(low &lt; high){</div><div class="line">			<span class="keyword">int</span> mid = getMid(num, low, high);</div><div class="line">			QuickSort(num,mid+<span class="number">1</span>,high);</div><div class="line">			QuickSort(num,low,mid-<span class="number">1</span>);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span>(<span class="keyword">int</span>[] num){</div><div class="line">		<span class="keyword">if</span>(num.length &gt; <span class="number">0</span>){</div><div class="line">			QuickSort(num,<span class="number">0</span>,num.length-<span class="number">1</span>);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="annotation">@Test</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DoSort</span>(){</div><div class="line">		<span class="keyword">int</span> num[] = {<span class="number">1</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">11</span>};</div><div class="line">		sort(num);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num.length; i++) {</div><div class="line">			System.out.println(num[i]);</div><div class="line">		}</div><div class="line">	}</div></pre></td></tr></table></figure>
 
 <h3 id="其实针对最坏时间复杂度其实还有更好的解法：随机快排">其实针对最坏时间复杂度其实还有更好的解法：随机快排</h3>
@@ -419,8 +427,9 @@
     <link href="http://zhushiqing.github.io/2014/07/22/Algorithm1/"/>
     <id>http://zhushiqing.github.io/2014/07/22/Algorithm1/</id>
     <published>2014-07-22T13:20:03.000Z</published>
-    <updated>2014-08-24T00:00:10.000Z</updated>
-    <content type="html"><![CDATA[<p>冒泡排序是最基础的排序算法，就像水底的气泡一个个冒出来一样。<br>冒泡排序算法的运作如下：（从后往前）—-参考百科</p>
+    <updated>2014-08-24T02:58:28.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="实现原理">实现原理</h2>
+<p>冒泡排序是最基础的排序算法，就像水底的气泡一个个冒出来一样。<br>冒泡排序算法的运作如下：（从后往前）—-参考百科<br><a id="more"></a></p>
 <blockquote>
 <ul>
 <li>1.比较相邻的元素。如果第一个比第二个大，就交换他们两个。</li>
@@ -429,13 +438,16 @@
 <li>4.持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</li>
 </ul>
 </blockquote>
+<h2 id="时间复杂度">时间复杂度</h2>
 <p>总的来说，像冒泡排序最理想的时间复杂度为O(n)，这个是在本身数据有序的情况下，<br>最坏情况的事件复杂度是O(n^2),平均的时间复杂度也为O(n^2)，接下来让我们来看看java版本的代码实现吧：</p>
+<h2 id="代码实现">代码实现</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span></span></div><div class="line">{</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args){</div><div class="line">		<span class="keyword">int</span>[] num = {<span class="number">705</span>,<span class="number">826</span>,<span class="number">680</span>,<span class="number">654</span>,<span class="number">694</span>};</div><div class="line">		<span class="keyword">int</span> temp;<span class="comment">//临时变量</span></div><div class="line">		<span class="comment">//第一个循环控制比较的轮数</span></div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; num.length - <span class="number">1</span>;i++){</div><div class="line">			<span class="comment">//第二个循环控制每轮比较的次数</span></div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; num.length - <span class="number">1</span> - i; j++){</div><div class="line">				<span class="keyword">if</span>(num[j] &gt; num[j + <span class="number">1</span>]){</div><div class="line">					temp = num[j];</div><div class="line">					num[j] = num[j + <span class="number">1</span>];</div><div class="line">					num[j + <span class="number">1</span>] = temp;</div><div class="line">				}</div><div class="line">			}</div><div class="line">		}</div><div class="line">		System.out.println(<span class="string">"使用冒泡排序后的数列是"</span>);</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; num.length; i++){</div><div class="line">			System.out.println(num[i]+<span class="string">" "</span> );</div><div class="line">		}</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">	}</div><div class="line">}</div><div class="line">输出以及过程如下：</div><div class="line"><span class="comment">/*</span></div><div class="line">705,826,680,654,694</div><div class="line">705,680,654,694,826  第一轮</div><div class="line">680,654,694,705,826  第二轮</div><div class="line">654,680,694,705,826</div><div class="line">654,680,694,705,826</div><div class="line">*/</div></pre></td></tr></table></figure>
 
 <hr>
 <p>最简单的也是基础的也是最会被问的，与诸君共勉。</p>
 ]]></content>
-    
+    <summary type="html"><![CDATA[<h2 id="实现原理">实现原理</h2>
+<p>冒泡排序是最基础的排序算法，就像水底的气泡一个个冒出来一样。<br>冒泡排序算法的运作如下：（从后往前）—-参考百科<br>]]></summary>
     
       <category term="算法基础" scheme="http://zhushiqing.github.io/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/"/>
     
@@ -448,17 +460,21 @@
     <link href="http://zhushiqing.github.io/2014/07/21/Algorithms3/"/>
     <id>http://zhushiqing.github.io/2014/07/21/Algorithms3/</id>
     <published>2014-07-21T00:57:38.000Z</published>
-    <updated>2014-08-24T01:23:38.000Z</updated>
-    <content type="html"><![CDATA[<p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br><a id="more"></a><br>在我的理解中：</p>
+    <updated>2014-08-24T02:59:16.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="时间复杂度">时间复杂度</h2>
+<p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br><a id="more"></a></p>
+<h2 id="实现原理">实现原理</h2>
+<p>在我的理解中：</p>
 <p>1.拿要找的数与数组的中间数做比较，如果数组中的数大于就取0，到中值为新数组，否则则是（mid，last）作为新数组<br>2.拿新数组重复1步骤<br>3.重复1，2步骤直到找到那个值</p>
-<h3 id="代码实习如下">代码实习如下</h3>
+<h2 id="代码实现">代码实现</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch</span>(<span class="keyword">int</span>[] x, <span class="keyword">int</span> n){</div><div class="line">	<span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">	<span class="keyword">int</span> mid = -<span class="number">1</span>;</div><div class="line">	<span class="keyword">int</span> end = x.length - <span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span>(start &lt;= end){</div><div class="line">		mid = (start + end)/<span class="number">2</span>;</div><div class="line">		<span class="keyword">if</span>(x[mid] == n){</div><div class="line">			<span class="keyword">return</span> mid;</div><div class="line">		}<span class="keyword">else</span> <span class="keyword">if</span>(x[mid] &gt; n){</div><div class="line">			end = mid - <span class="number">1</span>;</div><div class="line">		}<span class="keyword">else</span> <span class="keyword">if</span>(x[mid] &lt; n){</div><div class="line">			start = mid + <span class="number">1</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">			</div><div class="line">	<span class="keyword">int</span>[] nums = {<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">11</span>,<span class="number">45</span>,<span class="number">89</span>,<span class="number">102</span>,<span class="number">99</span>,<span class="number">47</span>,<span class="number">66</span>};</div><div class="line">	Arrays.sort(nums);</div><div class="line">		</div><div class="line">	<span class="comment">//</span></div><div class="line">	<span class="keyword">int</span> index = binarySearch(nums,<span class="number">47</span>);</div><div class="line">	System.out.println(index);</div><div class="line">}</div></pre></td></tr></table></figure>
 
 <p>这样就是一个简单的实现了。</p>
 <hr>
 <h2 id="积累是一种习惯！">积累是一种习惯！</h2>
 ]]></content>
-    <summary type="html"><![CDATA[<p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br>]]></summary>
+    <summary type="html"><![CDATA[<h2 id="时间复杂度">时间复杂度</h2>
+<p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br>]]></summary>
     
       <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
     
@@ -549,6 +565,23 @@
 <p>我是一只小菜鸟啊，纯菜啊！我以前写的都是C#啊！从来没接触过java，我学习java的时间加起来也不到7个月！默默的挣扎了好久，还是决定参加内推，投了阿里的简历！<br>可是！这么一来，我的小心脏总是hold不住，我同学们一个个都是从新投递的状态改为待面试了（一天内），而我一直显示是待面试！（感觉自己简历又被刷了！，之前校招实习的简历没写好，直接被刷，好不甘心！！！！！！！！！！）<br>好吧，担心没用！从20-25这段时间真心好纠结。可是着急没用，差不多我已经放弃，距离投递已经过了一周，我的简历还没被处理。。。。<br>可是！奇迹！出现了！昨天中午，阿里巴巴居然给我打电话了，我记得那会刚好是12：34，我刚好吃完饭上来，然后忙着导师给我的任务。加上今天昨晚被空调吹感冒了，实在是无力在最困顿的时候受虐，于是乎，与电话对面的面试官约好下午重新打来！<br>好吧，挂了电话，小心脏扑通扑通不争气的跳了起来！真的是又惊又喜！<br>于是乎，一下午都在恍恍惚惚中度过，连下午的周会都差点走神，好吧，我承认我第一次面阿里。有点小紧张。<br>然后5：13 ，在我开周会的时候，阿里的技术GG给我电话了。然后阿里一面就这么开始了，问题如下：<br>]]></summary>
     
       <category term="面试" scheme="http://zhushiqing.github.io/categories/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[sort]]></title>
+    <link href="http://zhushiqing.github.io/2014/07/11/sort/"/>
+    <id>http://zhushiqing.github.io/2014/07/11/sort/</id>
+    <published>2014-07-11T02:41:04.000Z</published>
+    <updated>2014-08-24T03:00:36.000Z</updated>
+    <content type="html"><![CDATA[<p>怎么说呢，作为程序猿，我们肯定少不了接触排序这个基础的算法！</p>
+<p>今天就让我给大家做一个我理解中应该掌握的排序算法</p>
+]]></content>
+    
+    
+      <category term="排序总结" scheme="http://zhushiqing.github.io/tags/%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/"/>
+    
+      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
     
   </entry>
   

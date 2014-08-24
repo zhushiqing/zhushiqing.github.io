@@ -215,9 +215,12 @@
     </header>
     <div class="entry">
       
-        <p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br><a id="more"></a><br>在我的理解中：</p>
+        <h2 id="时间复杂度">时间复杂度</h2>
+<p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br><a id="more"></a></p>
+<h2 id="实现原理">实现原理</h2>
+<p>在我的理解中：</p>
 <p>1.拿要找的数与数组的中间数做比较，如果数组中的数大于就取0，到中值为新数组，否则则是（mid，last）作为新数组<br>2.拿新数组重复1步骤<br>3.重复1，2步骤直到找到那个值</p>
-<h3 id="代码实习如下">代码实习如下</h3>
+<h2 id="代码实现">代码实现</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch</span>(<span class="keyword">int</span>[] x, <span class="keyword">int</span> n){</div><div class="line">	<span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">	<span class="keyword">int</span> mid = -<span class="number">1</span>;</div><div class="line">	<span class="keyword">int</span> end = x.length - <span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span>(start &lt;= end){</div><div class="line">		mid = (start + end)/<span class="number">2</span>;</div><div class="line">		<span class="keyword">if</span>(x[mid] == n){</div><div class="line">			<span class="keyword">return</span> mid;</div><div class="line">		}<span class="keyword">else</span> <span class="keyword">if</span>(x[mid] &gt; n){</div><div class="line">			end = mid - <span class="number">1</span>;</div><div class="line">		}<span class="keyword">else</span> <span class="keyword">if</span>(x[mid] &lt; n){</div><div class="line">			start = mid + <span class="number">1</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">			</div><div class="line">	<span class="keyword">int</span>[] nums = {<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">11</span>,<span class="number">45</span>,<span class="number">89</span>,<span class="number">102</span>,<span class="number">99</span>,<span class="number">47</span>,<span class="number">66</span>};</div><div class="line">	Arrays.sort(nums);</div><div class="line">		</div><div class="line">	<span class="comment">//</span></div><div class="line">	<span class="keyword">int</span> index = binarySearch(nums,<span class="number">47</span>);</div><div class="line">	System.out.println(index);</div><div class="line">}</div></pre></td></tr></table></figure>
 
 <p>这样就是一个简单的实现了。</p>
@@ -290,7 +293,7 @@ var duoshuoQuery = {short_name:"zhushiqing"};
   <h3 class="title">分类</h3>
   <ul class="entry">
   
-    <li><a href="/categories/Algorithms/">Algorithms</a><small>4</small></li>
+    <li><a href="/categories/Algorithms/">Algorithms</a><small>5</small></li>
   
     <li><a href="/categories/Java/">Java</a><small>4</small></li>
   
