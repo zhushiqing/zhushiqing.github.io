@@ -1,0 +1,376 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>线程之分析1：线程互斥 | SunnyZhu&#39;blog</title>
+  <meta name="author" content="zhushiqing">
+  
+  <meta name="description" content="zsq66zsq">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="线程之分析1：线程互斥"/>
+  <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="SunnyZhu&#39;blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">SunnyZhu&#39;blog</a></h1>
+  <h2><a href="/">不要让自己的未来后悔，所以，努力吧！</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">存档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+	<li> <a href="/atom.xml">RSS</a> </li>
+	<li>
+		<a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a>
+	</li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-07-20T09:22:39.000Z"><a href="/2014/07/20/Thread1/">7月 20 2014</a></time>
+      
+      
+  
+    <h1 class="title">线程之分析1：线程互斥</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>对线程做一个简单的分析。对以后的线程相关的都会有帮助，再者说线程也算是java的基本功了。就诸如武林秘籍中的易筋经！一定得学好，今天我就对线程做一个自己理解版的分析：</p>
+<p><strong>Q1</strong>：首先我们得明白什么是线程？</p>
+<p>A1：首先我个人认为线程是一个程序的执行线索，小于一个进程，是内存、CPU占用的基本单位。</p>
+<p><strong>Q2</strong>:什么叫做线程互斥，他会导致什么后果？<br><a id="more"></a><br>A2：如果是这个问题，我会举个栗子（例子）来分析<br>ForExample:</p>
+<pre><code><span class="comment">银行转账的问题</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>&gt;<span class="comment">假如你的账户上余额为1000，有两个线程同时执行：</span>
+</code></pre><blockquote>
+<ul>
+<li>1、有人往你账号上打了2000RMB:1000RMB+2000RMB；</li>
+<li>2、你刚好在淘宝上买了一件200RMB的帅气衣服：1000RMB-200RMB</li>
+<li>3、由于没有线程同步，可怕的事情发生了！在做完被转账的1000+2000，但没有被赋值时、另一个线程做完了1000-200的线程，并把800赋值了到了1000+2000的值上！</li>
+<li>4、啊啊啊，我的钱哪里去了！我的2800怎么变成了800！次奥啊！所以没有线程同步的你开始抓狂了！</li>
+</ul>
+</blockquote>
+<p>这是一件多么可怕的事情啊！可见有些时候，线程互斥是多么的重要，只要是遇上两个线程会共享一个数据存储的时候，都要记得加上线程互斥！切记。（线程互斥就是指排他性，不允许多个线程同时访问一个共享资源，本质上来说线程互斥是一种特殊的线程同步，两者的概念不能混为一谈）</p>
+<p>接下来让我们看看实例，一段java代码没有加互斥：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TraditionalThreadSynchronized</span> </span>{</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line"></div><div class="line">		<span class="keyword">new</span> TraditionalThreadSynchronized().init();</div><div class="line"></div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span>() {</div><div class="line">		<span class="keyword">final</span> Outputer outputer = <span class="keyword">new</span> Outputer();</div><div class="line">		<span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</div><div class="line"></div><div class="line">			<span class="annotation">@Override</span></div><div class="line">			<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>() {</div><div class="line">				<span class="keyword">while</span> (<span class="keyword">true</span>) {</div><div class="line"></div><div class="line">					<span class="keyword">try</span> {</div><div class="line">						Thread.sleep(<span class="number">1000</span>);</div><div class="line">					} <span class="keyword">catch</span> (InterruptedException e) {</div><div class="line">						e.printStackTrace();</div><div class="line">					}</div><div class="line">					outputer.output(<span class="string">"zhushiqing"</span>);</div><div class="line">				}</div><div class="line">			}</div><div class="line"></div><div class="line">		}).start();</div><div class="line"></div><div class="line">		<span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</div><div class="line"></div><div class="line">			<span class="annotation">@Override</span></div><div class="line">			<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>() {</div><div class="line">				<span class="keyword">while</span> (<span class="keyword">true</span>) {</div><div class="line"></div><div class="line">					<span class="keyword">try</span> {</div><div class="line">						Thread.sleep(<span class="number">1000</span>);</div><div class="line">					} <span class="keyword">catch</span> (InterruptedException e) {</div><div class="line">						e.printStackTrace();</div><div class="line">					}</div><div class="line">					outputer.output(<span class="string">"qianjiangqi"</span>);</div><div class="line">				}</div><div class="line">			}</div><div class="line"></div><div class="line">		}).start();</div><div class="line"></div><div class="line">		<span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</div><div class="line"></div><div class="line">			<span class="annotation">@Override</span></div><div class="line">			<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>() {</div><div class="line">				<span class="keyword">while</span> (<span class="keyword">true</span>) {</div><div class="line"></div><div class="line">					<span class="keyword">try</span> {</div><div class="line">						Thread.sleep(<span class="number">1000</span>);</div><div class="line">					} <span class="keyword">catch</span> (InterruptedException e) {</div><div class="line">						e.printStackTrace();</div><div class="line">					}</div><div class="line">					outputer.output(<span class="string">"wangtianyi"</span>);</div><div class="line">				}</div><div class="line">			}</div><div class="line"></div><div class="line">		}).start();</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">static</span> class Outputer {</div><div class="line">		<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span>(String name) {</div><div class="line">			<span class="keyword">int</span> len = name.length();</div><div class="line"></div><div class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) {</div><div class="line">				System.out.print(name.charAt(i));</div><div class="line">			}</div><div class="line">			System.out.println();</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>结果就是各种名字都不能好好输出！连名字都输不完整！我们能不能做朋友了！当然不能了！<br>所以，我们得给他们加上一个锁！synchronized关键字来修饰（可以修饰方法，也可以修饰方法里的代码块），而且是有锁当然得有钥匙是吧！这里的钥匙是指，被自己标志的一个上锁的对象（监视器），<br>比如说:<br>而且钥匙必须得是同一把，所以我们可以定义一把钥匙,如下</p>
+<p>在代码块上加锁（监视器）的情况</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> class Outputer {</div><div class="line">		<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span>(String name) {</div><div class="line">			<span class="keyword">int</span> len = name.length();</div><div class="line">            String xxx = <span class="string">""</span>;</div><div class="line">            sychronized(<span class="string">"xxx"</span>){</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) {</div><div class="line">				    System.out.print(name.charAt(i));</div><div class="line">			    }</div><div class="line">			    System.out.println();</div><div class="line">            }</div><div class="line">		}</div><div class="line">	}</div></pre></td></tr></table></figure>
+
+<p>这样就给自己定义了一把钥匙（监视器），起多个这线程都不会再出现名字念不完整的情况了！我们又可以做朋友了！但是呢！我们这样做是多此一举的。一般来说，直接sychronized里面+（this）即可，直接代表了这个线程对象！也是唯一的！其实把到这样就差不多了！</p>
+<p>还有就是直接给方法上加上synchronized关键字：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span>  <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">output2</span>(String name) {</div><div class="line">		<span class="keyword">int</span> len = name.length();</div><div class="line"></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) {</div><div class="line">			System.out.print(name.charAt(i));</div><div class="line">		}</div><div class="line">		System.out.println();</div><div class="line"></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>这样就不用再考虑对象的问题了，它默认都是用this</p>
+<p>其实说到这里就差不多了，但是我觉得呢！还有一种情况：假如你用静态方法还行得通不？<br>代码如下，你觉得这样两个线程会好好运行吗？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">   <span class="keyword">public</span>  <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">output</span>(String name) {</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span>(String name) {</div><div class="line">		<span class="keyword">int</span> len = name.length();</div><div class="line">           sychronized(<span class="keyword">this</span>){</div><div class="line">               <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) {</div><div class="line">			    System.out.print(name.charAt(i));</div><div class="line">		    }</div><div class="line">		    System.out.println();</div><div class="line">           }</div><div class="line">	}</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">output3</span>(String name) {</div><div class="line">		<span class="keyword">int</span> len = name.length();</div><div class="line"></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) {</div><div class="line">			System.out.print(name.charAt(i));</div><div class="line">		}</div><div class="line">		System.out.println();</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>答案是不互斥的！<br>为什么呢？因为static静态方法是随着类加载而加载的，所以他的对象锁是Outputer.class字节码，而output方法的对象所是this，不过只要把this换成Outputer.class两者就互斥了！</p>
+<h2 id="今天又对thread加深了了解！为自己赞一下！">今天又对thread加深了了解！为自己赞一下！</h2>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Java/">Java</a>
+  </div>
+
+        
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+<nav id="pagination" >
+    
+    <a href="/2014/07/22/Algorithm1/" class="alignleft prev" >上一页</a>
+    
+    
+    <a href="/2014/07/18/hello-world/" class="alignright next" >下一页</a>
+    
+    <div class="clearfix"></div>
+</nav>
+<section id="comment">
+<!-- 多说评论框 start -->	
+<div class="ds-thread" data-thread-key="item.path" data-title="item.title" data-url="item.link"></div>
+<!-- 多说评论框 end -->
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zhushiqing"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:zhushiqing.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Algorithms/">Algorithms</a><small>2</small></li>
+  
+    <li><a href="/categories/Java/">Java</a><small>4</small></li>
+  
+    <li><a href="/categories/blog/">blog</a><small>2</small></li>
+  
+    <li><a href="/categories/python/">python</a><small>1</small></li>
+  
+    <li><a href="/categories/工作/">工作</a><small>1</small></li>
+  
+    <li><a href="/categories/面试/">面试</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">个人简介</h3>
+<ul class="entry">
+姓名：<a href="/about/index.html">朱适卿</a><br/>
+别名：朱自清<br/>
+现状：ZJU在读研究生<br/>
+QQ：417707765
+</ul>
+</div>
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1906241244&verifier=77b05fd2&dpc=1"></iframe>
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://liyi.it/" title="李毅">大帝</a>              <a href="http://tankpt.github.io/" title="王天一">tankpt</a></li>
+
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 zhushiqing
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="http://libs.useso.com/js/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

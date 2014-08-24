@@ -1,0 +1,387 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>某互联公司音乐Android端问题总结 | SunnyZhu&#39;blog</title>
+  <meta name="author" content="zhushiqing">
+  
+  <meta name="description" content="zsq66zsq">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="某互联公司音乐Android端问题总结"/>
+  <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="SunnyZhu&#39;blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">SunnyZhu&#39;blog</a></h1>
+  <h2><a href="/">不要让自己的未来后悔，所以，努力吧！</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">存档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+	<li> <a href="/atom.xml">RSS</a> </li>
+	<li>
+		<a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a>
+	</li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-07-31T07:32:34.000Z"><a href="/2014/07/31/my-new-post/">7月 31 2014</a></time>
+      
+      
+  
+    <h1 class="title">某互联公司音乐Android端问题总结</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>先小小的自我介绍下，以前从来没有在互联网公司实习。从14.04.09号开始在XXX音乐Android端QA实习，至今也快实习了4个月整了，现在听着同学们说做QA真的学不到什么东西，但是我觉得呢，做什么都能学到东西，关键是一个态度问题。当然，这个学习也要做一个定期的review，不然真的会造成一个没有学到任何东西的情况，下面我就给自己遇到的一些奇葩以及常规的问题做一些自己的总结:<a id="more"></a></p>
+<p>下面是反馈系统当中最常遇到的一些问题（参考师傅的问题归类） ：</p>
+<blockquote>
+<ul>
+<li>本地类问题：下载目录转移、扫描歌曲、词图保存失败、本地播放各种错误</li>
+<li>播放类问题：在线无法播放、播放一小段跳转、播放终止</li>
+<li>小部件问题：通知栏问题、小部件问题</li>
+<li>稳定性问题：闪退</li>
+<li>免流量问题：无法使用流量观看MV</li>
+<li>下载类问题：下载失败</li>
+<li>耳机类问题：线控失效、线控出错、蓝牙无效</li>
+<li>UI常规问题：页面出错、页面不适配</li>
+<li>持久化问题：主题、设置里面的</li>
+<li>词图类问题：歌词出错、歌词不同步</li>
+<li>分享类问题：分享到微信、微博无法播放或者观看MV、歌曲</li>
+<li>其他常见问题：待添加</li>
+<li>电台类问题：待添加</li>
+</ul>
+</blockquote>
+<p>好吧，<code>Android</code>总是会出现各种奇葩的问题，各种rom，各种碎片化，这也是开源的弊端，毕竟大家都能做的话，各自都定制了各自的规则，然后一个应用要跑在所有的rom，所有的机子下面，你会发现好神奇的事情发生了！<strong>for example:</strong>一个歌曲信息！会被其他浮层遮住，永远用着ihpone的高富帅&amp;白富美是幸运的，他们永远不会体会那种，一个个应用在各种不同的手机上的奇葩姿态，这时候兼容性的重要就体现出来了！我们的口号就是：为大众服务！！！！！！！！！</p>
+<h2 id="本地类问题">本地类问题</h2>
+<p>每个厂商的SD卡不一样，很多都是各自定制的，这就导致一些很奇（zheng）怪（chang）的问题出现！比如说读写的权限问题，很多地方会给你限制住。然后：XXX用户就来反应了—-我的下载目录怎么改不了（很有可能是SD卡的权限没有）、我的歌词分享图片怎么保存不了（得去问问用户其他第三方应用能不能保存图片到手机默认相册）、本地不能播放（这个有可能是文件格式不支持）、本地扫描失败（可能是扫描本地的文件权限问题，导致歌曲没被扫描出来，特别是第三方应用的内置文件）and…..</p>
+<h2 id="播放类问题">播放类问题</h2>
+<p>这个播放特指的是在线播放，播放的问题也是比较奇葩，这个跟手机硬件也有关系，就拿一些奇葩的手机来说——W20一只超大的新华的手机，如果当歌曲缓冲没有完毕的时候，他是不会播放歌曲的！这个完全违背了歌曲播放的规律，还有就是在线无法播放！有些用户很奇葩会反馈一些弱智的问题，就比如比较有槽点的：为什么我的手机无法播放！——其实是他自己设置了近WIFI下播放，但是呢！他在用流量的时候播放！这不是明摆着让我来吐槽的吗= =。还有播放一小段跳转，播放终止。前者有可能是网络问题，不过具体还得查查bi，后者就有可能是网络问题了。或者说有些用户干脆自己设置了定时停止。</p>
+<h2 id="小部件问题：">小部件问题：</h2>
+<p>有些时候，由于没有采用自己定制的锁屏，程序调用的是原生的锁屏，所以会导致一些比较个性化的ROM无法在锁屏切歌！比如说最常见的小米手机，不过已经在考虑做自己的锁屏。还有一些小部件出了小问题，比如说小部件不能添加喜欢啊，诸如此类的。这些就得具体问题具体分析。</p>
+<h2 id="稳定性问题:">稳定性问题:</h2>
+<p>这一版本的稳定性问题最为突出，我个人感觉应该是垃圾回收算法没有写好，导致应用占的内存过大，导致内存不足所以被退了。当然导致闪退的原因有各式各样的：for example,第三方系统管理软件leb，360之类的，这些会自动清理后台，电量管理软件。还有就是程序bug导致的闪退，本地扫描到特殊文件导致的闪退。具体的问题都要看具体的log来确定问题。</p>
+<h2 id="免流量的问题">免流量的问题</h2>
+<p>免流量的问题大多有申请了免流量，却没有被开通，这个需要查下，不过具体我也不太清楚，还有一些就是开通了免流量，但是用不了，居我所知大概会有几种，其中之一就是用户现在的手机卡不是开通免流量的卡，还有就是手机卡网络接入点的问题，net与wap换一下即可。</p>
+<h2 id="下载类问题：">下载类问题：</h2>
+<p>下载失败有很多可能，查bi可以知道，一般来说会有写入权限没有的错误，用户手机的缘故，还有就是网络环境的问题。</p>
+<h2 id="耳机类问题">耳机类问题</h2>
+<p>耳机类的问题线控失效，这个得看是不是原生的耳机，不是原生的耳机，一般会出现其他奇奇怪怪的问题（发出奇葩的信号），还有蓝牙耳机问题，等等的。具体这方便我接触到的也不多。</p>
+<h2 id="UI常规问题">UI常规问题</h2>
+<p>这个问题一般最不愿意避免，比如android有那么多那么多的手机型号！想想iphone还真幸运，哎不吐槽了，各种出现奇葩的显示，UI改适配得拿手机一个个调试，好伤心的。</p>
+<h2 id="持久化问题：">持久化问题：</h2>
+<p>一些设置没有持久化，关机之后就回复默认了，那么就得查下参数了。</p>
+<h2 id="分享类问题">分享类问题</h2>
+<p>这个也是经常会出现问题的，分享到外部，接口有错误！这个最严重，还有就微信分享，微博分享！经常会动不动封我们的接口！蛋疼</p>
+<h2 id="待补充…-">待补充…..</h2>
+<p><code>吐槽了这么，哎，总算记录完了，以后要写4篇日志以上/week  ！</code></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/工作/">工作</a>
+  </div>
+
+        
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+<nav id="pagination" >
+    
+    <a href="/2014/08/01/plan/" class="alignleft prev" >上一页</a>
+    
+    
+    <a href="/2014/07/24/Algorithm2/" class="alignright next" >下一页</a>
+    
+    <div class="clearfix"></div>
+</nav>
+<section id="comment">
+<!-- 多说评论框 start -->	
+<div class="ds-thread" data-thread-key="item.path" data-title="item.title" data-url="item.link"></div>
+<!-- 多说评论框 end -->
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zhushiqing"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:zhushiqing.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Algorithms/">Algorithms</a><small>2</small></li>
+  
+    <li><a href="/categories/Java/">Java</a><small>4</small></li>
+  
+    <li><a href="/categories/blog/">blog</a><small>2</small></li>
+  
+    <li><a href="/categories/python/">python</a><small>1</small></li>
+  
+    <li><a href="/categories/工作/">工作</a><small>1</small></li>
+  
+    <li><a href="/categories/面试/">面试</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">个人简介</h3>
+<ul class="entry">
+姓名：<a href="/about/index.html">朱适卿</a><br/>
+别名：朱自清<br/>
+现状：ZJU在读研究生<br/>
+QQ：417707765
+</ul>
+</div>
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1906241244&verifier=77b05fd2&dpc=1"></iframe>
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://liyi.it/" title="李毅">大帝</a>              <a href="http://tankpt.github.io/" title="王天一">tankpt</a></li>
+
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 zhushiqing
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="http://libs.useso.com/js/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

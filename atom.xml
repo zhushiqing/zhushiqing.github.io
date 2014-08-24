@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[SunnyZhu'blog]]></title>
+  <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://zhushiqing.github.io/"/>
+  <updated>2014-08-24T00:30:35.732Z</updated>
+  <id>http://zhushiqing.github.io/</id>
+  
+  <author>
+    <name><![CDATA[zhushiqing]]></name>
+    <email><![CDATA[zsq66zsq@163.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Java虚拟机中ClassLoader的机制分析]]></title>
+    <link href="http://zhushiqing.github.io/2014/08/18/ClassLoader/"/>
+    <id>http://zhushiqing.github.io/2014/08/18/ClassLoader/</id>
+    <published>2014-08-18T05:39:51.000Z</published>
+    <updated>2014-08-19T06:42:46.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="首先我们得明白什么是类加载器（ClassLoader）：">首先我们得明白什么是类加载器（ClassLoader）：</h2>
+<p><em>A</em>【类加载的作用】：java中的类加载器就是把java字节码（class文件）从硬盘中加载到内存中,然后做一些处理，这就是类加载器。</p>
+<p>一般来说，类加载器本身是一个java类，但是BootStrap加载器是C++写成的。是所有加载器的根。<br><a id="more"></a><br>默认情况下，java提供了三个默认加载器：</p>
+<blockquote>
+<ul>
+<li>BootStrap：只从classpath指定的目录或者jar包下面加载类</li>
+<li>ExtClassLoader：加载JRE/lib/ext/*.jar</li>
+<li>AppClassLoader：专门加载JRE/lib/rt.jar</li>
+</ul>
+</blockquote>
+<p>先看一段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> zju.zsq.day01;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoaderTest</span> </span>{</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">		</div><div class="line">		System.out.println(</div><div class="line">				ClassLoaderTest.class.getClassLoader()</div><div class="line">				.getClass().getName());</div><div class="line">		System.out.println(</div><div class="line">				System.class.getClassLoader()</div><div class="line">				);</div><div class="line">		</div><div class="line">		ClassLoader loader = ClassLoaderTest.class.getClassLoader();</div><div class="line">		<span class="comment">//看下树状结构,如果为null就代表找不到java的class文件，等于找到了bootstrap（C++实现的加载）</span></div><div class="line">		<span class="keyword">while</span>(loader != <span class="keyword">null</span>){</div><div class="line">			System.out.println(loader.getClass().getName());</div><div class="line">			loader = loader.getParent();</div><div class="line">		}</div><div class="line">		System.out.println(loader);</div><div class="line">		<span class="javadoc">/**</span></div><div class="line">		 * AppClassLoader:只从classpath指定的目录或者jar包下面加载类</div><div class="line">		 * ExtClassLoader：JRE/lib/ext/*.jar</div><div class="line">		 * BootStrap：专门加载JRE/lib/rt.jar</div><div class="line">		 */</div><div class="line">		System.out.println(<span class="keyword">new</span> ClassLoaderAttachment().toString());</div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>输出结果为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sun.misc.Launcher$AppClassLoader</div><div class="line"><span class="keyword">null</span></div><div class="line">sun.misc.Launcher$AppClassLoader</div><div class="line">sun.misc.Launcher$ExtClassLoader</div><div class="line"><span class="keyword">null</span></div></pre></td></tr></table></figure>
+
+<p>从代码里面我们可以看到，从上到下加载器是成树状的（<code>其中null为BootStrap，因为上诉代码得到的是classname，但是C++没有生产字节码，所以为null</code>），再让我们看看下图：<br><img src="/image/classloader.png" alt=""></p>
+<h2 id="java虚拟机加载一个类的时候，到底派出哪个类加载器去加载呢？">java虚拟机加载一个类的时候，到底派出哪个类加载器去加载呢？</h2>
+<p><em>A</em> ：一般来说是当前线程的类加载器去加载线程中的第一个类，Thread.currentThread().getContextClassLoader(),当然从上面的代码我可以知道加载ClassLoaderTest这个类是AppClassLoader加载器。具体来说，ClassLoaderTest用这个AppClassLoader加载器来加载，但是它不是立即就加载的 。过程如下：</p>
+<blockquote>
+<ul>
+<li>1.ClassLoaderTest先找到他的加载器AppClassLoader</li>
+<li>2.AppClassLoader就委托到父加载器ExtClassLoader加载</li>
+<li>3.ExtClassLoader开始加载，找不到加载类，就开始委托给它的子加载器ExtClassLoader</li>
+<li>4.ExtClassLoader开始加载，找不到加载类，就开始委托给它的子加载器AppClassLoader</li>
+<li>5.AppClassLoader开始加载，找到加载，加载完毕。</li>
+</ul>
+</blockquote>
+<p>这是一个<strong>委托机制</strong>，一般来说，先是从现在类的加载器，一层层委托到最顶层的加载器，然后顶层的加载器，开始加载，找不到加载类，就委托给下一层，如果在到当前类的加载器之前加载完毕，就结束。如果直到当前类还加载不了，就抛ClassNotFoundException。</p>
+<p>这个委托机制的优点是：方便集权管理，比如说只有不会生成多份字节码。</p>
+<p>在这里突然就想到了一份经典的面试题，能否自己重写Java.lang.system这个类<br>答案是当然可以，但是一般情况下写了也得于白写，当委托到最顶上的那个加载器就直接被加载了。除非自己写一个加载器，然后还要<strong>抛开委托机制</strong>。</p>
+<p><em>好了，今天算是把加载器粗略的了解下，与诸君共勉！加油！</em></p>
+<hr>
+]]></content>
+    <summary type="html"><![CDATA[<h2 id="首先我们得明白什么是类加载器（ClassLoader）：">首先我们得明白什么是类加载器（ClassLoader）：</h2>
+<p><em>A</em>【类加载的作用】：java中的类加载器就是把java字节码（class文件）从硬盘中加载到内存中,然后做一些处理，这就是类加载器。</p>
+<p>一般来说，类加载器本身是一个java类，但是BootStrap加载器是C++写成的。是所有加载器的根。<br>]]></summary>
+    
+      <category term="Java" scheme="http://zhushiqing.github.io/categories/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Proxy机制（java动态代理机制）]]></title>
+    <link href="http://zhushiqing.github.io/2014/08/13/Proxy/"/>
+    <id>http://zhushiqing.github.io/2014/08/13/Proxy/</id>
+    <published>2014-08-13T11:06:01.000Z</published>
+    <updated>2014-08-15T00:33:52.000Z</updated>
+    <content type="html"><![CDATA[<p>什么是动态代理？</p>
+<h2 id="java动态代理机制">java动态代理机制</h2>
+<ul>
+<li>Q1：什么叫做动态代理机制？</li>
+<li>Q2：动态代理机制有什么好处？</li>
+<li>Q3：什么地方用到动态代理？</li>
+</ul>
+<hr>
+<a id="more"></a>
+
+<h3 id="动态代理的源码在java-lang-reflect这个包里，应该是Proxy类。里面有提供两个静态方法：">动态代理的源码在java.lang.reflect这个包里，应该是Proxy类。里面有提供两个静态方法：</h3>
+<hr>
+<p><strong>1</strong>.Class&lt;?&gt; getProxyClass(ClassLoader loader, Class&lt;?&gt;[] interface)</p>
+<p>用来产生代理类，参数要提供interface数组，它会生成这些interface的“虚拟实现”，<br>用来冒充真实的对象。</p>
+<p><strong>2</strong>.Object newProxyInstance(ClassLoader loader, Class&lt;?&gt;[] interfaces, InvocationHandler h) </p>
+<p>产生代理对象，多了InvocationHandler参数(只是InvocationHandler接口的实现类)，<br>它与代理对象关联，当请求分发到代理对象后，会<strong><em>自动执行h.invoke(…)方法</em></strong>，所以在<br>invoke方法中，我们可以做很多事情。</p>
+<hr>
+<p><strong><em>“动态”</em></strong>是针对静态编码而言的，可以是编译器、类装载器和运行期。</p>
+<p>引一个大大的例子来说下自己的理解：比如有有一个接口A，里面有方法sayHello(),print()方法。然后一个B类（AIml类）来实现<br>具体实现A接口，然后再写一个代理类，伪装成B类，代理类里面通过动态的实现B类的方法（其实就是通过反射实现的B类方法），<br>然后外面的请求发过来之后，都是通过代理类来处理，方便集中处理一系列的方便的集成权限控制，异常处理，事务控制，<br>性能统计等等（这里感谢 <em>方老师</em> 对我指点）</p>
+<p>然后下面是一个网上大大对动态代理的画的图，大家参考一下很明了的关系图。</p>
+<p><img src="http://langyu.iteye.com/upload/picture/pic/38786/bfe44656-08f7-3d4d-b9d8-0de6ad00c7de.jpg" alt=""></p>
+<p>A接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">A</span> </span>{</div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span>(String to);</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span>(String p);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>B类（实现A接口）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AImpl</span> <span class="keyword">implements</span> <span class="title">A</span></span>{</div><div class="line"></div><div class="line">    <span class="annotation">@Override</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span>(String to) {</div><div class="line">		System.out.println(<span class="string">"Hello:"</span>+to);</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="annotation">@Override</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span>(String p) {</div><div class="line">		System.out.println(<span class="string">"print:"</span>+p);</div><div class="line">	}</div><div class="line"></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>C类（代理类，伪装成B类）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Handler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>{</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Object obj;</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="title">Handler</span>(Object obj){</div><div class="line">		<span class="keyword">this</span>.obj = obj;</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="annotation">@Override</span></div><div class="line">	<span class="keyword">public</span> Object <span class="title">invoke</span>(Object proxy, Method method, Object[] args)</div><div class="line">			<span class="keyword">throws</span> Throwable {</div><div class="line">		</div><div class="line">		doBefore();</div><div class="line">		Object result = method.invoke(obj, args);</div><div class="line">		doAfter();</div><div class="line">		</div><div class="line">		<span class="keyword">return</span> result;</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doAfter</span>() {</div><div class="line">		System.out.println(<span class="string">"after..."</span>);</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doBefore</span>() {</div><div class="line">		System.out.println(<span class="string">"before..."</span>);</div><div class="line">	}</div><div class="line"></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>测试类：D类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyTester</span> </span>{</div><div class="line"></div><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">	        A impl = <span class="keyword">new</span> AImpl();</div><div class="line">	        Handler handler = <span class="keyword">new</span> Handler(impl);</div><div class="line">	        <span class="comment">//这里把handler与impl新生成的代理类相关联</span></div><div class="line">	        A hello = (A) Proxy.newProxyInstance(impl.getClass().getClassLoader(), </div><div class="line">			</div><div class="line">			impl.getClass().getInterfaces(), handler);</div><div class="line">	        </div><div class="line">	        <span class="comment">//这里无论访问哪个方法，都是会把请求转发到handler.invoke</span></div><div class="line">	        hello.print(<span class="string">"All the test"</span>);</div><div class="line">	        hello.sayHello(<span class="string">"SunnyZhu"</span>);</div><div class="line">	    }</div><div class="line"></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>测试结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">before...</div><div class="line">print:All the test</div><div class="line">after...</div><div class="line">before...</div><div class="line">Hello:zhushiqing</div><div class="line">after...</div></pre></td></tr></table></figure>
+
+<p>自此代码就实现了，在hello（A类）调用的动态方法都是集中交给代理类来处理了。方便在代理类集中处理一些事情，before 干点啥，after干点啥。</p>
+<hr>
+<p>最后回答下三个Questions</p>
+<p>A1:一种用于转发请求，进行特殊处理的机制，这里的动态是针对静态编码而言的，可以是编译器、类装载器和运行期。</p>
+<p>A2:方便的集成权限控制，异常处理，事务控制，性能统计等等</p>
+<p>A3:很多地方，web层的controller，biz层的service，都会使用动态代理，目的在于实现aop，</p>
+<hr>
+<p><em>学习了java动态代理，与诸君共勉！</em></p>
+]]></content>
+    <summary type="html"><![CDATA[<p>什么是动态代理？</p>
+<h2 id="java动态代理机制">java动态代理机制</h2>
+<ul>
+<li>Q1：什么叫做动态代理机制？</li>
+<li>Q2：动态代理机制有什么好处？</li>
+<li>Q3：什么地方用到动态代理？</li>
+</ul>
+<hr>
+]]></summary>
+    
+      <category term="Java" scheme="http://zhushiqing.github.io/categories/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Java中Hashmap存不下那些数据怎么办（有一堆数据）？]]></title>
+    <link href="http://zhushiqing.github.io/2014/08/13/hashmapOutOfmemory/"/>
+    <id>http://zhushiqing.github.io/2014/08/13/hashmapOutOfmemory/</id>
+    <published>2014-08-13T06:07:55.000Z</published>
+    <updated>2014-08-15T06:50:44.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="突然想起前几天有人问的关于HashMap一个问题">突然想起前几天有人问的关于HashMap一个问题</h1>
+<hr>
+<p>假如hashmap中存入了大量的数据，存不下了怎么办呢！？好吧，当时我就惊呆了。hashmap还有内存溢出的情况简直是不能忍！次奥，但是左思右想总是想不出答案来。好吧，我承认又得补脑了<br>0_0。回来各种查资料。<br><a id="more"></a></p>
+<p>整个分析流程如下：</p>
+<blockquote>
+<ul>
+<li>Q1：什么是hashmap？</li>
+<li>Q2：为什么会有hashmap存储不下数据的情况产生？</li>
+<li>Q3：如何解决此情况？</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="什么是_HashMap?">什么是 HashMap?</h2>
+<p>首先让我们来了解下数组和链表：数组在寻址能力比较强大、但是插入&amp;&amp;删除能力较弱；链表在寻址能力较弱，但是插入删除能力比较强。那么有没有一种寻址容易，插入删除又容易的数据结构！答案就是有的！Hash表欢迎您！而HashMap又是Hash表的一种，线程不安全，但是性能较Hashtable高一些。所以HashMap与HashTable之间常用HashMap.</p>
+<h2 id="为什么会有HashMap存储不下数据的情况产生？">为什么会有HashMap存储不下数据的情况产生？</h2>
+<p>一般情况下不会出现这样的情况，除非这个数据真的非常多&amp;&amp;你做Key对象没有实现自己的HashCode算法，导致存储了好多冗余的数据。</p>
+<h2 id="怎么解决？">怎么解决？</h2>
+<p>一般情况下应该对你做key的对象进行hashcode方法、equals方法的重写，然后定期清理不使用的强映射、或者使用WeekHashMap：会让GC定期清理不使用的数据，一般就不会出现这样的情况了。<br>当然有更狠的一招- -把JVM内存+++(这个不推荐，知道即可)</p>
+<p><em>今天又学习了一点知识，与诸君共勉！</em></p>
+]]></content>
+    <summary type="html"><![CDATA[<h1 id="突然想起前几天有人问的关于HashMap一个问题">突然想起前几天有人问的关于HashMap一个问题</h1>
+<hr>
+<p>假如hashmap中存入了大量的数据，存不下了怎么办呢！？好吧，当时我就惊呆了。hashmap还有内存溢出的情况简直是不能忍！次奥，但是左思右想总是想不出答案来。好吧，我承认又得补脑了<br>0_0。回来各种查资料。<br>]]></summary>
+    
+      <category term="Java" scheme="http://zhushiqing.github.io/categories/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[关于http请求的全过程]]></title>
+    <link href="http://zhushiqing.github.io/2014/08/12/thinkingOfHttp/"/>
+    <id>http://zhushiqing.github.io/2014/08/12/thinkingOfHttp/</id>
+    <published>2014-08-12T06:34:11.000Z</published>
+    <updated>2014-08-13T07:51:10.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="这是一只菜鸟关于http请求全过程的一个了解">这是一只菜鸟关于http请求全过程的一个了解</h2>
+<hr>
+<p>有些时候真的是不问不知道，发现自己真的都是筛子，所以呢！被人问了个http请求从开始到最后都做了什么<br>我居然不知道，实在是惭愧，说实话，自己也确实没去了解过这一块的内容。<br>不过既然别人问了，那么就得好好去查漏补缺。<a id="more"></a></p>
+<h3 id="The_first：首先你在浏览器地址敲了一段网址">The first：首先你在浏览器地址敲了一段网址</h3>
+<hr>
+<p>首先我们敲了一段地址比如说：www.baidu.com 首先是将此变成url，如果没有加端口号的话，就使用默认的端口号，然后经过DNS服务器解析成一段IP。如果DNS服务器没有解析此IP，那就将发送给上一级的DNS服务器，直到返回一个IP，这样。我们就可以开始建立socket链接了。</p>
+<hr>
+<h3 id="The_second:_socket请求建立之后">The second:  socket请求建立之后</h3>
+<hr>
+<p>开始向服务器发送get/post请求</p>
+<hr>
+<h3 id="The_third：服务器开始处理请求">The third：服务器开始处理请求</h3>
+<hr>
+<p>比如说filter开始init，然后dofilter，然后doDestory，servlet开始工作诸如此类。然后开始给客户端发一个反馈</p>
+<hr>
+<h3 id="The_fourth:关闭链接">The fourth:关闭链接</h3>
+<hr>
+<p>跟所有处理一样，比如数据库的处理等等，弄完之后都可以做一个关闭链接处理，这样就可以让其他人访问这个服务器资源了。</p>
+<hr>
+<p>总结完毕。今天又多学了点了。</p>
+]]></content>
+    <summary type="html"><![CDATA[<h2 id="这是一只菜鸟关于http请求全过程的一个了解">这是一只菜鸟关于http请求全过程的一个了解</h2>
+<hr>
+<p>有些时候真的是不问不知道，发现自己真的都是筛子，所以呢！被人问了个http请求从开始到最后都做了什么<br>我居然不知道，实在是惭愧，说实话，自己也确实没去了解过这一块的内容。<br>不过既然别人问了，那么就得好好去查漏补缺。]]></summary>
+    
+      <category term="blog" scheme="http://zhushiqing.github.io/categories/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[python群发邮件]]></title>
+    <link href="http://zhushiqing.github.io/2014/08/07/python1/"/>
+    <id>http://zhushiqing.github.io/2014/08/07/python1/</id>
+    <published>2014-08-07T00:12:34.000Z</published>
+    <updated>2014-08-12T01:45:08.000Z</updated>
+    <content type="html"><![CDATA[<p>最近对工作上的各种重复事情感到各种厌倦！于是乎，总在琢磨着能不能偷懒！（偷懒是代码的源动力！）<br>最好的事情就是把每天重复的工作给抽取出来，把改变不大的事情写成一个脚本！<br>于是<a id="more"></a></p>
+<p>我先拿每天必发的每日工作邮件做了尝试，毕竟每天的邮件内容改动不大！</p>
+<h3 id="以下是我的python发邮件的代码，当然我因为内容少，直接在标签里面写了我的邮件正文，如果你想做自己的改进也可以自己写一张html页面">以下是我的python发邮件的代码，当然我因为内容少，直接在<pre>标签里面写了我的邮件正文，如果你想做自己的改进也可以自己写一张html页面</pre></h3>
+<p>然后让脚本把内容读进邮件内容里面。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#这里以163的邮箱账号举例，不支持抄送，只支持群发！</span></div><div class="line"><span class="keyword">import</span> smtplib  </div><div class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText  </div><div class="line"><span class="comment">#mailto_list 收件人列表，这里是python里面的一个容器，每个联系人之间用“,”分开</span></div><div class="line">mailto_list=[<span class="string">"xxxx@163.com"</span>,<span class="string">"xxx@163.com"</span>] </div><div class="line">mail_host=<span class="string">"stmp.163.com"</span>  <span class="comment">#设置服务器</span></div><div class="line">mail_user=<span class="string">"xxxx"</span>    <span class="comment">#用户名</span></div><div class="line">mail_pass=<span class="string">"xxxx"</span>    <span class="comment">#用户密码</span></div><div class="line">mail_postfix=<span class="string">"163.com"</span>  <span class="comment">#发件箱的后缀</span></div><div class="line">  </div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_mail</span><span class="params">(to_list,sub,content)</span>:</span>  <span class="comment">#to_list：收件人；sub：主题；content：邮件内容</span></div><div class="line">    me=<span class="string">"XXX"</span>+<span class="string">"&lt;"</span>+mail_user+<span class="string">"@"</span>+mail_postfix+<span class="string">"&gt;"</span>   <span class="comment">#这里的“XXX”可以任意设置 比如您好，收到信后，将按照提示 就相当于一个昵称</span></div><div class="line">    msg = MIMEText(content,_subtype=<span class="string">'html'</span>,_charset=<span class="string">'gb2312'</span>)    <span class="comment">#创建一个实例，这里设置为html格式邮件</span></div><div class="line">    msg[<span class="string">'Subject'</span>] = sub    <span class="comment">#设置主题</span></div><div class="line">    msg[<span class="string">'From'</span>] = me  </div><div class="line">    msg[<span class="string">'To'</span>] = <span class="string">";"</span>.join(to_list)  </div><div class="line">    <span class="keyword">try</span>:  </div><div class="line">        s = smtplib.SMTP()  </div><div class="line">        s.connect(mail_host)  <span class="comment">#连接smtp服务器</span></div><div class="line">        s.login(mail_user,mail_pass)  <span class="comment">#登陆服务器</span></div><div class="line">        s.sendmail(me, to_list, msg.as_string())  <span class="comment">#发送邮件</span></div><div class="line">        s.close()  </div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span>  </div><div class="line">    <span class="keyword">except</span> Exception, e:  </div><div class="line">        <span class="keyword">print</span> str(e)  </div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span>  </div><div class="line"></div><div class="line"><span class="comment">#send_mail里面填写的是用户名列表，邮件的标题，还有邮件内容（content）三者用,分隔开,&lt;br/&gt;为html标签里面的换行</span></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:  </div><div class="line">    <span class="keyword">if</span> send_mail(mailto_list,<span class="string">"这里是邮件标题！"</span>,</div><div class="line">                 <span class="string">"&lt;pre&gt;Hi All:&lt;br/&gt;\</span></div><div class="line">                 今天的天气不错哦&lt;br/&gt;\</div><div class="line">                 所以要不要出去玩？ &lt;br/&gt;快来跟我说下吗！&lt;br/&gt;&lt;br/&gt;\</div><div class="line">                &lt;/pre&gt;"):  </div><div class="line">        <span class="keyword">print</span> <span class="string">"发送成功"</span>  </div><div class="line">    <span class="keyword">else</span>:  </div><div class="line">        <span class="keyword">print</span> <span class="string">"发送失败"</span></div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html"><![CDATA[<p>最近对工作上的各种重复事情感到各种厌倦！于是乎，总在琢磨着能不能偷懒！（偷懒是代码的源动力！）<br>最好的事情就是把每天重复的工作给抽取出来，把改变不大的事情写成一个脚本！<br>于是]]></summary>
+    
+      <category term="python" scheme="http://zhushiqing.github.io/categories/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Some plan I will do]]></title>
+    <link href="http://zhushiqing.github.io/2014/08/01/plan/"/>
+    <id>http://zhushiqing.github.io/2014/08/01/plan/</id>
+    <published>2014-08-01T01:48:33.000Z</published>
+    <updated>2014-08-12T02:54:56.000Z</updated>
+    <content type="html"><![CDATA[<p>怎么说呢，有些时候，总是觉得这么漫无目的的做事情很对不起自己，没有效率<br>没有成果，没有成功的喜悦。总是有些得过且过的想法。这校招还没开始，我已<br>经这么堕落了，怎么可以呢？！<a id="more"></a></p>
+<h3 id="1-English">1.English</h3>
+<hr>
+<p>首先自己的六级早八百年前过期了！所以应该应该在12月份重新考一个六级！<br>这么一说，那么单词应该背的，作文都应该写的，阅读应该做的！对于程序猿来说English是必备的技能之一！所以每天来50个单词吧！<br><a href="http://www.baicizhan.com/login" target="_blank" rel="external">百词斩</a>:背单词专用，还有iphone版本，点32个赞</p>
+<h2 id="四六级测试:网易云课堂继续点32个赞！"><a href="http://study.163.com/find.htm#/find/search?p=%E5%85%AD%E7%BA%A7" target="_blank" rel="external">四六级测试</a>:网易云课堂继续点32个赞！</h2>
+<h3 id="2-python">2.python</h3>
+<hr>
+<p>python这个是好东西啊，继承了各种库，能干好多事情！各种自动化，懒人专用，每天<br>花费很少的时间就能干好多任务.所以,自动化吗,必须 每天一小时学习！</p>
+<h2 id="教程在这边：雪峰大大的python写的深入浅出，非常适合初学者学习，他的github教程也相当不错。"><a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000" target="_blank" rel="external">教程在这边</a>：雪峰大大的python写的深入浅出，非常适合初学者学习，他的github教程也相当不错。</h2>
+<h3 id="3-java设计模式">3.java设计模式</h3>
+<hr>
+<p>设计模式这种东西，我觉得只要掌握最常用的即可，比如说单例模式（饿汉跟懒汉模式，其他Enum,双重校验锁之类的暂时不用考虑），比如工厂模式（极大的解耦合）：静态工厂模式、工厂方法模式、抽象工厂模式。观察者模式、适配者模式等等几个常见的即可。</p>
+<h2 id="每天花费30分钟复习。">每天花费30分钟复习。</h2>
+<h3 id="4-java数据结构与算法">4.java数据结构与算法</h3>
+<hr>
+<p>常用的算法神马的，比如最常见的内排，简单的查找，以及算法优化。</p>
+<h2 id="每天花费20分钟复习。">每天花费20分钟复习。</h2>
+<h3 id="5-数据库：mysql">5.数据库：mysql</h3>
+<hr>
+<p>mysql也是那种不常用，但是不用之后就会忘记了！</p>
+<h2 id="所以要多花时间来复习！每天30分钟。">所以要多花时间来复习！每天30分钟。</h2>
+<h2 id="最后说一句：温故而知新，可以为师矣！">最后说一句：温故而知新，可以为师矣！</h2>
+]]></content>
+    <summary type="html"><![CDATA[<p>怎么说呢，有些时候，总是觉得这么漫无目的的做事情很对不起自己，没有效率<br>没有成果，没有成功的喜悦。总是有些得过且过的想法。这校招还没开始，我已<br>经这么堕落了，怎么可以呢？！]]></summary>
+    
+      <category term="blog" scheme="http://zhushiqing.github.io/categories/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[某互联公司音乐Android端问题总结]]></title>
+    <link href="http://zhushiqing.github.io/2014/07/31/my-new-post/"/>
+    <id>http://zhushiqing.github.io/2014/07/31/my-new-post/</id>
+    <published>2014-07-31T07:32:34.000Z</published>
+    <updated>2014-08-04T07:32:50.000Z</updated>
+    <content type="html"><![CDATA[<p>先小小的自我介绍下，以前从来没有在互联网公司实习。从14.04.09号开始在XXX音乐Android端QA实习，至今也快实习了4个月整了，现在听着同学们说做QA真的学不到什么东西，但是我觉得呢，做什么都能学到东西，关键是一个态度问题。当然，这个学习也要做一个定期的review，不然真的会造成一个没有学到任何东西的情况，下面我就给自己遇到的一些奇葩以及常规的问题做一些自己的总结:<a id="more"></a></p>
+<p>下面是反馈系统当中最常遇到的一些问题（参考师傅的问题归类） ：</p>
+<blockquote>
+<ul>
+<li>本地类问题：下载目录转移、扫描歌曲、词图保存失败、本地播放各种错误</li>
+<li>播放类问题：在线无法播放、播放一小段跳转、播放终止</li>
+<li>小部件问题：通知栏问题、小部件问题</li>
+<li>稳定性问题：闪退</li>
+<li>免流量问题：无法使用流量观看MV</li>
+<li>下载类问题：下载失败</li>
+<li>耳机类问题：线控失效、线控出错、蓝牙无效</li>
+<li>UI常规问题：页面出错、页面不适配</li>
+<li>持久化问题：主题、设置里面的</li>
+<li>词图类问题：歌词出错、歌词不同步</li>
+<li>分享类问题：分享到微信、微博无法播放或者观看MV、歌曲</li>
+<li>其他常见问题：待添加</li>
+<li>电台类问题：待添加</li>
+</ul>
+</blockquote>
+<p>好吧，<code>Android</code>总是会出现各种奇葩的问题，各种rom，各种碎片化，这也是开源的弊端，毕竟大家都能做的话，各自都定制了各自的规则，然后一个应用要跑在所有的rom，所有的机子下面，你会发现好神奇的事情发生了！<strong>for example:</strong>一个歌曲信息！会被其他浮层遮住，永远用着ihpone的高富帅&amp;白富美是幸运的，他们永远不会体会那种，一个个应用在各种不同的手机上的奇葩姿态，这时候兼容性的重要就体现出来了！我们的口号就是：为大众服务！！！！！！！！！</p>
+<h2 id="本地类问题">本地类问题</h2>
+<p>每个厂商的SD卡不一样，很多都是各自定制的，这就导致一些很奇（zheng）怪（chang）的问题出现！比如说读写的权限问题，很多地方会给你限制住。然后：XXX用户就来反应了—-我的下载目录怎么改不了（很有可能是SD卡的权限没有）、我的歌词分享图片怎么保存不了（得去问问用户其他第三方应用能不能保存图片到手机默认相册）、本地不能播放（这个有可能是文件格式不支持）、本地扫描失败（可能是扫描本地的文件权限问题，导致歌曲没被扫描出来，特别是第三方应用的内置文件）and…..</p>
+<h2 id="播放类问题">播放类问题</h2>
+<p>这个播放特指的是在线播放，播放的问题也是比较奇葩，这个跟手机硬件也有关系，就拿一些奇葩的手机来说——W20一只超大的新华的手机，如果当歌曲缓冲没有完毕的时候，他是不会播放歌曲的！这个完全违背了歌曲播放的规律，还有就是在线无法播放！有些用户很奇葩会反馈一些弱智的问题，就比如比较有槽点的：为什么我的手机无法播放！——其实是他自己设置了近WIFI下播放，但是呢！他在用流量的时候播放！这不是明摆着让我来吐槽的吗= =。还有播放一小段跳转，播放终止。前者有可能是网络问题，不过具体还得查查bi，后者就有可能是网络问题了。或者说有些用户干脆自己设置了定时停止。</p>
+<h2 id="小部件问题：">小部件问题：</h2>
+<p>有些时候，由于没有采用自己定制的锁屏，程序调用的是原生的锁屏，所以会导致一些比较个性化的ROM无法在锁屏切歌！比如说最常见的小米手机，不过已经在考虑做自己的锁屏。还有一些小部件出了小问题，比如说小部件不能添加喜欢啊，诸如此类的。这些就得具体问题具体分析。</p>
+<h2 id="稳定性问题:">稳定性问题:</h2>
+<p>这一版本的稳定性问题最为突出，我个人感觉应该是垃圾回收算法没有写好，导致应用占的内存过大，导致内存不足所以被退了。当然导致闪退的原因有各式各样的：for example,第三方系统管理软件leb，360之类的，这些会自动清理后台，电量管理软件。还有就是程序bug导致的闪退，本地扫描到特殊文件导致的闪退。具体的问题都要看具体的log来确定问题。</p>
+<h2 id="免流量的问题">免流量的问题</h2>
+<p>免流量的问题大多有申请了免流量，却没有被开通，这个需要查下，不过具体我也不太清楚，还有一些就是开通了免流量，但是用不了，居我所知大概会有几种，其中之一就是用户现在的手机卡不是开通免流量的卡，还有就是手机卡网络接入点的问题，net与wap换一下即可。</p>
+<h2 id="下载类问题：">下载类问题：</h2>
+<p>下载失败有很多可能，查bi可以知道，一般来说会有写入权限没有的错误，用户手机的缘故，还有就是网络环境的问题。</p>
+<h2 id="耳机类问题">耳机类问题</h2>
+<p>耳机类的问题线控失效，这个得看是不是原生的耳机，不是原生的耳机，一般会出现其他奇奇怪怪的问题（发出奇葩的信号），还有蓝牙耳机问题，等等的。具体这方便我接触到的也不多。</p>
+<h2 id="UI常规问题">UI常规问题</h2>
+<p>这个问题一般最不愿意避免，比如android有那么多那么多的手机型号！想想iphone还真幸运，哎不吐槽了，各种出现奇葩的显示，UI改适配得拿手机一个个调试，好伤心的。</p>
+<h2 id="持久化问题：">持久化问题：</h2>
+<p>一些设置没有持久化，关机之后就回复默认了，那么就得查下参数了。</p>
+<h2 id="分享类问题">分享类问题</h2>
+<p>这个也是经常会出现问题的，分享到外部，接口有错误！这个最严重，还有就微信分享，微博分享！经常会动不动封我们的接口！蛋疼</p>
+<h2 id="待补充…-">待补充…..</h2>
+<p><code>吐槽了这么，哎，总算记录完了，以后要写4篇日志以上/week  ！</code></p>
+]]></content>
+    <summary type="html"><![CDATA[<p>先小小的自我介绍下，以前从来没有在互联网公司实习。从14.04.09号开始在XXX音乐Android端QA实习，至今也快实习了4个月整了，现在听着同学们说做QA真的学不到什么东西，但是我觉得呢，做什么都能学到东西，关键是一个态度问题。当然，这个学习也要做一个定期的review，不然真的会造成一个没有学到任何东西的情况，下面我就给自己遇到的一些奇葩以及常规的问题做一些自己的总结:]]></summary>
+    
+      <category term="工作" scheme="http://zhushiqing.github.io/categories/%E5%B7%A5%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[算法之快排（java版本）]]></title>
+    <link href="http://zhushiqing.github.io/2014/07/24/Algorithm2/"/>
+    <id>http://zhushiqing.github.io/2014/07/24/Algorithm2/</id>
+    <published>2014-07-24T00:01:45.000Z</published>
+    <updated>2014-08-24T00:30:29.000Z</updated>
+    <content type="html"><![CDATA[<p>快排神马的，就是各路考官最爱问的东西：<br><a id="more"></a></p>
+<p>在我自己的理解中，快排是这样的：</p>
+<blockquote>
+<ul>
+<li>1.先选择数组中的一个数，作为一个基准（一般情况下选第一个）</li>
+<li>2.然后对整个数组进行第一次遍历，把小于基准的数扔到及基准数的左边，大于的数扔到右边。</li>
+<li>3.一遍遍历结束后，基准左边的数都小于基准，右边都大于基准，然后以基准为界可以得到两个新数组，对新数组重复1、2步骤。</li>
+<li>4.不断递归调用之后得到的数组就是有序的。</li>
+</ul>
+</blockquote>
+<p>像一般java中Array.sort底层实现就是采用的快排，一般快排的效率都是蛮高的，但是快排最坏的情况下时间复杂度也为O(n^2),比说一组数组本身就是有序的，倒序，然后基准为第一个数，这样用快排排数组就是最坏情况下的时间复杂度，当然一般情况下平均事件复杂度都为：O(nlog(n))</p>
+<p>接下来让我们来看下Java代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuicklySort</span> </span>{</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMid</span>(<span class="keyword">int</span>[] num,<span class="keyword">int</span> low,<span class="keyword">int</span> high){</div><div class="line">		<span class="keyword">int</span> temp = num[low];</div><div class="line">		<span class="keyword">while</span>(low &lt; high){</div><div class="line">			<span class="keyword">while</span>(low &lt; high && num[high] &gt; temp){</div><div class="line">				high--;</div><div class="line">			}</div><div class="line">			num[low] = num [high];</div><div class="line">			<span class="keyword">while</span>(low &lt; high && num[low] &lt; temp){</div><div class="line">				low ++;</div><div class="line">			}</div><div class="line">			num[high] = num[low];</div><div class="line">		}</div><div class="line">		num [low] = temp;</div><div class="line">		<span class="keyword">return</span> low;</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">QuickSort</span>(<span class="keyword">int</span>[] num,<span class="keyword">int</span> low,<span class="keyword">int</span> high){</div><div class="line">		<span class="keyword">if</span>(low &lt; high){</div><div class="line">			<span class="keyword">int</span> mid = getMid(num, low, high);</div><div class="line">			QuickSort(num,mid+<span class="number">1</span>,high);</div><div class="line">			QuickSort(num,low,mid-<span class="number">1</span>);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span>(<span class="keyword">int</span>[] num){</div><div class="line">		<span class="keyword">if</span>(num.length &gt; <span class="number">0</span>){</div><div class="line">			QuickSort(num,<span class="number">0</span>,num.length-<span class="number">1</span>);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="annotation">@Test</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DoSort</span>(){</div><div class="line">		<span class="keyword">int</span> num[] = {<span class="number">1</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">11</span>};</div><div class="line">		sort(num);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num.length; i++) {</div><div class="line">			System.out.println(num[i]);</div><div class="line">		}</div><div class="line">	}</div></pre></td></tr></table></figure>
+
+<h3 id="其实针对最坏时间复杂度其实还有更好的解法：随机快排">其实针对最坏时间复杂度其实还有更好的解法：随机快排</h3>
+<hr>
+<p>随机定义那个基准数，就是大家所称的随机化快排，也是快排的一种变种，<br>我记得我曾看到一句戏言，这样的随机化快排遇到最坏的时间复杂度的几率只有1/(2^n),只够满足人一生的人品需求。</p>
+<p>还有就是一种就是平衡化快排，就是把基准数尽量可能的取为中值—-即每次取值在第一个数，中间那个数，最后一个数做<br>比较，据说这样能提高尽两倍的性能，实际上我也没尝试过，不过算法书上这样写应该没错把= =。</p>
+<hr>
+<p>最后说一句：算法这东西都是靠积累的，每天都要努力！come on everyone！</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>快排神马的，就是各路考官最爱问的东西：<br>]]></summary>
+    
+      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[算法之冒泡（java版本）]]></title>
+    <link href="http://zhushiqing.github.io/2014/07/22/Algorithm1/"/>
+    <id>http://zhushiqing.github.io/2014/07/22/Algorithm1/</id>
+    <published>2014-07-22T13:20:03.000Z</published>
+    <updated>2014-08-24T00:00:10.000Z</updated>
+    <content type="html"><![CDATA[<p>冒泡排序是最基础的排序算法，就像水底的气泡一个个冒出来一样。<br>冒泡排序算法的运作如下：（从后往前）—-参考百科</p>
+<blockquote>
+<ul>
+<li>1.比较相邻的元素。如果第一个比第二个大，就交换他们两个。</li>
+<li>2.对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。</li>
+<li>3.针对所有的元素重复以上的步骤，除了最后一个。</li>
+<li>4.持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</li>
+</ul>
+</blockquote>
+<p>总的来说，像冒泡排序最理想的时间复杂度为O(n)，这个是在本身数据有序的情况下，<br>最坏情况的事件复杂度是O(n^2),平均的时间复杂度也为O(n^2)，接下来让我们来看看java版本的代码实现吧：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span></span></div><div class="line">{</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args){</div><div class="line">		<span class="keyword">int</span>[] num = {<span class="number">705</span>,<span class="number">826</span>,<span class="number">680</span>,<span class="number">654</span>,<span class="number">694</span>};</div><div class="line">		<span class="keyword">int</span> temp;<span class="comment">//临时变量</span></div><div class="line">		<span class="comment">//第一个循环控制比较的轮数</span></div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; num.length - <span class="number">1</span>;i++){</div><div class="line">			<span class="comment">//第二个循环控制每轮比较的次数</span></div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; num.length - <span class="number">1</span> - i; j++){</div><div class="line">				<span class="keyword">if</span>(num[j] &gt; num[j + <span class="number">1</span>]){</div><div class="line">					temp = num[j];</div><div class="line">					num[j] = num[j + <span class="number">1</span>];</div><div class="line">					num[j + <span class="number">1</span>] = temp;</div><div class="line">				}</div><div class="line">			}</div><div class="line">		}</div><div class="line">		System.out.println(<span class="string">"使用冒泡排序后的数列是"</span>);</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; num.length; i++){</div><div class="line">			System.out.println(num[i]+<span class="string">" "</span> );</div><div class="line">		}</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">	}</div><div class="line">}</div><div class="line">输出以及过程如下：</div><div class="line"><span class="comment">/*</span></div><div class="line">705,826,680,654,694</div><div class="line">705,680,654,694,826  第一轮</div><div class="line">680,654,694,705,826  第二轮</div><div class="line">654,680,694,705,826</div><div class="line">654,680,694,705,826</div><div class="line">*/</div></pre></td></tr></table></figure>
+
+<hr>
+<p>最简单的也是基础的也是最会被问的，与诸君共勉。</p>
+]]></content>
+    
+    
+      <category term="算法基础" scheme="http://zhushiqing.github.io/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/"/>
+    
+      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[线程之分析1：线程互斥]]></title>
+    <link href="http://zhushiqing.github.io/2014/07/20/Thread1/"/>
+    <id>http://zhushiqing.github.io/2014/07/20/Thread1/</id>
+    <published>2014-07-20T09:22:39.000Z</published>
+    <updated>2014-08-21T02:57:00.000Z</updated>
+    <content type="html"><![CDATA[<p>对线程做一个简单的分析。对以后的线程相关的都会有帮助，再者说线程也算是java的基本功了。就诸如武林秘籍中的易筋经！一定得学好，今天我就对线程做一个自己理解版的分析：</p>
+<p><strong>Q1</strong>：首先我们得明白什么是线程？</p>
+<p>A1：首先我个人认为线程是一个程序的执行线索，小于一个进程，是内存、CPU占用的基本单位。</p>
+<p><strong>Q2</strong>:什么叫做线程互斥，他会导致什么后果？<br><a id="more"></a><br>A2：如果是这个问题，我会举个栗子（例子）来分析<br>ForExample:</p>
+<pre><code><span class="comment">银行转账的问题</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>&gt;<span class="comment">假如你的账户上余额为1000，有两个线程同时执行：</span>
+</code></pre><blockquote>
+<ul>
+<li>1、有人往你账号上打了2000RMB:1000RMB+2000RMB；</li>
+<li>2、你刚好在淘宝上买了一件200RMB的帅气衣服：1000RMB-200RMB</li>
+<li>3、由于没有线程同步，可怕的事情发生了！在做完被转账的1000+2000，但没有被赋值时、另一个线程做完了1000-200的线程，并把800赋值了到了1000+2000的值上！</li>
+<li>4、啊啊啊，我的钱哪里去了！我的2800怎么变成了800！次奥啊！所以没有线程同步的你开始抓狂了！</li>
+</ul>
+</blockquote>
+<p>这是一件多么可怕的事情啊！可见有些时候，线程互斥是多么的重要，只要是遇上两个线程会共享一个数据存储的时候，都要记得加上线程互斥！切记。（线程互斥就是指排他性，不允许多个线程同时访问一个共享资源，本质上来说线程互斥是一种特殊的线程同步，两者的概念不能混为一谈）</p>
+<p>接下来让我们看看实例，一段java代码没有加互斥：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TraditionalThreadSynchronized</span> </span>{</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line"></div><div class="line">		<span class="keyword">new</span> TraditionalThreadSynchronized().init();</div><div class="line"></div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span>() {</div><div class="line">		<span class="keyword">final</span> Outputer outputer = <span class="keyword">new</span> Outputer();</div><div class="line">		<span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</div><div class="line"></div><div class="line">			<span class="annotation">@Override</span></div><div class="line">			<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>() {</div><div class="line">				<span class="keyword">while</span> (<span class="keyword">true</span>) {</div><div class="line"></div><div class="line">					<span class="keyword">try</span> {</div><div class="line">						Thread.sleep(<span class="number">1000</span>);</div><div class="line">					} <span class="keyword">catch</span> (InterruptedException e) {</div><div class="line">						e.printStackTrace();</div><div class="line">					}</div><div class="line">					outputer.output(<span class="string">"zhushiqing"</span>);</div><div class="line">				}</div><div class="line">			}</div><div class="line"></div><div class="line">		}).start();</div><div class="line"></div><div class="line">		<span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</div><div class="line"></div><div class="line">			<span class="annotation">@Override</span></div><div class="line">			<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>() {</div><div class="line">				<span class="keyword">while</span> (<span class="keyword">true</span>) {</div><div class="line"></div><div class="line">					<span class="keyword">try</span> {</div><div class="line">						Thread.sleep(<span class="number">1000</span>);</div><div class="line">					} <span class="keyword">catch</span> (InterruptedException e) {</div><div class="line">						e.printStackTrace();</div><div class="line">					}</div><div class="line">					outputer.output(<span class="string">"qianjiangqi"</span>);</div><div class="line">				}</div><div class="line">			}</div><div class="line"></div><div class="line">		}).start();</div><div class="line"></div><div class="line">		<span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</div><div class="line"></div><div class="line">			<span class="annotation">@Override</span></div><div class="line">			<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>() {</div><div class="line">				<span class="keyword">while</span> (<span class="keyword">true</span>) {</div><div class="line"></div><div class="line">					<span class="keyword">try</span> {</div><div class="line">						Thread.sleep(<span class="number">1000</span>);</div><div class="line">					} <span class="keyword">catch</span> (InterruptedException e) {</div><div class="line">						e.printStackTrace();</div><div class="line">					}</div><div class="line">					outputer.output(<span class="string">"wangtianyi"</span>);</div><div class="line">				}</div><div class="line">			}</div><div class="line"></div><div class="line">		}).start();</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">static</span> class Outputer {</div><div class="line">		<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span>(String name) {</div><div class="line">			<span class="keyword">int</span> len = name.length();</div><div class="line"></div><div class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) {</div><div class="line">				System.out.print(name.charAt(i));</div><div class="line">			}</div><div class="line">			System.out.println();</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>结果就是各种名字都不能好好输出！连名字都输不完整！我们能不能做朋友了！当然不能了！<br>所以，我们得给他们加上一个锁！synchronized关键字来修饰（可以修饰方法，也可以修饰方法里的代码块），而且是有锁当然得有钥匙是吧！这里的钥匙是指，被自己标志的一个上锁的对象（监视器），<br>比如说:<br>而且钥匙必须得是同一把，所以我们可以定义一把钥匙,如下</p>
+<p>在代码块上加锁（监视器）的情况</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> class Outputer {</div><div class="line">		<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span>(String name) {</div><div class="line">			<span class="keyword">int</span> len = name.length();</div><div class="line">            String xxx = <span class="string">""</span>;</div><div class="line">            sychronized(<span class="string">"xxx"</span>){</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) {</div><div class="line">				    System.out.print(name.charAt(i));</div><div class="line">			    }</div><div class="line">			    System.out.println();</div><div class="line">            }</div><div class="line">		}</div><div class="line">	}</div></pre></td></tr></table></figure>
+
+<p>这样就给自己定义了一把钥匙（监视器），起多个这线程都不会再出现名字念不完整的情况了！我们又可以做朋友了！但是呢！我们这样做是多此一举的。一般来说，直接sychronized里面+（this）即可，直接代表了这个线程对象！也是唯一的！其实把到这样就差不多了！</p>
+<p>还有就是直接给方法上加上synchronized关键字：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span>  <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">output2</span>(String name) {</div><div class="line">		<span class="keyword">int</span> len = name.length();</div><div class="line"></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) {</div><div class="line">			System.out.print(name.charAt(i));</div><div class="line">		}</div><div class="line">		System.out.println();</div><div class="line"></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>这样就不用再考虑对象的问题了，它默认都是用this</p>
+<p>其实说到这里就差不多了，但是我觉得呢！还有一种情况：假如你用静态方法还行得通不？<br>代码如下，你觉得这样两个线程会好好运行吗？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">   <span class="keyword">public</span>  <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">output</span>(String name) {</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">output</span>(String name) {</div><div class="line">		<span class="keyword">int</span> len = name.length();</div><div class="line">           sychronized(<span class="keyword">this</span>){</div><div class="line">               <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) {</div><div class="line">			    System.out.print(name.charAt(i));</div><div class="line">		    }</div><div class="line">		    System.out.println();</div><div class="line">           }</div><div class="line">	}</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">output3</span>(String name) {</div><div class="line">		<span class="keyword">int</span> len = name.length();</div><div class="line"></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) {</div><div class="line">			System.out.print(name.charAt(i));</div><div class="line">		}</div><div class="line">		System.out.println();</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>答案是不互斥的！<br>为什么呢？因为static静态方法是随着类加载而加载的，所以他的对象锁是Outputer.class字节码，而output方法的对象所是this，不过只要把this换成Outputer.class两者就互斥了！</p>
+<h2 id="今天又对thread加深了了解！为自己赞一下！">今天又对thread加深了了解！为自己赞一下！</h2>
+]]></content>
+    <summary type="html"><![CDATA[<p>对线程做一个简单的分析。对以后的线程相关的都会有帮助，再者说线程也算是java的基本功了。就诸如武林秘籍中的易筋经！一定得学好，今天我就对线程做一个自己理解版的分析：</p>
+<p><strong>Q1</strong>：首先我们得明白什么是线程？</p>
+<p>A1：首先我个人认为线程是一个程序的执行线索，小于一个进程，是内存、CPU占用的基本单位。</p>
+<p><strong>Q2</strong>:什么叫做线程互斥，他会导致什么后果？<br>]]></summary>
+    
+      <category term="Java" scheme="http://zhushiqing.github.io/categories/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[阿里校园招聘一面]]></title>
+    <link href="http://zhushiqing.github.io/2014/07/18/hello-world/"/>
+    <id>http://zhushiqing.github.io/2014/07/18/hello-world/</id>
+    <published>2014-07-18T07:32:34.000Z</published>
+    <updated>2014-08-04T07:52:34.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="一只小菜鸟的阿里巴巴一面（内推）">一只小菜鸟的阿里巴巴一面（内推）</h2>
+<p>我是一只小菜鸟啊，纯菜啊！我以前写的都是C#啊！从来没接触过java，我学习java的时间加起来也不到7个月！默默的挣扎了好久，还是决定参加内推，投了阿里的简历！<br>可是！这么一来，我的小心脏总是hold不住，我同学们一个个都是从新投递的状态改为待面试了（一天内），而我一直显示是待面试！（感觉自己简历又被刷了！，之前校招实习的简历没写好，直接被刷，好不甘心！！！！！！！！！！）<br>好吧，担心没用！从20-25这段时间真心好纠结。可是着急没用，差不多我已经放弃，距离投递已经过了一周，我的简历还没被处理。。。。<br>可是！奇迹！出现了！昨天中午，阿里巴巴居然给我打电话了，我记得那会刚好是12：34，我刚好吃完饭上来，然后忙着导师给我的任务。加上今天昨晚被空调吹感冒了，实在是无力在最困顿的时候受虐，于是乎，与电话对面的面试官约好下午重新打来！<br>好吧，挂了电话，小心脏扑通扑通不争气的跳了起来！真的是又惊又喜！<br>于是乎，一下午都在恍恍惚惚中度过，连下午的周会都差点走神，好吧，我承认我第一次面阿里。有点小紧张。<br>然后5：13 ，在我开周会的时候，阿里的技术GG给我电话了。然后阿里一面就这么开始了，问题如下：<br><a id="more"></a></p>
+<h3 id="1-简单的介绍下自己">1.简单的介绍下自己</h3>
+<p>我就blabla的说了下自己的本科语言方向，然后研究生的语言方向（java），然后做的项目，实习情况（4月到现在）blabla之类的</p>
+<h3 id="2-开始根据我的自我介绍开始简单的追问了">2.开始根据我的自我介绍开始简单的追问了</h3>
+<p>研究生学得XXX课程，（语言类），然后开始追问语言基础</p>
+<h3 id="3-进程与线程的区别（太太太基础了=_=）">3.进程与线程的区别（太太太基础了= =）</h3>
+<p>一个进程包含一个或者多个线程，进程是CPU等资源占用的基本单位blabla之类的</p>
+<h3 id="4-String是不是基本数据类型">4.String是不是基本数据类型</h3>
+<p>String 明显不是。。。。八种基本数据类型是 int byte short long char double float boolean  还有剩下的就是引用类型数据</p>
+<h3 id="5-还问我了好多线程同步的问题，不过都比较基础，比如说（ArraryList_与_Vector_哪个线程同步。hashtable与hashmap_哪个是线程同步）">5.还问我了好多线程同步的问题，不过都比较基础，比如说（ArraryList 与 Vector 哪个线程同步。hashtable与hashmap 哪个是线程同步）</h3>
+<p>ArrayList与HashMap是线程不同步的，所以效率较高，实际开发中使用较多，blabla之类的 （具体我也没使用过 各种blog中的）</p>
+<h3 id="6-_多态。。。。。（实在很无力说明这么抽象的问题）">6. 多态。。。。。（实在很无力说明这么抽象的问题）</h3>
+<p>我就答了。。。。。接口与抽象类  多态通过继承父类，实现接口XXX之类的来表现，然后让我举个栗子（实在是无奈哈）</p>
+<h3 id="7-==与equal">7.==与equal</h3>
+<p>好吧 这都出来了，实在无力到家了。。。。==比较的是引用地址，然后equal是值对象，然后让我重写（override）Object.equal()方法 </p>
+<h3 id="8-各种排序，各种时间复杂度，最优解">8.各种排序，各种时间复杂度，最优解</h3>
+<p>快排，冒泡，二分查找，。。。。XX各种让你说时间复杂度，也不难，然后给出最优解</p>
+<h3 id="9-垃圾回收机制_&amp;_JVM">9.垃圾回收机制 &amp; JVM</h3>
+<p>ava中的垃圾回收机制解决了c++中最令人烦恼的内存管理问题，垃圾回收机制通常作为一个低级别的线程运行，不可预知的情况对内存堆中已经死亡或者长时间没有使用的对象进行清除和回收，一般来说程序员不能调用垃圾回收立即回收垃圾对象，就算我们调用System.gc()也不能立即执行，这个由虚拟机的本身算法决定。</p>
+<p>当程序员new 出一个对象的时候就，GC就开始监管这个对象的地址，大小，以及使用情况，GC一般通过有向图的方式监管和记录（heap中的对象）。通过这方式，确定哪个对象是可达的，如果对象不可达，GC就有责任回收这些对象内存空间。</p>
+<h3 id="10-三大框架">10.三大框架</h3>
+<p>好吧，这个我就泛泛而谈了。。。。</p>
+<h3 id="11-内排与外排">11.内排与外排</h3>
+<p>….</p>
+<h2 id="#">#</h2>
+<p>面试结束，然后很简单的问了下对我看法，GG很友善的说 等下一面，然后急匆匆吃饭下班去了。。。。maybe 最后是我脑补的。毕竟是周五的18：02分了。。</p>
+]]></content>
+    <summary type="html"><![CDATA[<h2 id="一只小菜鸟的阿里巴巴一面（内推）">一只小菜鸟的阿里巴巴一面（内推）</h2>
+<p>我是一只小菜鸟啊，纯菜啊！我以前写的都是C#啊！从来没接触过java，我学习java的时间加起来也不到7个月！默默的挣扎了好久，还是决定参加内推，投了阿里的简历！<br>可是！这么一来，我的小心脏总是hold不住，我同学们一个个都是从新投递的状态改为待面试了（一天内），而我一直显示是待面试！（感觉自己简历又被刷了！，之前校招实习的简历没写好，直接被刷，好不甘心！！！！！！！！！！）<br>好吧，担心没用！从20-25这段时间真心好纠结。可是着急没用，差不多我已经放弃，距离投递已经过了一周，我的简历还没被处理。。。。<br>可是！奇迹！出现了！昨天中午，阿里巴巴居然给我打电话了，我记得那会刚好是12：34，我刚好吃完饭上来，然后忙着导师给我的任务。加上今天昨晚被空调吹感冒了，实在是无力在最困顿的时候受虐，于是乎，与电话对面的面试官约好下午重新打来！<br>好吧，挂了电话，小心脏扑通扑通不争气的跳了起来！真的是又惊又喜！<br>于是乎，一下午都在恍恍惚惚中度过，连下午的周会都差点走神，好吧，我承认我第一次面阿里。有点小紧张。<br>然后5：13 ，在我开周会的时候，阿里的技术GG给我电话了。然后阿里一面就这么开始了，问题如下：<br>]]></summary>
+    
+      <category term="面试" scheme="http://zhushiqing.github.io/categories/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+</feed>

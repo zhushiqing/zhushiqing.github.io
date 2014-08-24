@@ -1,0 +1,389 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Proxy机制（java动态代理机制） | SunnyZhu&#39;blog</title>
+  <meta name="author" content="zhushiqing">
+  
+  <meta name="description" content="zsq66zsq">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Proxy机制（java动态代理机制）"/>
+  <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="SunnyZhu&#39;blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">SunnyZhu&#39;blog</a></h1>
+  <h2><a href="/">不要让自己的未来后悔，所以，努力吧！</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">存档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+	<li> <a href="/atom.xml">RSS</a> </li>
+	<li>
+		<a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a>
+	</li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-13T11:06:01.000Z"><a href="/2014/08/13/Proxy/">8月 13 2014</a></time>
+      
+      
+  
+    <h1 class="title">Proxy机制（java动态代理机制）</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>什么是动态代理？</p>
+<h2 id="java动态代理机制">java动态代理机制</h2>
+<ul>
+<li>Q1：什么叫做动态代理机制？</li>
+<li>Q2：动态代理机制有什么好处？</li>
+<li>Q3：什么地方用到动态代理？</li>
+</ul>
+<hr>
+<a id="more"></a>
+
+<h3 id="动态代理的源码在java-lang-reflect这个包里，应该是Proxy类。里面有提供两个静态方法：">动态代理的源码在java.lang.reflect这个包里，应该是Proxy类。里面有提供两个静态方法：</h3>
+<hr>
+<p><strong>1</strong>.Class&lt;?&gt; getProxyClass(ClassLoader loader, Class&lt;?&gt;[] interface)</p>
+<p>用来产生代理类，参数要提供interface数组，它会生成这些interface的“虚拟实现”，<br>用来冒充真实的对象。</p>
+<p><strong>2</strong>.Object newProxyInstance(ClassLoader loader, Class&lt;?&gt;[] interfaces, InvocationHandler h) </p>
+<p>产生代理对象，多了InvocationHandler参数(只是InvocationHandler接口的实现类)，<br>它与代理对象关联，当请求分发到代理对象后，会<strong><em>自动执行h.invoke(…)方法</em></strong>，所以在<br>invoke方法中，我们可以做很多事情。</p>
+<hr>
+<p><strong><em>“动态”</em></strong>是针对静态编码而言的，可以是编译器、类装载器和运行期。</p>
+<p>引一个大大的例子来说下自己的理解：比如有有一个接口A，里面有方法sayHello(),print()方法。然后一个B类（AIml类）来实现<br>具体实现A接口，然后再写一个代理类，伪装成B类，代理类里面通过动态的实现B类的方法（其实就是通过反射实现的B类方法），<br>然后外面的请求发过来之后，都是通过代理类来处理，方便集中处理一系列的方便的集成权限控制，异常处理，事务控制，<br>性能统计等等（这里感谢 <em>方老师</em> 对我指点）</p>
+<p>然后下面是一个网上大大对动态代理的画的图，大家参考一下很明了的关系图。</p>
+<p><img src="http://langyu.iteye.com/upload/picture/pic/38786/bfe44656-08f7-3d4d-b9d8-0de6ad00c7de.jpg" alt=""></p>
+<p>A接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">A</span> </span>{</div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span>(String to);</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span>(String p);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>B类（实现A接口）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AImpl</span> <span class="keyword">implements</span> <span class="title">A</span></span>{</div><div class="line"></div><div class="line">    <span class="annotation">@Override</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span>(String to) {</div><div class="line">		System.out.println(<span class="string">"Hello:"</span>+to);</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="annotation">@Override</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span>(String p) {</div><div class="line">		System.out.println(<span class="string">"print:"</span>+p);</div><div class="line">	}</div><div class="line"></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>C类（代理类，伪装成B类）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Handler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>{</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Object obj;</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="title">Handler</span>(Object obj){</div><div class="line">		<span class="keyword">this</span>.obj = obj;</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="annotation">@Override</span></div><div class="line">	<span class="keyword">public</span> Object <span class="title">invoke</span>(Object proxy, Method method, Object[] args)</div><div class="line">			<span class="keyword">throws</span> Throwable {</div><div class="line">		</div><div class="line">		doBefore();</div><div class="line">		Object result = method.invoke(obj, args);</div><div class="line">		doAfter();</div><div class="line">		</div><div class="line">		<span class="keyword">return</span> result;</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doAfter</span>() {</div><div class="line">		System.out.println(<span class="string">"after..."</span>);</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doBefore</span>() {</div><div class="line">		System.out.println(<span class="string">"before..."</span>);</div><div class="line">	}</div><div class="line"></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>测试类：D类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyTester</span> </span>{</div><div class="line"></div><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">	        A impl = <span class="keyword">new</span> AImpl();</div><div class="line">	        Handler handler = <span class="keyword">new</span> Handler(impl);</div><div class="line">	        <span class="comment">//这里把handler与impl新生成的代理类相关联</span></div><div class="line">	        A hello = (A) Proxy.newProxyInstance(impl.getClass().getClassLoader(), </div><div class="line">			</div><div class="line">			impl.getClass().getInterfaces(), handler);</div><div class="line">	        </div><div class="line">	        <span class="comment">//这里无论访问哪个方法，都是会把请求转发到handler.invoke</span></div><div class="line">	        hello.print(<span class="string">"All the test"</span>);</div><div class="line">	        hello.sayHello(<span class="string">"SunnyZhu"</span>);</div><div class="line">	    }</div><div class="line"></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>测试结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">before...</div><div class="line">print:All the test</div><div class="line">after...</div><div class="line">before...</div><div class="line">Hello:zhushiqing</div><div class="line">after...</div></pre></td></tr></table></figure>
+
+<p>自此代码就实现了，在hello（A类）调用的动态方法都是集中交给代理类来处理了。方便在代理类集中处理一些事情，before 干点啥，after干点啥。</p>
+<hr>
+<p>最后回答下三个Questions</p>
+<p>A1:一种用于转发请求，进行特殊处理的机制，这里的动态是针对静态编码而言的，可以是编译器、类装载器和运行期。</p>
+<p>A2:方便的集成权限控制，异常处理，事务控制，性能统计等等</p>
+<p>A3:很多地方，web层的controller，biz层的service，都会使用动态代理，目的在于实现aop，</p>
+<hr>
+<p><em>学习了java动态代理，与诸君共勉！</em></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Java/">Java</a>
+  </div>
+
+        
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+<nav id="pagination" >
+    
+    <a href="/2014/08/18/ClassLoader/" class="alignleft prev" >上一页</a>
+    
+    
+    <a href="/2014/08/13/hashmapOutOfmemory/" class="alignright next" >下一页</a>
+    
+    <div class="clearfix"></div>
+</nav>
+<section id="comment">
+<!-- 多说评论框 start -->	
+<div class="ds-thread" data-thread-key="item.path" data-title="item.title" data-url="item.link"></div>
+<!-- 多说评论框 end -->
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zhushiqing"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:zhushiqing.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Algorithms/">Algorithms</a><small>2</small></li>
+  
+    <li><a href="/categories/Java/">Java</a><small>4</small></li>
+  
+    <li><a href="/categories/blog/">blog</a><small>2</small></li>
+  
+    <li><a href="/categories/python/">python</a><small>1</small></li>
+  
+    <li><a href="/categories/工作/">工作</a><small>1</small></li>
+  
+    <li><a href="/categories/面试/">面试</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">个人简介</h3>
+<ul class="entry">
+姓名：<a href="/about/index.html">朱适卿</a><br/>
+别名：朱自清<br/>
+现状：ZJU在读研究生<br/>
+QQ：417707765
+</ul>
+</div>
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1906241244&verifier=77b05fd2&dpc=1"></iframe>
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://liyi.it/" title="李毅">大帝</a>              <a href="http://tankpt.github.io/" title="王天一">tankpt</a></li>
+
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 zhushiqing
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="http://libs.useso.com/js/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
