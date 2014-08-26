@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://zhushiqing.github.io/2014/07/24/Algorithm2/</loc>
+    <lastmod>2014-08-26T01:39:27.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://zhushiqing.github.io/2014/07/25/selectSort/</loc>
     <lastmod>2014-08-25T12:28:05.000Z</lastmod>
   </url>
@@ -29,11 +34,6 @@
   <url>
     <loc>http://zhushiqing.github.io/2014/07/22/Algorithm1/</loc>
     <lastmod>2014-08-24T02:58:28.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://zhushiqing.github.io/2014/07/24/Algorithm2/</loc>
-    <lastmod>2014-08-24T02:57:41.000Z</lastmod>
   </url>
   
   <url>
