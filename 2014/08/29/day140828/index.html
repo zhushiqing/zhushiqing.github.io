@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Java中Hashmap存不下那些数据怎么办（有一堆数据）？ | SunnyZhu&#39;blog</title>
+  <title>狼狈的一天 | SunnyZhu&#39;blog</title>
   <meta name="author" content="zhushiqing">
   
   <meta name="description" content="zsq66zsq">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Java中Hashmap存不下那些数据怎么办（有一堆数据）？"/>
+  <meta property="og:title" content="狼狈的一天"/>
   <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
 
   
@@ -205,35 +205,26 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-13T06:07:55.000Z"><a href="/2014/08/13/hashmapOutOfmemory/">8月 13 2014</a></time>
+        <time datetime="2014-08-29T00:59:50.000Z"><a href="/2014/08/29/day140828/">8月 29 2014</a></time>
       
       
   
-    <h1 class="title">Java中Hashmap存不下那些数据怎么办（有一堆数据）？</h1>
+    <h1 class="title">狼狈的一天</h1>
   
 
     </header>
     <div class="entry">
       
-        <h1 id="突然想起前几天有人问的关于HashMap一个问题">突然想起前几天有人问的关于HashMap一个问题</h1>
+        <h3 id="辞职，这是另一个起点。">辞职，这是另一个起点。</h3>
+<p>最近心情摇摆了好久，终于下定了决心，我还年轻，我还有追逐梦想的权利。QA这工作确实不是我自己喜欢的。但是好喜欢<br>网易这个公司，还记得当年的梦幻西游，大唐，那一个个游戏，都是我所钟爱的，大网易是我好想进的一个公司，怀着少年<br>时代的梦想，在实习生招聘中，拒绝了SAP，恒天，老师公司的offer，我一无反顾的来到我梦想中的公司，他确实是那么的<br>真实，工作环境也是那么nice，还有那号称一日五顿的免费餐，这一切的一切确实好赞。</p>
+<h2><a id="more"></a></h2>
+<p>随着事件的流逝，那一切是趋于平淡，重复着那一个个自己兴趣不在的工作，对于自己来说，真的是煎熬，我学到了什么吗？<br>我一次又一次的反问自己，真的很无奈，我对于自己专业上的技术确实没有任何的长进，将来我还想靠这方面吃饭呢!可是我<br>有学到什么吗？= =实在是无奈到家了- -。对于我唯一不舍的，就是小伙伴吗，以及导师与红姐他们的氛围还真的好nice，<br>还记得那次卡丁车吗。真的好HI，好多小伙伴都是网易里面实习，对于他们也好不舍呢，犹豫徘徊了好久！终于在最近下定了<br>决心，我得走，这不是我想要的生活，也不是自己想要的兴趣所在。</p>
+<p>于是，提前告别了小伙伴，还与之合影了，小伙伴大帝最棒，还有lyd，wn，zq都是好棒的呢！收拾一切回家。</p>
+<p>28号这天折腾了一整天&amp;&amp;最后终于在下午完全收拾完，写完离职报告了。see u网易，假如校招研发还要我，我一定会回来的！<br>加油！</p>
+<p>收拾完之后，走上回家的道路，挤上公交，来来往往的人们让我觉得好多好多感慨，一路颠簸，一路拥挤，一路堵车，来到<br>了市区，那浑浊的空气- -and 不巧的是= =我居然被中暑了，真心坑啊，一路直想吐，= =好可怜的我。</p>
+<p>到了武林门那边居然又上来好多大妈，车里都没位置了- -，看着那些大妈好可怜，我强忍要吐的感觉，把座位让给了其中<br>一位，貌似那大妈开心的一笑，让我瞬间感觉我做的事情还有价值，忍了好久，终于下车了，然后找了一个最近的厕所吐了个疼快<br>= = 唉，可是出来就是瞬间天气大变，成了雷阵雨，让我成了落汤鸡！</p>
 <hr>
-<p>假如hashmap中存入了大量的数据，存不下了怎么办呢！？好吧，当时我就惊呆了。hashmap还有内存溢出的情况简直是不能忍！次奥，但是左思右想总是想不出答案来。好吧，我承认又得补脑了<br>0_0。回来各种查资料。<br><a id="more"></a></p>
-<p>整个分析流程如下：</p>
-<blockquote>
-<ul>
-<li>Q1：什么是hashmap？</li>
-<li>Q2：为什么会有hashmap存储不下数据的情况产生？</li>
-<li>Q3：如何解决此情况？</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="什么是_HashMap?">什么是 HashMap?</h2>
-<p>首先让我们来了解下数组和链表：数组在寻址能力比较强大、但是插入&amp;&amp;删除能力较弱；链表在寻址能力较弱，但是插入删除能力比较强。那么有没有一种寻址容易，插入删除又容易的数据结构！答案就是有的！Hash表欢迎您！而HashMap又是Hash表的一种，线程不安全，但是性能较Hashtable高一些。所以HashMap与HashTable之间常用HashMap.</p>
-<h2 id="为什么会有HashMap存储不下数据的情况产生？">为什么会有HashMap存储不下数据的情况产生？</h2>
-<p>一般情况下不会出现这样的情况，除非这个数据真的非常多&amp;&amp;你做Key对象没有实现自己的HashCode算法，导致存储了好多冗余的数据。</p>
-<h2 id="怎么解决？">怎么解决？</h2>
-<p>一般情况下应该对你做key的对象进行hashcode方法、equals方法的重写，然后定期清理不使用的强映射、或者使用WeekHashMap：会让GC定期清理不使用的数据，一般就不会出现这样的情况了。<br>当然有更狠的一招- -把JVM内存+++(这个不推荐，知道即可)</p>
-<p><em>今天又学习了一点知识，与诸君共勉！</em></p>
+<p>好吧，离职第一天。我很倒霉！</p>
 
       
     </div>
@@ -242,10 +233,15 @@
         
   
   <div class="categories">
-    <a href="/categories/Java/">Java</a>
+    <a href="/categories/blog/">blog</a>
   </div>
 
         
+  
+  <div class="tags">
+    <a href="/tags/狼狈/">狼狈</a>
+  </div>
+
         <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
       
@@ -259,10 +255,8 @@
 
 <nav id="pagination" >
     
-    <a href="/2014/08/13/Proxy/" class="alignleft prev" >上一页</a>
     
-    
-    <a href="/2014/08/12/thinkingOfHttp/" class="alignright next" >下一页</a>
+    <a href="/2014/08/25/DataBase1/" class="alignright next" >下一页</a>
     
     <div class="clearfix"></div>
 </nav>

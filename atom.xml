@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-08-26T03:07:53.705Z</updated>
+  <updated>2014-08-29T01:39:00.558Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -13,6 +13,33 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[狼狈的一天]]></title>
+    <link href="http://zhushiqing.github.io/2014/08/29/day140828/"/>
+    <id>http://zhushiqing.github.io/2014/08/29/day140828/</id>
+    <published>2014-08-29T00:59:50.000Z</published>
+    <updated>2014-08-29T01:38:53.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="辞职，这是另一个起点。">辞职，这是另一个起点。</h3>
+<p>最近心情摇摆了好久，终于下定了决心，我还年轻，我还有追逐梦想的权利。QA这工作确实不是我自己喜欢的。但是好喜欢<br>网易这个公司，还记得当年的梦幻西游，大唐，那一个个游戏，都是我所钟爱的，大网易是我好想进的一个公司，怀着少年<br>时代的梦想，在实习生招聘中，拒绝了SAP，恒天，老师公司的offer，我一无反顾的来到我梦想中的公司，他确实是那么的<br>真实，工作环境也是那么nice，还有那号称一日五顿的免费餐，这一切的一切确实好赞。</p>
+<h2><a id="more"></a></h2>
+<p>随着事件的流逝，那一切是趋于平淡，重复着那一个个自己兴趣不在的工作，对于自己来说，真的是煎熬，我学到了什么吗？<br>我一次又一次的反问自己，真的很无奈，我对于自己专业上的技术确实没有任何的长进，将来我还想靠这方面吃饭呢!可是我<br>有学到什么吗？= =实在是无奈到家了- -。对于我唯一不舍的，就是小伙伴吗，以及导师与红姐他们的氛围还真的好nice，<br>还记得那次卡丁车吗。真的好HI，好多小伙伴都是网易里面实习，对于他们也好不舍呢，犹豫徘徊了好久！终于在最近下定了<br>决心，我得走，这不是我想要的生活，也不是自己想要的兴趣所在。</p>
+<p>于是，提前告别了小伙伴，还与之合影了，小伙伴大帝最棒，还有lyd，wn，zq都是好棒的呢！收拾一切回家。</p>
+<p>28号这天折腾了一整天&amp;&amp;最后终于在下午完全收拾完，写完离职报告了。see u网易，假如校招研发还要我，我一定会回来的！<br>加油！</p>
+<p>收拾完之后，走上回家的道路，挤上公交，来来往往的人们让我觉得好多好多感慨，一路颠簸，一路拥挤，一路堵车，来到<br>了市区，那浑浊的空气- -and 不巧的是= =我居然被中暑了，真心坑啊，一路直想吐，= =好可怜的我。</p>
+<p>到了武林门那边居然又上来好多大妈，车里都没位置了- -，看着那些大妈好可怜，我强忍要吐的感觉，把座位让给了其中<br>一位，貌似那大妈开心的一笑，让我瞬间感觉我做的事情还有价值，忍了好久，终于下车了，然后找了一个最近的厕所吐了个疼快<br>= = 唉，可是出来就是瞬间天气大变，成了雷阵雨，让我成了落汤鸡！</p>
+<hr>
+<p>好吧，离职第一天。我很倒霉！</p>
+]]></content>
+    <summary type="html"><![CDATA[<h3 id="辞职，这是另一个起点。">辞职，这是另一个起点。</h3>
+<p>最近心情摇摆了好久，终于下定了决心，我还年轻，我还有追逐梦想的权利。QA这工作确实不是我自己喜欢的。但是好喜欢<br>网易这个公司，还记得当年的梦幻西游，大唐，那一个个游戏，都是我所钟爱的，大网易是我好想进的一个公司，怀着少年<br>时代的梦想，在实习生招聘中，拒绝了SAP，恒天，老师公司的offer，我一无反顾的来到我梦想中的公司，他确实是那么的<br>真实，工作环境也是那么nice，还有那号称一日五顿的免费餐，这一切的一切确实好赞。</p>
+<h2>]]></summary>
+    
+      <category term="狼狈" scheme="http://zhushiqing.github.io/tags/%E7%8B%BC%E7%8B%88/"/>
+    
+      <category term="blog" scheme="http://zhushiqing.github.io/categories/blog/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[数据库中的脏读，幻读，不可重复读]]></title>
@@ -379,6 +406,31 @@
     <summary type="html"><![CDATA[<p>先小小的自我介绍下，以前从来没有在互联网公司实习。从14.04.09号开始在XXX音乐Android端QA实习，至今也快实习了4个月整了，现在听着同学们说做QA真的学不到什么东西，但是我觉得呢，做什么都能学到东西，关键是一个态度问题。当然，这个学习也要做一个定期的review，不然真的会造成一个没有学到任何东西的情况，下面我就给自己遇到的一些奇葩以及常规的问题做一些自己的总结:]]></summary>
     
       <category term="工作" scheme="http://zhushiqing.github.io/categories/%E5%B7%A5%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[二分插入排序(java版本)]]></title>
+    <link href="http://zhushiqing.github.io/2014/07/27/binaryinsertsort/"/>
+    <id>http://zhushiqing.github.io/2014/07/27/binaryinsertsort/</id>
+    <published>2014-07-27T12:31:41.000Z</published>
+    <updated>2014-08-29T00:56:59.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="二分插入排序属于插入排序的一种">二分插入排序属于插入排序的一种</h2>
+<h2><a id="more"></a></h2>
+<h2 id="实现原理">实现原理</h2>
+<p>其实二分插入排序的实现原理跟插入排序差不多，都是在一个数组里面，把第一个视为<br>有序的子序列，然后把后半部分视为无序的序列，后半部分就像从牌堆里面抓牌一样，<br>把循环到的元素按照有序的方式插入前面已经有序的子序列里面。<br>与直接插入排序区别就在寻找插入的位置的时候，使用了二分查找<br>来代替了从后向前遍历。从而减少搜索次数，</p>
+<hr>
+<h2 id="时间复杂度与稳定性">时间复杂度与稳定性</h2>
+<p>二分插入排序是一种稳定的排序算法，最好情况下的时间复杂度为O(N),最坏情况下的<br>时间复杂度为O(n^2),平均也为O(n^2)</p>
+<hr>
+<h2 id="代码实现">代码实现</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> zju.zsq.binarysort;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySort</span> </span>{</div><div class="line">	<span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">binaryInsertSort</span>(<span class="keyword">int</span>[] data) {  </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; data.length; i++) {  </div><div class="line">            <span class="keyword">if</span> (data[i] &lt; data[i - <span class="number">1</span>]) {  </div><div class="line">                <span class="comment">// 缓存i处的元素值  </span></div><div class="line">                <span class="keyword">int</span> tmp = data[i];  </div><div class="line">                <span class="comment">// 记录搜索范围的左边界  </span></div><div class="line">                <span class="keyword">int</span> low = <span class="number">0</span>;  </div><div class="line">                <span class="comment">// 记录搜索范围的右边界  </span></div><div class="line">                <span class="keyword">int</span> high = i - <span class="number">1</span>;  </div><div class="line">                <span class="keyword">while</span> (low &lt;= high) {  </div><div class="line">                    <span class="comment">// 记录中间位置  </span></div><div class="line">                    <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;  </div><div class="line">                    <span class="comment">// 比较中间位置数据和i处数据大小，以缩小搜索范围  </span></div><div class="line">                    <span class="keyword">if</span> (data[mid] &lt; tmp) {  </div><div class="line">                        low = mid + <span class="number">1</span>;  </div><div class="line">                    } <span class="keyword">else</span> {  </div><div class="line">                        high = mid - <span class="number">1</span>;  </div><div class="line">                    }  </div><div class="line">                }  </div><div class="line">                <span class="comment">//将low~i处数据整体向后移动1位  </span></div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; low; j--) {  </div><div class="line">                    data[j] = data[j - <span class="number">1</span>];  </div><div class="line">                }  </div><div class="line">                data[low] = tmp;  </div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> number : data) {</div><div class="line">    				System.out.print(number + <span class="string">" "</span>);</div><div class="line">    			}</div><div class="line">    			System.out.println();</div><div class="line">            }  </div><div class="line">        }  </div><div class="line">    }  </div><div class="line">	</div><div class="line"></div><div class="line">	<span class="annotation">@Test</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBubbleSort</span>() {</div><div class="line">		<span class="keyword">int</span>[] nums = { <span class="number">1</span>, <span class="number">7</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">11</span>, <span class="number">10</span> };</div><div class="line">		binaryInsertSort(nums);</div><div class="line">		System.out.println(<span class="string">"排序之后："</span>);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> num : nums) {</div><div class="line">			System.out.print(num + <span class="string">" "</span>);</div><div class="line">		}</div><div class="line">	}</div><div class="line"></div><div class="line">}</div><div class="line">结果输出为：</div><div class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">7</span> <span class="number">4</span> <span class="number">5</span> <span class="number">5</span> <span class="number">9</span> <span class="number">8</span> <span class="number">11</span> <span class="number">10</span> </div><div class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">4</span> <span class="number">7</span> <span class="number">5</span> <span class="number">5</span> <span class="number">9</span> <span class="number">8</span> <span class="number">11</span> <span class="number">10</span> </div><div class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">7</span> <span class="number">5</span> <span class="number">9</span> <span class="number">8</span> <span class="number">11</span> <span class="number">10</span> </div><div class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">5</span> <span class="number">7</span> <span class="number">9</span> <span class="number">8</span> <span class="number">11</span> <span class="number">10</span> </div><div class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">5</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span> <span class="number">11</span> <span class="number">10</span> </div><div class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">5</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span> <span class="number">10</span> <span class="number">11</span> </div><div class="line">排序之后:</div><div class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">5</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span> <span class="number">10</span> <span class="number">11</span></div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html"><![CDATA[<h2 id="二分插入排序属于插入排序的一种">二分插入排序属于插入排序的一种</h2>
+<h2>]]></summary>
+    
+      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
     
   </entry>
   

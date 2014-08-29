@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Java中Hashmap存不下那些数据怎么办（有一堆数据）？ | SunnyZhu&#39;blog</title>
+  <title>狼狈 | SunnyZhu&#39;blog</title>
   <meta name="author" content="zhushiqing">
   
   <meta name="description" content="zsq66zsq">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Java中Hashmap存不下那些数据怎么办（有一堆数据）？"/>
+  
   <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
 
   
@@ -199,94 +199,25 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-13T06:07:55.000Z"><a href="/2014/08/13/hashmapOutOfmemory/">8月 13 2014</a></time>
-      
-      
-  
-    <h1 class="title">Java中Hashmap存不下那些数据怎么办（有一堆数据）？</h1>
-  
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">狼狈</h2>
 
-    </header>
-    <div class="entry">
-      
-        <h1 id="突然想起前几天有人问的关于HashMap一个问题">突然想起前几天有人问的关于HashMap一个问题</h1>
-<hr>
-<p>假如hashmap中存入了大量的数据，存不下了怎么办呢！？好吧，当时我就惊呆了。hashmap还有内存溢出的情况简直是不能忍！次奥，但是左思右想总是想不出答案来。好吧，我承认又得补脑了<br>0_0。回来各种查资料。<br><a id="more"></a></p>
-<p>整个分析流程如下：</p>
-<blockquote>
-<ul>
-<li>Q1：什么是hashmap？</li>
-<li>Q2：为什么会有hashmap存储不下数据的情况产生？</li>
-<li>Q3：如何解决此情况？</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="什么是_HashMap?">什么是 HashMap?</h2>
-<p>首先让我们来了解下数组和链表：数组在寻址能力比较强大、但是插入&amp;&amp;删除能力较弱；链表在寻址能力较弱，但是插入删除能力比较强。那么有没有一种寻址容易，插入删除又容易的数据结构！答案就是有的！Hash表欢迎您！而HashMap又是Hash表的一种，线程不安全，但是性能较Hashtable高一些。所以HashMap与HashTable之间常用HashMap.</p>
-<h2 id="为什么会有HashMap存储不下数据的情况产生？">为什么会有HashMap存储不下数据的情况产生？</h2>
-<p>一般情况下不会出现这样的情况，除非这个数据真的非常多&amp;&amp;你做Key对象没有实现自己的HashCode算法，导致存储了好多冗余的数据。</p>
-<h2 id="怎么解决？">怎么解决？</h2>
-<p>一般情况下应该对你做key的对象进行hashcode方法、equals方法的重写，然后定期清理不使用的强映射、或者使用WeekHashMap：会让GC定期清理不使用的数据，一般就不会出现这样的情况了。<br>当然有更狠的一招- -把JVM内存+++(这个不推荐，知道即可)</p>
-<p><em>今天又学习了一点知识，与诸君共勉！</em></p>
 
-      
-    </div>
-    <footer>
-      
-        
-  
-  <div class="categories">
-    <a href="/categories/Java/">Java</a>
+  <div class="archive">
+    
+      <article class="post">
+        <div class="post-content">
+          <header>
+            <div class="icon"></div>
+            <time datetime="2014-08-29T00:59:50.000Z"><a href="/2014/08/29/day140828/">8月 29 2014</a></time>
+            
+              <h1 class="title"><a href="/2014/08/29/day140828/">狼狈的一天</a></h1>
+            
+          </header>
+        </div>
+      </article>
+    
   </div>
-
-        
-        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-<nav id="pagination" >
-    
-    <a href="/2014/08/13/Proxy/" class="alignleft prev" >上一页</a>
-    
-    
-    <a href="/2014/08/12/thinkingOfHttp/" class="alignright next" >下一页</a>
-    
-    <div class="clearfix"></div>
-</nav>
-<section id="comment">
-<!-- 多说评论框 start -->	
-<div class="ds-thread" data-thread-key="item.path" data-title="item.title" data-url="item.link"></div>
-<!-- 多说评论框 end -->
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"zhushiqing"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- 多说公共JS代码 end -->
-</section>
-
-
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
