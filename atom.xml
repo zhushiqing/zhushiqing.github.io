@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-08-29T03:02:04.355Z</updated>
+  <updated>2014-08-30T11:07:20.459Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -406,6 +406,69 @@
     <summary type="html"><![CDATA[<p>先小小的自我介绍下，以前从来没有在互联网公司实习。从14.04.09号开始在XXX音乐Android端QA实习，至今也快实习了4个月整了，现在听着同学们说做QA真的学不到什么东西，但是我觉得呢，做什么都能学到东西，关键是一个态度问题。当然，这个学习也要做一个定期的review，不然真的会造成一个没有学到任何东西的情况，下面我就给自己遇到的一些奇葩以及常规的问题做一些自己的总结:]]></summary>
     
       <category term="工作" scheme="http://zhushiqing.github.io/categories/%E5%B7%A5%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[面试小结-7.30]]></title>
+    <link href="http://zhushiqing.github.io/2014/07/30/interview2/"/>
+    <id>http://zhushiqing.github.io/2014/07/30/interview2/</id>
+    <published>2014-07-30T09:29:28.000Z</published>
+    <updated>2014-08-30T11:07:09.000Z</updated>
+    <content type="html"><![CDATA[<p>每次出门都特别被，恩，说的大概就是我了吧。一路公交到面试地点，公司空调已挂，人已沙丁鱼，the result is 中暑。<br>好吧，华丽丽的想吐，真的不想吐槽我自己了，最后阶段给老奶奶让座攒攒人品，恩。废话不说。接入正题。</p>
+<p>实习面试的公司背景：</p>
+<p>全是技术党，很华丽的学术背景，恩，应该是实力比较强的那种，偏底层。<br><a id="more"></a></p>
+<hr>
+<p>面试官是高了好多届的学长。和蔼中带着气场，抛出的问题如下：</p>
+<blockquote>
+<p>1  能不能谈一下你对集合的理解<br>2    ArrayList底层怎么实现，HashMap底层怎么实现<br>3    list.add方法的底层实现<br>4    多线程是一种什么东西，为什么要有多线程，单核时代的多线程<br>5    用自己的方法来设计一个HashMap<br>6     jsp与ajax的关系？servlet与filter的区别<br>7    一致性哈希算法<br>8    快排<br>9     Linkedlist为什么会插入删除会比其他线性高，为什么？你有做过测试吗？</p>
+</blockquote>
+<hr>
+<h3 id="我的回答如下，恩，还是很多需要改进的地方的">我的回答如下，恩，还是很多需要改进的地方的</h3>
+<h3 id="Q1:">Q1:</h3>
+<p>在我的眼里集合就是一个容器，主要由list与set两个抽象类，然后分别是他们两的子类，具体的map布属于collection<br>。像list是有序，允许重复，而set存的无序，不允许重复。</p>
+<hr>
+<h3 id="Q2、3、5:">Q2、3、5:</h3>
+<ol>
+<li><p>ArrayList概述：<br>ArrayList是List接口的可变数组的实现。实现了所有可选列表操作，并允许包括 null 在内的所有元素。除了实现<br>List 接口外，此类还提供一些方法来操作内部用来存储列表的数组的大小。<br>每个ArrayList实例都有一个容量，该容量是指用来存储列表元素的数组的大小。<br>它总是至少等于列表的大小。随着向ArrayList中不断添加元素，其容量也自动增长。自动增长会带来数据向新数组的<br>重新拷贝，因此，如果可预知数据量的多少，可在构造ArrayList时指定其容量。在添加大量元素前，应用程序也可以<br>使用ensureCapacity操作来增加ArrayList实例的容量，这可以减少递增式再分配的数量。<br>注意，此实现不是同步的。如果多个线程同时访问一个ArrayList实例，而其中至少一个线程从结构上修改了列表，<br>那么它必须保持外部同步。</p>
+<p>arraylist.add方法：每次都是想数组的最后一个插入数据，当然也可以指定插入的地方，当数组容量不够的时候，<br>会调用下面的方法。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span>(<span class="keyword">int</span> minCapacity) {   </div><div class="line"> 	modCount++;   </div><div class="line"> 	<span class="keyword">int</span> oldCapacity = elementData.length;   </div><div class="line"> 	<span class="keyword">if</span> (minCapacity &gt; oldCapacity) {   </div><div class="line">     	Object oldData[] = elementData;   </div><div class="line">     	<span class="keyword">int</span> newCapacity = (oldCapacity * <span class="number">3</span>)/<span class="number">2</span> + <span class="number">1</span>;   </div><div class="line">         <span class="keyword">if</span> (newCapacity &lt; minCapacity)   </div><div class="line">             newCapacity = minCapacity;   </div><div class="line">   <span class="comment">// minCapacity is usually close to size, so this is a win:   </span></div><div class="line">   	elementData = Arrays.copyOf(elementData, newCapacity);   </div><div class="line"> 	}   </div><div class="line"> }</div><div class="line"> 这段是jdk里面扒出来的，从上面的代码可以看到，每次如果超过容量的时候，就是重新开辟一个<span class="number">1.5</span>-<span class="number">1</span>大小的数组，</div><div class="line"> 然后把原数组的数据copy进新数组里面去，（arraylist初始容量默认是<span class="number">10</span>）  </div><div class="line"> 很明显 这个效率非常不高吗= =。插入删除当然最要不要用arraylist了</div></pre></td></tr></table></figure>
+
+<ol>
+<li>HashMap：</li>
+</ol>
+<p>在我理解中，hashmap底层是一个数组实现的，每个数组的元素就是一个链表的头，映射表结合了数组查询迅速与链表插入<br>快速的优点。当我们往hashmap中put元素的时候，先根据key的hash值得到这个元素在数组中的位置（即下标），然后就<br>可以把这个元素放到对应的位置中了。如果这个元素所在的位子上已经存放有其他元素了，那么在同一个位子上的元素将以<br>链表的形式存放，新加入的放在链头，最先加入的放在链尾。从hashmap中get元素时，首先计算key的hashcode，找到数<br>组中对应位置的某一元素，然后通过key的equals方法在对应位置的链表中找到需要的元素。从这里我们可以想象得到，如<br>果每个位置上的链表只有一个元素，那么hashmap的get效率将是最高的，但是理想总是美好的，现实总是残酷的！嘿嘿</p>
+<p>一般来说，只有hashmap的加载因子是0.75，也就是16个，你存了12个，那么就会进行重新扩充2倍（记住这个是一个非<br>常耗性能的操作，所有的数据都被重新计算hashcode值再散列！）</p>
+<p>hashcode与equal重写。。。。</p>
+<hr>
+<h3 id="Q4：">Q4：</h3>
+<p>师兄的意思我大体理解了下：他有问多线程具体是怎么样的。其实key应该是在于资源共享，而不是提高执行效率，最关键<br>应该是回答多线程可以提高资源使用效率而提高整个程序的执行效率。<br>线程内共享资源还是可以复习下的。</p>
+<hr>
+<h3 id="Q6：">Q6：</h3>
+<p>jsp是服务器端语言ajax是客户端语言。</p>
+<p>以前总以为filter就是一种特殊servlet，所以他们在web.xml中配置因该是一样的，但是事实并非如此！= =</p>
+<p>filter是一个可以复用的代码片段，可以用来转换HTTP请求、响应和头信息。Filter不像Servlet，<br>它不能产生一个请求或者响应，它只是修改对某一资源的请求，或者修改从某一的响应。 </p>
+<p>public interface filter 没有继承servlet 所以压根不是一类，囧囧的答错了。</p>
+<hr>
+<h3 id="Q7：">Q7：</h3>
+<p>这个由于本人没接触过分布式- -只能很遗憾的答不上来。坑啊</p>
+<hr>
+<h3 id="Q8：">Q8：</h3>
+<p>快排神马的实在是太简单了 ，这里就不说了。</p>
+<hr>
+<h3 id="Q9：">Q9：</h3>
+<p>师兄问这个的目的就是想让我明白，做神马事情都要自己亲手做过测试才能下结论= =<br>不要老看blog怎么说的。。。你就神马都不做。</p>
+<p>受教了！</p>
+<hr>
+<p>今天又学到好多东西！</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>每次出门都特别被，恩，说的大概就是我了吧。一路公交到面试地点，公司空调已挂，人已沙丁鱼，the result is 中暑。<br>好吧，华丽丽的想吐，真的不想吐槽我自己了，最后阶段给老奶奶让座攒攒人品，恩。废话不说。接入正题。</p>
+<p>实习面试的公司背景：</p>
+<p>全是技术党，很华丽的学术背景，恩，应该是实力比较强的那种，偏底层。<br>]]></summary>
+    
+      <category term="面试" scheme="http://zhushiqing.github.io/categories/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
