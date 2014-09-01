@@ -206,6 +206,89 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-09-01T14:43:34.000Z"><a href="/2014/09/01/arraylist/">9月 1 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/09/01/arraylist/">ArrayList的实现原理</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="1-ArrayList概述">1.ArrayList概述</h2>
+<pre><code>ArrayList是<span class="keyword">List</span>接口的可变数组的实现。实现了所有可选列表操作，并允许包括 <span class="keyword">null</span> 在内的所有元素。除了实现 
+</code></pre><p>List 接口外，此类还提供一些方法来操作内部用来存储列表的数组的大小。<br>    每个ArrayList实例都有一个容量，该容量是指用来存储列表元素的数组的大小。它总是至少等于列表的大小。随着向<br>ArrayList中不断添加元素，其容量也自动增长。自动增长会带来数据向新数组的重新拷贝，因此，如果可预知数据量的多<br>少，可在构造ArrayList时指定其容量。在添加大量元素前，应用程序也可以使用ensureCapacity操作来增加ArrayList<br>实例的容量，这可以减少递增式再分配的数量。<br>       注意，此实现不是同步的。如果多个线程同时访问一个ArrayList实例，而其中至少一个线程从结构上修改了列表，<br>那么它必须保持外部同步。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/09/01/arraylist/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-09-01T14:36:56.000Z"><a href="/2014/09/01/hashmap/">9月 1 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/09/01/hashmap/">hashcode与equal</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="Q：两个对象值相同_(x-equals(y)_==_true)_,但却可有不同的_hash_code_,这_句话对不对">Q：两个对象值相同 (x.equals(y) == true) ,但却可有不同的 hash code ,这 句话对不对</h2>
+<p>答：不对，有相同的 hash code<br>这是java语言的定义：<br>1) 对象相等则hashCode一定相等；<br>2) hashCode相等对象未必相等</p>
+<h2>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/09/01/hashmap/#more" class="more-link">阅读全文</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-08-29T00:59:50.000Z"><a href="/2014/08/29/day140828/">8月 29 2014</a></time>
       
       
@@ -320,94 +403,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-18T05:39:51.000Z"><a href="/2014/08/18/ClassLoader/">8月 18 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/18/ClassLoader/">Java虚拟机中ClassLoader的机制分析</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="首先我们得明白什么是类加载器（ClassLoader）：">首先我们得明白什么是类加载器（ClassLoader）：</h2>
-<p><em>A</em>【类加载的作用】：java中的类加载器就是把java字节码（class文件）从硬盘中加载到内存中,然后做一些处理，这就是类加载器。</p>
-<p>一般来说，类加载器本身是一个java类，但是BootStrap加载器是C++写成的。是所有加载器的根。<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/18/ClassLoader/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-13T11:06:01.000Z"><a href="/2014/08/13/Proxy/">8月 13 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/13/Proxy/">Proxy机制（java动态代理机制）</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>什么是动态代理？</p>
-<h2 id="java动态代理机制">java动态代理机制</h2>
-<ul>
-<li>Q1：什么叫做动态代理机制？</li>
-<li>Q2：动态代理机制有什么好处？</li>
-<li>Q3：什么地方用到动态代理？</li>
-</ul>
-<hr>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/13/Proxy/#more" class="more-link">阅读全文</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-
-
 
 <nav id="pagination">
   
@@ -433,7 +428,7 @@
   
     <li><a href="/categories/DataBase/">DataBase</a><small>1</small></li>
   
-    <li><a href="/categories/Java/">Java</a><small>4</small></li>
+    <li><a href="/categories/Java/">Java</a><small>6</small></li>
   
     <li><a href="/categories/blog/">blog</a><small>4</small></li>
   

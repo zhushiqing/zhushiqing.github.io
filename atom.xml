@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-08-30T11:07:20.459Z</updated>
+  <updated>2014-09-01T14:59:57.623Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -13,6 +13,94 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ArrayList的实现原理]]></title>
+    <link href="http://zhushiqing.github.io/2014/09/01/arraylist/"/>
+    <id>http://zhushiqing.github.io/2014/09/01/arraylist/</id>
+    <published>2014-09-01T14:43:34.000Z</published>
+    <updated>2014-09-01T14:57:43.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="1-ArrayList概述">1.ArrayList概述</h2>
+<pre><code>ArrayList是<span class="keyword">List</span>接口的可变数组的实现。实现了所有可选列表操作，并允许包括 <span class="keyword">null</span> 在内的所有元素。除了实现 
+</code></pre><p>List 接口外，此类还提供一些方法来操作内部用来存储列表的数组的大小。<br>    每个ArrayList实例都有一个容量，该容量是指用来存储列表元素的数组的大小。它总是至少等于列表的大小。随着向<br>ArrayList中不断添加元素，其容量也自动增长。自动增长会带来数据向新数组的重新拷贝，因此，如果可预知数据量的多<br>少，可在构造ArrayList时指定其容量。在添加大量元素前，应用程序也可以使用ensureCapacity操作来增加ArrayList<br>实例的容量，这可以减少递增式再分配的数量。<br>       注意，此实现不是同步的。如果多个线程同时访问一个ArrayList实例，而其中至少一个线程从结构上修改了列表，<br>那么它必须保持外部同步。</p>
+<a id="more"></a>
+
+<h2 id="2-ArrayList实现">2.ArrayList实现</h2>
+<p>对于ArrayList而言，它实现List接口、底层使用数组保存所有元素。其操作基本上是对数组的操作。下面我们来分析<br>ArrayList的源代码：</p>
+<h3 id="1)_底层使用数组实现:">1) 底层使用数组实现:</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">transient</span> Object[] elementData;</div></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2)_构造方法:">2) 构造方法:</h3>
+<p> ArrayList提供了三种方式的构造器，可以构造一个默认初始容量为10的空列表、构造一个指定初始容量的空列表以及构<br> 造一个包含指定collection的元素的列表，这些元素按照该collection的迭代器返回它们的顺序排列的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="title">ArrayList</span>() {   </div><div class="line">    <span class="keyword">this</span>(<span class="number">10</span>);   </div><div class="line">}   </div><div class="line">  </div><div class="line"><span class="keyword">public</span> <span class="title">ArrayList</span>(<span class="keyword">int</span> initialCapacity) {   </div><div class="line">    <span class="keyword">super</span>();   </div><div class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)   </div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal Capacity: "</span>+ initialCapacity);   </div><div class="line">    <span class="keyword">this</span>.elementData = <span class="keyword">new</span> Object[initialCapacity];   </div><div class="line">}   </div><div class="line">  </div><div class="line"><span class="keyword">public</span> <span class="title">ArrayList</span>(Collection&lt;? extends E&gt; c) {   </div><div class="line">    elementData = c.toArray();   </div><div class="line">    size = elementData.length;   </div><div class="line">    <span class="comment">// c.toArray might (incorrectly) not return Object[] (see 6260652)   </span></div><div class="line">    <span class="keyword">if</span> (elementData.getClass() != Object[].class)   </div><div class="line">        elementData = Arrays.copyOf(elementData, size, Object[].class);   </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3)_存储:">3) 存储:</h3>
+<p>   ArrayList提供了set(int index, E element)、add(E e)、add(int index, E element)、<br>addAll(Collection&lt;? extends E&gt; c)、addAll(int index, Collection&lt;? extends E&gt; c)这些添加元素<br>的方法。下面我们一一讲解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 用指定的元素替代此列表中指定位置上的元素，并返回以前位于该位置上的元素。   </span></div><div class="line"><span class="keyword">public</span> E <span class="title">set</span>(<span class="keyword">int</span> index, E element) {   </div><div class="line">    RangeCheck(index);   </div><div class="line">  </div><div class="line">    E oldValue = (E) elementData[index];   </div><div class="line">    elementData[index] = element;   </div><div class="line">    <span class="keyword">return</span> oldValue;   </div><div class="line">}  </div><div class="line"></div><div class="line">   <span class="comment">// 将指定的元素插入此列表中的指定位置。   </span></div><div class="line"><span class="comment">// 如果当前位置有元素，则向右移动当前位于该位置的元素以及所有后续元素（将其索引加1）。   </span></div><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span>(<span class="keyword">int</span> index, E element) {   </div><div class="line">    <span class="keyword">if</span> (index &gt; size || index &lt; <span class="number">0</span>)   </div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(<span class="string">"Index: "</span>+index+<span class="string">", Size: "</span>+size);   </div><div class="line">    <span class="comment">// 如果数组长度不足，将进行扩容。   </span></div><div class="line">    ensureCapacity(size+<span class="number">1</span>);  <span class="comment">// Increments modCount!!   </span></div><div class="line">    <span class="comment">// 将 elementData中从Index位置开始、长度为size-index的元素，   </span></div><div class="line">    <span class="comment">// 拷贝到从下标为index+1位置开始的新的elementData数组中。   </span></div><div class="line">    <span class="comment">// 即将当前位于该位置的元素以及所有后续元素右移一个位置。   </span></div><div class="line">    System.arraycopy(elementData, index, elementData, index + <span class="number">1</span>, size - index);   </div><div class="line">    elementData[index] = element;   </div><div class="line">    size++;   </div><div class="line">}  </div><div class="line"></div><div class="line"><span class="comment">// 按照指定collection的迭代器所返回的元素顺序，将该collection中的所有元素添加到此列表的尾部。   </span></div><div class="line"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addAll</span>(Collection&lt;? extends E&gt; c) {   </div><div class="line">    Object[] a = c.toArray();   </div><div class="line">    <span class="keyword">int</span> numNew = a.length;   </div><div class="line">    ensureCapacity(size + numNew);  <span class="comment">// Increments modCount   </span></div><div class="line">    System.arraycopy(a, <span class="number">0</span>, elementData, size, numNew);   </div><div class="line">    size += numNew;   </div><div class="line">    <span class="keyword">return</span> numNew != <span class="number">0</span>;   </div><div class="line">}  </div><div class="line"></div><div class="line"><span class="comment">// 从指定的位置开始，将指定collection中的所有元素插入到此列表中。   </span></div><div class="line"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addAll</span>(<span class="keyword">int</span> index, Collection&lt;? extends E&gt; c) {   </div><div class="line">    <span class="keyword">if</span> (index &gt; size || index &lt; <span class="number">0</span>)   </div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(   </div><div class="line">            <span class="string">"Index: "</span> + index + <span class="string">", Size: "</span> + size);   </div><div class="line">  </div><div class="line">    Object[] a = c.toArray();   </div><div class="line">    <span class="keyword">int</span> numNew = a.length;   </div><div class="line">    ensureCapacity(size + numNew);  <span class="comment">// Increments modCount   </span></div><div class="line">  </div><div class="line">    <span class="keyword">int</span> numMoved = size - index;   </div><div class="line">    <span class="keyword">if</span> (numMoved &gt; <span class="number">0</span>)   </div><div class="line">        System.arraycopy(elementData, index, elementData, index + numNew, numMoved);   </div><div class="line">  </div><div class="line">    System.arraycopy(a, <span class="number">0</span>, elementData, index, numNew);   </div><div class="line">    size += numNew;   </div><div class="line">    <span class="keyword">return</span> numNew != <span class="number">0</span>;   </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="4)_读取：">4) 读取：</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 返回此列表中指定位置上的元素。   </span></div><div class="line"><span class="keyword">public</span> E <span class="title">get</span>(<span class="keyword">int</span> index) {   </div><div class="line">    RangeCheck(index);   </div><div class="line">  </div><div class="line">    <span class="keyword">return</span> (E) elementData[index];   </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="5)_删除：">5) 删除：</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"> ArrayList提供了根据下标或者指定对象两种方式的删除功能。如下：</div><div class="line"></div><div class="line"><span class="comment">// 移除此列表中指定位置上的元素。   </span></div><div class="line"><span class="keyword">public</span> E <span class="title">remove</span>(<span class="keyword">int</span> index) {   </div><div class="line">    RangeCheck(index);   </div><div class="line">  </div><div class="line">    modCount++;   </div><div class="line">    E oldValue = (E) elementData[index];   </div><div class="line">  </div><div class="line">    <span class="keyword">int</span> numMoved = size - index - <span class="number">1</span>;   </div><div class="line">    <span class="keyword">if</span> (numMoved &gt; <span class="number">0</span>)   </div><div class="line">        System.arraycopy(elementData, index+<span class="number">1</span>, elementData, index, numMoved);   </div><div class="line">    elementData[--size] = <span class="keyword">null</span>; <span class="comment">// Let gc do its work   </span></div><div class="line">  </div><div class="line">    <span class="keyword">return</span> oldValue;   </div><div class="line">}  </div><div class="line"></div><div class="line"><span class="comment">// 移除此列表中首次出现的指定元素（如果存在）。这是应为ArrayList中允许存放重复的元素。   </span></div><div class="line"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span>(Object o) {   </div><div class="line">    <span class="comment">// 由于ArrayList中允许存放null，因此下面通过两种情况来分别处理。   </span></div><div class="line">    <span class="keyword">if</span> (o == <span class="keyword">null</span>) {   </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; size; index++)   </div><div class="line">            <span class="keyword">if</span> (elementData[index] == <span class="keyword">null</span>) {   </div><div class="line">                <span class="comment">// 类似remove(int index)，移除列表中指定位置上的元素。   </span></div><div class="line">                fastRemove(index);   </div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;   </div><div class="line">            }   </div><div class="line">} <span class="keyword">else</span> {   </div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; size; index++)   </div><div class="line">        <span class="keyword">if</span> (o.equals(elementData[index])) {   </div><div class="line">            fastRemove(index);   </div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;   </div><div class="line">        }   </div><div class="line">    }   </div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;   </div><div class="line">}  </div><div class="line"></div><div class="line"><span class="comment">//注意：从数组中移除元素的操作，也会导致被移除的元素以后的所有元素的向左移动一个位置。</span></div></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="6)_调整数组容量：">6) 调整数组容量：</h3>
+<p>从上面介绍的向ArrayList中存储元素的代码中，我们看到，每当向数组中添加元素时，都要去检查添加后元素的个数是否<br>会超出当前数组的长度，如果超出，数组将会进行扩容，以满足添加数据的需求。数组扩容通过一个公开的方法<br>ensureCapacity(int minCapacity)来实现。在实际添加大量元素前，我也可以使用ensureCapacity来手动增加<br>ArrayList实例的容量，以减少递增式再分配的数量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span>(<span class="keyword">int</span> minCapacity) {   </div><div class="line">    modCount++;   </div><div class="line">    <span class="keyword">int</span> oldCapacity = elementData.length;   </div><div class="line">    <span class="keyword">if</span> (minCapacity &gt; oldCapacity) {   </div><div class="line">        Object oldData[] = elementData;   </div><div class="line">        <span class="keyword">int</span> newCapacity = (oldCapacity * <span class="number">3</span>)/<span class="number">2</span> + <span class="number">1</span>;   </div><div class="line">            <span class="keyword">if</span> (newCapacity &lt; minCapacity)   </div><div class="line">                newCapacity = minCapacity;   </div><div class="line">      <span class="comment">// minCapacity is usually close to size, so this is a win:   </span></div><div class="line">      elementData = Arrays.copyOf(elementData, newCapacity);   </div><div class="line">    }   </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>  从上述代码中可以看出，数组进行扩容时，会将老数组中的元素重新拷贝一份到新的数组中，每次数组容量的增长大约是<br>  其原容量的1.5倍。这种操作的代价是很高的，因此在实际使用时，我们应该尽量避免数组容量的扩张。当我们可预知要<br>  保存的元素的多少时，要在构造ArrayList实例时，就指定其容量，以避免数组扩容的发生。或者根据实际需求，通过<br>  调用ensureCapacity方法来手动增加ArrayList实例的容量。<br>   ArrayList还给我们提供了将底层数组的容量调整为当前列表保存的实际元素的大小的功能。它可以通过trimToSize<br>   方法来实现。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">trimToSize</span>() {   </div><div class="line">    modCount++;   </div><div class="line">    <span class="keyword">int</span> oldCapacity = elementData.length;   </div><div class="line">    <span class="keyword">if</span> (size &lt; oldCapacity) {   </div><div class="line">        elementData = Arrays.copyOf(elementData, size);   </div><div class="line">    }   </div><div class="line">}</div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html"><![CDATA[<h2 id="1-ArrayList概述">1.ArrayList概述</h2>
+<pre><code>ArrayList是<span class="keyword">List</span>接口的可变数组的实现。实现了所有可选列表操作，并允许包括 <span class="keyword">null</span> 在内的所有元素。除了实现 
+</code></pre><p>List 接口外，此类还提供一些方法来操作内部用来存储列表的数组的大小。<br>    每个ArrayList实例都有一个容量，该容量是指用来存储列表元素的数组的大小。它总是至少等于列表的大小。随着向<br>ArrayList中不断添加元素，其容量也自动增长。自动增长会带来数据向新数组的重新拷贝，因此，如果可预知数据量的多<br>少，可在构造ArrayList时指定其容量。在添加大量元素前，应用程序也可以使用ensureCapacity操作来增加ArrayList<br>实例的容量，这可以减少递增式再分配的数量。<br>       注意，此实现不是同步的。如果多个线程同时访问一个ArrayList实例，而其中至少一个线程从结构上修改了列表，<br>那么它必须保持外部同步。</p>
+]]></summary>
+    
+      <category term="转" scheme="http://zhushiqing.github.io/tags/%E8%BD%AC/"/>
+    
+      <category term="Java" scheme="http://zhushiqing.github.io/categories/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[hashcode与equal]]></title>
+    <link href="http://zhushiqing.github.io/2014/09/01/hashmap/"/>
+    <id>http://zhushiqing.github.io/2014/09/01/hashmap/</id>
+    <published>2014-09-01T14:36:56.000Z</published>
+    <updated>2014-09-01T14:59:43.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Q：两个对象值相同_(x-equals(y)_==_true)_,但却可有不同的_hash_code_,这_句话对不对">Q：两个对象值相同 (x.equals(y) == true) ,但却可有不同的 hash code ,这 句话对不对</h2>
+<p>答：不对，有相同的 hash code<br>这是java语言的定义：<br>1) 对象相等则hashCode一定相等；<br>2) hashCode相等对象未必相等</p>
+<h2><a id="more"></a></h2>
+<p>1.如果是基本变量，没有hashcode和equals方法，基本变量的比较方式就只有==；</p>
+<p>2.如果是变量，由于在java中所有变量定义都是一个指向实际存储的一个句柄（你可以理解为c++中的指针），在这里==是比较句柄的地址（你可以理解为指针的存储地址），而不是句柄指向的实际内存中的内容，如果要比较实际内存中的内容，那就要用equals方法，但是！！！</p>
+<p>如果是你自己定义的一个类，比较自定义类用equals和==是一样的，都是比较句柄地址，因为自定义的类是继承于object，而object中的equals就是用==来实现的，你可以看源码。</p>
+<p>那为什么我们用的String等等类型equals是比较实际内容呢，是因为String等常用类已经重写了object中的equals方法，让equals来比较实际内容，你也可以看源码。</p>
+<ol>
+<li>hashcode</li>
+</ol>
+<p>在一般的应用中你不需要了解hashcode的用法，但当你用到hashmap，hashset等集合类时要注意下hashcode。</p>
+<p>你想通过一个object的key来拿hashmap的value，hashmap的工作方法是，通过你传入的object的hashcode在内存中找地址，当找到这个地址后再通过equals方法来比较这个地址中的内容是否和你原来放进去的一样，一样就取出value。</p>
+<p>所以这里要匹配2部分，hashcode和equals</p>
+<p>但假如说你new一个object作为key去拿value是永远得不到结果的，因为每次new一个object，这个object的hashcode是永远不同的，所以我们要重写hashcode，你可以令你的hashcode是object中的一个恒量，这样永远可以通过你的object的hashcode来找到key的地址，然后你要重写你的equals方法，使内存中的内容也相等。。。</p>
+<p>一般来讲，equals这个方法是给用户调用的，如果你想判断2个对象是否相等，你可以重写equals方法，然后在代码中调用，就可以判断他们是否相等了。简单来讲，equals方法主要是用来判断从表面上看或者从内容上看，2个对象是不是相等。举个例子，有个学生类，属性只有姓名和性别，那么我们可以认为只要姓名和性别相等，那么就说这2个对象是相等的。</p>
+<p>hashcode方法一般用户不会去调用，比如在hashmap中，由于key是不可以重复的，他在判断key是不是重复的时候就判断了hashcode这个方法，而且也用到了equals方法。这里不可以重复是说equals和hashcode只要有一个不等就可以了！所以简单来讲，hashcode相当于是一个对象的编码，就好像文件中的md5，他和equals不同就在于他返回的是int型的，比较起来不直观。我们一般在覆盖equals的同时也要覆盖hashcode，让他们的逻辑一致。举个例子，还是刚刚的例子，如果姓名和性别相等就算2个对象相等的话，那么hashcode的方法也要返回姓名的hashcode值加上性别的hashcode值，这样从逻辑上，他们就一致了。</p>
+<p>要从物理上判断2个对象是否相等，用==就可以了</p>
+]]></content>
+    <summary type="html"><![CDATA[<h2 id="Q：两个对象值相同_(x-equals(y)_==_true)_,但却可有不同的_hash_code_,这_句话对不对">Q：两个对象值相同 (x.equals(y) == true) ,但却可有不同的 hash code ,这 句话对不对</h2>
+<p>答：不对，有相同的 hash code<br>这是java语言的定义：<br>1) 对象相等则hashCode一定相等；<br>2) hashCode相等对象未必相等</p>
+<h2>]]></summary>
+    
+      <category term="转" scheme="http://zhushiqing.github.io/tags/%E8%BD%AC/"/>
+    
+      <category term="Java" scheme="http://zhushiqing.github.io/categories/Java/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[狼狈的一天]]></title>
@@ -695,89 +783,6 @@
 <p><strong>Q2</strong>:什么叫做线程互斥，他会导致什么后果？<br>]]></summary>
     
       <category term="Java" scheme="http://zhushiqing.github.io/categories/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[阿里校园招聘一面]]></title>
-    <link href="http://zhushiqing.github.io/2014/07/18/hello-world/"/>
-    <id>http://zhushiqing.github.io/2014/07/18/hello-world/</id>
-    <published>2014-07-18T07:32:34.000Z</published>
-    <updated>2014-08-04T07:52:34.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="一只小菜鸟的阿里巴巴一面（内推）">一只小菜鸟的阿里巴巴一面（内推）</h2>
-<p>我是一只小菜鸟啊，纯菜啊！我以前写的都是C#啊！从来没接触过java，我学习java的时间加起来也不到7个月！默默的挣扎了好久，还是决定参加内推，投了阿里的简历！<br>可是！这么一来，我的小心脏总是hold不住，我同学们一个个都是从新投递的状态改为待面试了（一天内），而我一直显示是待面试！（感觉自己简历又被刷了！，之前校招实习的简历没写好，直接被刷，好不甘心！！！！！！！！！！）<br>好吧，担心没用！从20-25这段时间真心好纠结。可是着急没用，差不多我已经放弃，距离投递已经过了一周，我的简历还没被处理。。。。<br>可是！奇迹！出现了！昨天中午，阿里巴巴居然给我打电话了，我记得那会刚好是12：34，我刚好吃完饭上来，然后忙着导师给我的任务。加上今天昨晚被空调吹感冒了，实在是无力在最困顿的时候受虐，于是乎，与电话对面的面试官约好下午重新打来！<br>好吧，挂了电话，小心脏扑通扑通不争气的跳了起来！真的是又惊又喜！<br>于是乎，一下午都在恍恍惚惚中度过，连下午的周会都差点走神，好吧，我承认我第一次面阿里。有点小紧张。<br>然后5：13 ，在我开周会的时候，阿里的技术GG给我电话了。然后阿里一面就这么开始了，问题如下：<br><a id="more"></a></p>
-<h3 id="1-简单的介绍下自己">1.简单的介绍下自己</h3>
-<p>我就blabla的说了下自己的本科语言方向，然后研究生的语言方向（java），然后做的项目，实习情况（4月到现在）blabla之类的</p>
-<h3 id="2-开始根据我的自我介绍开始简单的追问了">2.开始根据我的自我介绍开始简单的追问了</h3>
-<p>研究生学得XXX课程，（语言类），然后开始追问语言基础</p>
-<h3 id="3-进程与线程的区别（太太太基础了=_=）">3.进程与线程的区别（太太太基础了= =）</h3>
-<p>一个进程包含一个或者多个线程，进程是CPU等资源占用的基本单位blabla之类的</p>
-<h3 id="4-String是不是基本数据类型">4.String是不是基本数据类型</h3>
-<p>String 明显不是。。。。八种基本数据类型是 int byte short long char double float boolean  还有剩下的就是引用类型数据</p>
-<h3 id="5-还问我了好多线程同步的问题，不过都比较基础，比如说（ArraryList_与_Vector_哪个线程同步。hashtable与hashmap_哪个是线程同步）">5.还问我了好多线程同步的问题，不过都比较基础，比如说（ArraryList 与 Vector 哪个线程同步。hashtable与hashmap 哪个是线程同步）</h3>
-<p>ArrayList与HashMap是线程不同步的，所以效率较高，实际开发中使用较多，blabla之类的 （具体我也没使用过 各种blog中的）</p>
-<h3 id="6-_多态。。。。。（实在很无力说明这么抽象的问题）">6. 多态。。。。。（实在很无力说明这么抽象的问题）</h3>
-<p>我就答了。。。。。接口与抽象类  多态通过继承父类，实现接口XXX之类的来表现，然后让我举个栗子（实在是无奈哈）</p>
-<h3 id="7-==与equal">7.==与equal</h3>
-<p>好吧 这都出来了，实在无力到家了。。。。==比较的是引用地址，然后equal是值对象，然后让我重写（override）Object.equal()方法 </p>
-<h3 id="8-各种排序，各种时间复杂度，最优解">8.各种排序，各种时间复杂度，最优解</h3>
-<p>快排，冒泡，二分查找，。。。。XX各种让你说时间复杂度，也不难，然后给出最优解</p>
-<h3 id="9-垃圾回收机制_&amp;_JVM">9.垃圾回收机制 &amp; JVM</h3>
-<p>ava中的垃圾回收机制解决了c++中最令人烦恼的内存管理问题，垃圾回收机制通常作为一个低级别的线程运行，不可预知的情况对内存堆中已经死亡或者长时间没有使用的对象进行清除和回收，一般来说程序员不能调用垃圾回收立即回收垃圾对象，就算我们调用System.gc()也不能立即执行，这个由虚拟机的本身算法决定。</p>
-<p>当程序员new 出一个对象的时候就，GC就开始监管这个对象的地址，大小，以及使用情况，GC一般通过有向图的方式监管和记录（heap中的对象）。通过这方式，确定哪个对象是可达的，如果对象不可达，GC就有责任回收这些对象内存空间。</p>
-<h3 id="10-三大框架">10.三大框架</h3>
-<p>好吧，这个我就泛泛而谈了。。。。</p>
-<h3 id="11-内排与外排">11.内排与外排</h3>
-<p>….</p>
-<h2 id="#">#</h2>
-<p>面试结束，然后很简单的问了下对我看法，GG很友善的说 等下一面，然后急匆匆吃饭下班去了。。。。maybe 最后是我脑补的。毕竟是周五的18：02分了。。</p>
-]]></content>
-    <summary type="html"><![CDATA[<h2 id="一只小菜鸟的阿里巴巴一面（内推）">一只小菜鸟的阿里巴巴一面（内推）</h2>
-<p>我是一只小菜鸟啊，纯菜啊！我以前写的都是C#啊！从来没接触过java，我学习java的时间加起来也不到7个月！默默的挣扎了好久，还是决定参加内推，投了阿里的简历！<br>可是！这么一来，我的小心脏总是hold不住，我同学们一个个都是从新投递的状态改为待面试了（一天内），而我一直显示是待面试！（感觉自己简历又被刷了！，之前校招实习的简历没写好，直接被刷，好不甘心！！！！！！！！！！）<br>好吧，担心没用！从20-25这段时间真心好纠结。可是着急没用，差不多我已经放弃，距离投递已经过了一周，我的简历还没被处理。。。。<br>可是！奇迹！出现了！昨天中午，阿里巴巴居然给我打电话了，我记得那会刚好是12：34，我刚好吃完饭上来，然后忙着导师给我的任务。加上今天昨晚被空调吹感冒了，实在是无力在最困顿的时候受虐，于是乎，与电话对面的面试官约好下午重新打来！<br>好吧，挂了电话，小心脏扑通扑通不争气的跳了起来！真的是又惊又喜！<br>于是乎，一下午都在恍恍惚惚中度过，连下午的周会都差点走神，好吧，我承认我第一次面阿里。有点小紧张。<br>然后5：13 ，在我开周会的时候，阿里的技术GG给我电话了。然后阿里一面就这么开始了，问题如下：<br>]]></summary>
-    
-      <category term="面试" scheme="http://zhushiqing.github.io/categories/%E9%9D%A2%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[排序算法分类总结]]></title>
-    <link href="http://zhushiqing.github.io/2014/07/11/sort/"/>
-    <id>http://zhushiqing.github.io/2014/07/11/sort/</id>
-    <published>2014-07-11T02:41:04.000Z</published>
-    <updated>2014-08-24T04:30:23.000Z</updated>
-    <content type="html"><![CDATA[<p>怎么说呢，作为程序猿，我们肯定少不了接触排序这个基础的算法！</p>
-<p>今天就让我给大家做一个我理解中应该掌握的排序算法</p>
-<p>首先呢，我们要总结下归类</p>
-<h2 id="排序算法">排序算法</h2>
-<blockquote>
-<p>1.内部排序(内排，只是用内存)</p>
-<blockquote>
-<p>1.1 插入排序</p>
-<blockquote>
-<p>1.1.1 直接插入排序<br>1.1.2 希尔插入排序<br>1.1.3 二分插入排序<br>1.1.4 链表插入排序</p>
-</blockquote>
-<p>1.2 选择排序</p>
-<blockquote>
-<p>1.2.1 简单选择排序<br>1.2.2 堆排序</p>
-</blockquote>
-<p>1.3 交换排序</p>
-<blockquote>
-<p>1.3.1 冒泡排序<br>1.3.2 快速排序</p>
-</blockquote>
-<p>1.4 归并排序</p>
-<p>1.5 基数排序</p>
-</blockquote>
-<p>2.外部排序(外排，内存+外存)</p>
-</blockquote>
-<p>这些都是程序员的基本功，要扎实到能够用到的地方就想到！</p>
-<hr>
-<p>加油！自己！</p>
-]]></content>
-    
-    
-      <category term="排序总结" scheme="http://zhushiqing.github.io/tags/%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/"/>
-    
-      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
     
   </entry>
   
