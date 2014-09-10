@@ -221,7 +221,7 @@
 <hr>
 <p>面试官是高了好多届的学长。和蔼中带着气场，抛出的问题如下：</p>
 <blockquote>
-<p>1  能不能谈一下你对集合的理解<br>2    ArrayList底层怎么实现，HashMap底层怎么实现<br>3    list.add方法的底层实现<br>4    多线程是一种什么东西，为什么要有多线程，单核时代的多线程<br>5    用自己的方法来设计一个HashMap<br>6     jsp与ajax的关系？servlet与filter的区别<br>7    一致性哈希算法<br>8    快排<br>9     Linkedlist为什么会插入删除会比其他线性高，为什么？你有做过测试吗？</p>
+<p>1  能不能谈一下你对集合的理解<br>2    ArrayList底层怎么实现，HashMap底层怎么实现<br>3    list.add方法的底层实现<br>4    多线程是一种什么东西，为什么要有多线程，单核时代的多线程<br>5    用自己的方法来设计一个HashMap<br>6     jsp与ajax的关系？servlet与filter的区别<br>7    一致性哈希算法<br>8    快排<br>9     Linkedlist为什么会插入删除会比其他线性高，为什么？你有做过测试吗？<br>10 String为什么是final类？<br>11 匿名内部类调用外部变量，为什么要用final？</p>
 </blockquote>
 <hr>
 <h3 id="我的回答如下，恩，还是很多需要改进的地方的">我的回答如下，恩，还是很多需要改进的地方的</h3>
@@ -260,7 +260,12 @@
 <hr>
 <h3 id="Q9：">Q9：</h3>
 <p>师兄问这个的目的就是想让我明白，做神马事情都要自己亲手做过测试才能下结论= =<br>不要老看blog怎么说的。。。你就神马都不做。</p>
-<p>受教了！</p>
+<hr>
+<h3 id="Q10:">Q10:</h3>
+<p>主要是为了“效率” 和 “安全性” 的缘故。若 String允许被继承, 由于它的高度被使用率<br>, 可能会降低程序的性能，所以String被定义成final。</p>
+<hr>
+<h3 id="Q11:">Q11:</h3>
+<p>从编译器的角度来看，其实内部类编译的时候已经生产的是outter$inner.class，是单独的一个文件，<br>所以用的field也是从方法内copy进来的，如果在内部类里面改掉该field也不会改变。所以为了保持值的一致性<br>所以用final修饰。</p>
 <hr>
 <p>今天又学到好多东西！</p>
 
@@ -335,7 +340,7 @@ var duoshuoQuery = {short_name:"zhushiqing"};
   
     <li><a href="/categories/DataBase/">DataBase</a><small>1</small></li>
   
-    <li><a href="/categories/Java/">Java</a><small>7</small></li>
+    <li><a href="/categories/Java/">Java</a><small>8</small></li>
   
     <li><a href="/categories/blog/">blog</a><small>4</small></li>
   
