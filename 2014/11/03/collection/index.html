@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>hashcode与equal | SunnyZhu&#39;blog</title>
+  <title>需求功能整理 | SunnyZhu&#39;blog</title>
   <meta name="author" content="zhushiqing">
   
   <meta name="description" content="zsq66zsq">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="hashcode与equal"/>
+  <meta property="og:title" content="需求功能整理"/>
   <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
 
   
@@ -205,33 +205,74 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-09-01T14:36:56.000Z"><a href="/2014/09/01/hashmap/">9月 1 2014</a></time>
+        <time datetime="2014-11-03T13:13:31.000Z"><a href="/2014/11/03/collection/">11月 3 2014</a></time>
       
       
   
-    <h1 class="title">hashcode与equal</h1>
+    <h1 class="title">需求功能整理</h1>
   
 
     </header>
     <div class="entry">
       
-        <h2 id="Q：两个对象值相同_(x-equals(y)_==_true)_,但却可有不同的_hash_code_,这_句话对不对">Q：两个对象值相同 (x.equals(y) == true) ,但却可有不同的 hash code ,这 句话对不对</h2>
-<p>答：不对，有相同的 hash code<br>这是java语言的定义：<br>1) 对象相等则hashCode一定相等；<br>2) hashCode相等对象未必相等</p>
-<h2><a id="more"></a></h2>
-<p>1.如果是基本变量，没有hashcode和equals方法，基本变量的比较方式就只有==；</p>
-<p>2.如果是变量，由于在java中所有变量定义都是一个指向实际存储的一个句柄（你可以理解为c++中的指针），在这里==是比较句柄的地址（你可以理解为指针的存储地址），而不是句柄指向的实际内存中的内容，如果要比较实际内存中的内容，那就要用equals方法，但是！！！</p>
-<p>如果是你自己定义的一个类，比较自定义类用equals和==是一样的，都是比较句柄地址，因为自定义的类是继承于object，而object中的equals就是用==来实现的，你可以看源码。</p>
-<p>那为什么我们用的String等等类型equals是比较实际内容呢，是因为String等常用类已经重写了object中的equals方法，让equals来比较实际内容，你也可以看源码。</p>
+        <h2 id="前台功能">前台功能</h2>
+<p>登录功能</p>
+<h3 id="酒吧">酒吧</h3>
+<ul>
+<li>热门酒吧（显示description，image），根据hothit来进行排名，也可以人为修改数据，可以加入收藏，点击进入具体酒吧，可以进行购买，收藏等功能</li>
+<li>最新折扣：展示酒吧折扣信息，desc creattime 点击进入酒吧，可以进行购买，收藏等功能</li>
+<li>附近酒吧：根据获取的用户坐标数据来确定附近酒吧，点击进入酒吧，可以进行购买，收藏等功能<h3 id="我的">我的</h3>
+</li>
+<li>会员卡管理<ul>
+<li>我的会员卡：显示我的会员卡信息，点击进入会员卡续费等功能</li>
+<li>会员管理：有续费功能，显示会员卡信息，到期时间</li>
+</ul>
+</li>
+<li>积分查询：<ul>
+<li>显示： 点击积分查询显示积分增长减少信息，来源，时间</li>
+<li>兑换： 根据商家的兑换活动，可以将积分兑换成会员时间等</li>
+</ul>
+</li>
+<li>个人信息:<ul>
+<li>我的收藏：点击显示我收藏的酒吧</li>
+<li>我的会员卡：显示我的会员卡信息，时间，酒吧等信息。</li>
+<li>我的订单：显示我支付过的订单信息 或者未支付的订单信息 时间 等等</li>
+<li>我的评价：显示我评价过的订单信息</li>
+<li>设置：头像修改，用户名修改     </li>
+<li>联系我们：显示我们的团队信息</li>
+</ul>
+</li>
+<li>帮助     <ul>
+<li>平台使用的教程，多个静态页面or一个静态页面</li>
+<li>关于我们 制作团队的信息 </li>
+</ul>
+</li>
+</ul>
+<p>续费支付功能：使用二维码扫码支付：二维码为用户消费数额+会员卡+userid</p>
+<h2 id="后台功能">后台功能</h2>
+<h3 id="酒吧管理">酒吧管理</h3>
+<p>1.一个or多个酒吧的增加 删除 坐标的修改 （包括信息的修改）（管理员）</p>
+<p>2.单独的酒吧管理(商户)：</p>
+<pre><code><span class="bullet">*  </span>酒吧图片的修改
+<span class="bullet">*  </span>酒吧的折扣发布 修改 删除
+<span class="bullet">*  </span>酒吧的信息修改
+<span class="bullet">*  </span>酒吧会员卡消费信息查询，修改等
+<span class="bullet">*  </span>查询某用户的当前酒吧具体消费信息
+</code></pre><h3 id="交易管理">交易管理</h3>
 <ol>
-<li>hashcode</li>
+<li>订单的查询，订单的修改，订单的删除（by id by name by time等等）</li>
+<li>评价管理 评价的删除 </li>
 </ol>
-<p>在一般的应用中你不需要了解hashcode的用法，但当你用到hashmap，hashset等集合类时要注意下hashcode。</p>
-<p>你想通过一个object的key来拿hashmap的value，hashmap的工作方法是，通过你传入的object的hashcode在内存中找地址，当找到这个地址后再通过equals方法来比较这个地址中的内容是否和你原来放进去的一样，一样就取出value。</p>
-<p>所以这里要匹配2部分，hashcode和equals</p>
-<p>但假如说你new一个object作为key去拿value是永远得不到结果的，因为每次new一个object，这个object的hashcode是永远不同的，所以我们要重写hashcode，你可以令你的hashcode是object中的一个恒量，这样永远可以通过你的object的hashcode来找到key的地址，然后你要重写你的equals方法，使内存中的内容也相等。。。</p>
-<p>一般来讲，equals这个方法是给用户调用的，如果你想判断2个对象是否相等，你可以重写equals方法，然后在代码中调用，就可以判断他们是否相等了。简单来讲，equals方法主要是用来判断从表面上看或者从内容上看，2个对象是不是相等。举个例子，有个学生类，属性只有姓名和性别，那么我们可以认为只要姓名和性别相等，那么就说这2个对象是相等的。</p>
-<p>hashcode方法一般用户不会去调用，比如在hashmap中，由于key是不可以重复的，他在判断key是不是重复的时候就判断了hashcode这个方法，而且也用到了equals方法。这里不可以重复是说equals和hashcode只要有一个不等就可以了！所以简单来讲，hashcode相当于是一个对象的编码，就好像文件中的md5，他和equals不同就在于他返回的是int型的，比较起来不直观。我们一般在覆盖equals的同时也要覆盖hashcode，让他们的逻辑一致。举个例子，还是刚刚的例子，如果姓名和性别相等就算2个对象相等的话，那么hashcode的方法也要返回姓名的hashcode值加上性别的hashcode值，这样从逻辑上，他们就一致了。</p>
-<p>要从物理上判断2个对象是否相等，用==就可以了</p>
+<h3 id="用户管理">用户管理</h3>
+<ol>
+<li>消费统计：显示每个人的消费信息，总额</li>
+<li>用户信息的修改，删除，新增</li>
+</ol>
+<h3 id="设置管理">设置管理</h3>
+<ol>
+<li>修改各种联系信息</li>
+<li>修改使用教程等信息</li>
+</ol>
 
       
     </div>
@@ -240,15 +281,10 @@
         
   
   <div class="categories">
-    <a href="/categories/Java/">Java</a>
+    <a href="/categories/杂七杂八/">杂七杂八</a>
   </div>
 
         
-  
-  <div class="tags">
-    <a href="/tags/转/">转</a>
-  </div>
-
         <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
       
@@ -262,17 +298,15 @@
 
 <nav id="pagination" >
     
-    <a href="/2014/09/01/arraylist/" class="alignleft prev" >上一页</a>
     
-    
-    <a href="/2014/08/29/day140828/" class="alignright next" >下一页</a>
+    <a href="/2014/09/03/JVM/" class="alignright next" >下一页</a>
     
     <div class="clearfix"></div>
 </nav>
 <section id="comment">
 
 <!-- 多说评论框 start -->	
-<div class="ds-thread" data-thread-key="/2014/09/01/hashmap/" data-title="hashcode与equal" data-url="http://zhushiqing.github.io/2014/09/01/hashmap/"></div>
+<div class="ds-thread" data-thread-key="/2014/11/03/collection/" data-title="需求功能整理" data-url="http://zhushiqing.github.io/2014/11/03/collection/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->

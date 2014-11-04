@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-09-10T23:47:15.828Z</updated>
+  <updated>2014-11-04T13:44:49.361Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -13,6 +13,77 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[需求功能整理]]></title>
+    <link href="http://zhushiqing.github.io/2014/11/03/collection/"/>
+    <id>http://zhushiqing.github.io/2014/11/03/collection/</id>
+    <published>2014-11-03T13:13:31.000Z</published>
+    <updated>2014-11-04T13:44:41.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="前台功能">前台功能</h2>
+<p>登录功能</p>
+<h3 id="酒吧">酒吧</h3>
+<ul>
+<li>热门酒吧（显示description，image），根据hothit来进行排名，也可以人为修改数据，可以加入收藏，点击进入具体酒吧，可以进行购买，收藏等功能</li>
+<li>最新折扣：展示酒吧折扣信息，desc creattime 点击进入酒吧，可以进行购买，收藏等功能</li>
+<li>附近酒吧：根据获取的用户坐标数据来确定附近酒吧，点击进入酒吧，可以进行购买，收藏等功能<h3 id="我的">我的</h3>
+</li>
+<li>会员卡管理<ul>
+<li>我的会员卡：显示我的会员卡信息，点击进入会员卡续费等功能</li>
+<li>会员管理：有续费功能，显示会员卡信息，到期时间</li>
+</ul>
+</li>
+<li>积分查询：<ul>
+<li>显示： 点击积分查询显示积分增长减少信息，来源，时间</li>
+<li>兑换： 根据商家的兑换活动，可以将积分兑换成会员时间等</li>
+</ul>
+</li>
+<li>个人信息:<ul>
+<li>我的收藏：点击显示我收藏的酒吧</li>
+<li>我的会员卡：显示我的会员卡信息，时间，酒吧等信息。</li>
+<li>我的订单：显示我支付过的订单信息 或者未支付的订单信息 时间 等等</li>
+<li>我的评价：显示我评价过的订单信息</li>
+<li>设置：头像修改，用户名修改     </li>
+<li>联系我们：显示我们的团队信息</li>
+</ul>
+</li>
+<li>帮助     <ul>
+<li>平台使用的教程，多个静态页面or一个静态页面</li>
+<li>关于我们 制作团队的信息 </li>
+</ul>
+</li>
+</ul>
+<p>续费支付功能：使用二维码扫码支付：二维码为用户消费数额+会员卡+userid</p>
+<h2 id="后台功能">后台功能</h2>
+<h3 id="酒吧管理">酒吧管理</h3>
+<p>1.一个or多个酒吧的增加 删除 坐标的修改 （包括信息的修改）（管理员）</p>
+<p>2.单独的酒吧管理(商户)：</p>
+<pre><code><span class="bullet">*  </span>酒吧图片的修改
+<span class="bullet">*  </span>酒吧的折扣发布 修改 删除
+<span class="bullet">*  </span>酒吧的信息修改
+<span class="bullet">*  </span>酒吧会员卡消费信息查询，修改等
+<span class="bullet">*  </span>查询某用户的当前酒吧具体消费信息
+</code></pre><h3 id="交易管理">交易管理</h3>
+<ol>
+<li>订单的查询，订单的修改，订单的删除（by id by name by time等等）</li>
+<li>评价管理 评价的删除 </li>
+</ol>
+<h3 id="用户管理">用户管理</h3>
+<ol>
+<li>消费统计：显示每个人的消费信息，总额</li>
+<li>用户信息的修改，删除，新增</li>
+</ol>
+<h3 id="设置管理">设置管理</h3>
+<ol>
+<li>修改各种联系信息</li>
+<li>修改使用教程等信息</li>
+</ol>
+]]></content>
+    
+    
+      <category term="杂七杂八" scheme="http://zhushiqing.github.io/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Java的内存回收机制]]></title>
@@ -807,31 +878,6 @@
 <p>冒泡排序是最基础的排序算法，就像水底的气泡一个个冒出来一样。<br>冒泡排序算法的运作如下：（从后往前）—-参考百科<br>]]></summary>
     
       <category term="算法基础" scheme="http://zhushiqing.github.io/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/"/>
-    
-      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[算法之二分查找(java版本)]]></title>
-    <link href="http://zhushiqing.github.io/2014/07/21/Algorithm3/"/>
-    <id>http://zhushiqing.github.io/2014/07/21/Algorithm3/</id>
-    <published>2014-07-21T00:57:38.000Z</published>
-    <updated>2014-08-24T02:59:16.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="时间复杂度">时间复杂度</h2>
-<p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br><a id="more"></a></p>
-<h2 id="实现原理">实现原理</h2>
-<p>在我的理解中：</p>
-<p>1.拿要找的数与数组的中间数做比较，如果数组中的数大于就取0，到中值为新数组，否则则是（mid，last）作为新数组<br>2.拿新数组重复1步骤<br>3.重复1，2步骤直到找到那个值</p>
-<h2 id="代码实现">代码实现</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch</span>(<span class="keyword">int</span>[] x, <span class="keyword">int</span> n){</div><div class="line">	<span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">	<span class="keyword">int</span> mid = -<span class="number">1</span>;</div><div class="line">	<span class="keyword">int</span> end = x.length - <span class="number">1</span>;</div><div class="line">	<span class="keyword">while</span>(start &lt;= end){</div><div class="line">		mid = (start + end)/<span class="number">2</span>;</div><div class="line">		<span class="keyword">if</span>(x[mid] == n){</div><div class="line">			<span class="keyword">return</span> mid;</div><div class="line">		}<span class="keyword">else</span> <span class="keyword">if</span>(x[mid] &gt; n){</div><div class="line">			end = mid - <span class="number">1</span>;</div><div class="line">		}<span class="keyword">else</span> <span class="keyword">if</span>(x[mid] &lt; n){</div><div class="line">			start = mid + <span class="number">1</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">			</div><div class="line">	<span class="keyword">int</span>[] nums = {<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">11</span>,<span class="number">45</span>,<span class="number">89</span>,<span class="number">102</span>,<span class="number">99</span>,<span class="number">47</span>,<span class="number">66</span>};</div><div class="line">	Arrays.sort(nums);</div><div class="line">		</div><div class="line">	<span class="comment">//</span></div><div class="line">	<span class="keyword">int</span> index = binarySearch(nums,<span class="number">47</span>);</div><div class="line">	System.out.println(index);</div><div class="line">}</div></pre></td></tr></table></figure>
-
-<p>这样就是一个简单的实现了。</p>
-<hr>
-<h2 id="积累是一种习惯！">积累是一种习惯！</h2>
-]]></content>
-    <summary type="html"><![CDATA[<h2 id="时间复杂度">时间复杂度</h2>
-<p>怎么说呢。二分查找优缺点都是很明显的：<br><strong>优点</strong>：就是查找的平均性能高，事件复杂度只有O（log（n））。但是<strong>缺点</strong>他也是<br>非常明显的，被查找的数组必须是有序的。<br><em>所以他最好是用于不经常变动但是查找频繁的数组</em><br>]]></summary>
     
       <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
     
