@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-11-04T13:47:16.298Z</updated>
+  <updated>2014-11-13T03:07:21.026Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -15,11 +15,48 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[]]></title>
+    <link href="http://zhushiqing.github.io/2014/11/13/linux%E5%85%A5%E9%97%A8/"/>
+    <id>http://zhushiqing.github.io/2014/11/13/linux入门/</id>
+    <published>2014-11-13T03:02:12.000Z</published>
+    <updated>2014-11-13T03:02:12.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="Linux入门">Linux入门</h1>
+<p>Linux分为内核版与发行版，发行版是基于内核版上进行二次开发从而得出的版本</p>
+<p>进程 unix→minix→linux</p>
+<p>redhat：centOS</p>
+<p>fedaro</p>
+<p>linux一般作为稳定的服务器，图形界面会占用系统资源，字符界面最好</p>
+<p>linux严格区分大小写</p>
+<p>linux所有都以文件形式存储，一切都是文件</p>
+<h2 id="linux常用命令：">linux常用命令：</h2>
+<ul>
+<li>命令的基本格式：命令 [选项] [参数]</li>
+<li><p>文件处理的命令：</p>
+<ul>
+<li><p>目录处理命令：</p>
+<ul>
+<li>创建目录 mddir -p xxx  递归创建 如果不加-p就一个目录</li>
+<li>cd  cd .. cd . cd ~ cd - 上一次访问</li>
+<li>rmdir : 删除空目录 rm -rf</li>
+<li>cp -r 复制目录 cp复制文件  -p 连带文件属性复制 -d 若源文件是链接文件，则复制链接属性， -a 相当于-pdr</li>
+<li>mv 源文件或者目录 剪切 也是改名 源文件跟目标文件在同一目录下</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[需求功能整理]]></title>
     <link href="http://zhushiqing.github.io/2014/11/03/collection/"/>
     <id>http://zhushiqing.github.io/2014/11/03/collection/</id>
     <published>2014-11-03T13:13:31.000Z</published>
-    <updated>2014-11-04T13:47:07.000Z</updated>
+    <updated>2014-11-04T13:47:54.000Z</updated>
     <content type="html"><![CDATA[<p><a id="more"></a></p>
 <h2 id="前台功能">前台功能</h2>
 <p>登录功能</p>
@@ -846,39 +883,6 @@
 <p>最后说一句：算法这东西都是靠积累的，每天都要努力！come on everyone！</p>
 ]]></content>
     <summary type="html"><![CDATA[<p>快排神马的，就是各路考官最爱问的东西：<br>]]></summary>
-    
-      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[算法之冒泡（java版本）]]></title>
-    <link href="http://zhushiqing.github.io/2014/07/22/Algorithm1/"/>
-    <id>http://zhushiqing.github.io/2014/07/22/Algorithm1/</id>
-    <published>2014-07-22T13:20:03.000Z</published>
-    <updated>2014-08-24T02:58:28.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="实现原理">实现原理</h2>
-<p>冒泡排序是最基础的排序算法，就像水底的气泡一个个冒出来一样。<br>冒泡排序算法的运作如下：（从后往前）—-参考百科<br><a id="more"></a></p>
-<blockquote>
-<ul>
-<li>1.比较相邻的元素。如果第一个比第二个大，就交换他们两个。</li>
-<li>2.对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。</li>
-<li>3.针对所有的元素重复以上的步骤，除了最后一个。</li>
-<li>4.持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</li>
-</ul>
-</blockquote>
-<h2 id="时间复杂度">时间复杂度</h2>
-<p>总的来说，像冒泡排序最理想的时间复杂度为O(n)，这个是在本身数据有序的情况下，<br>最坏情况的事件复杂度是O(n^2),平均的时间复杂度也为O(n^2)，接下来让我们来看看java版本的代码实现吧：</p>
-<h2 id="代码实现">代码实现</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span></span></div><div class="line">{</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args){</div><div class="line">		<span class="keyword">int</span>[] num = {<span class="number">705</span>,<span class="number">826</span>,<span class="number">680</span>,<span class="number">654</span>,<span class="number">694</span>};</div><div class="line">		<span class="keyword">int</span> temp;<span class="comment">//临时变量</span></div><div class="line">		<span class="comment">//第一个循环控制比较的轮数</span></div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; num.length - <span class="number">1</span>;i++){</div><div class="line">			<span class="comment">//第二个循环控制每轮比较的次数</span></div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; num.length - <span class="number">1</span> - i; j++){</div><div class="line">				<span class="keyword">if</span>(num[j] &gt; num[j + <span class="number">1</span>]){</div><div class="line">					temp = num[j];</div><div class="line">					num[j] = num[j + <span class="number">1</span>];</div><div class="line">					num[j + <span class="number">1</span>] = temp;</div><div class="line">				}</div><div class="line">			}</div><div class="line">		}</div><div class="line">		System.out.println(<span class="string">"使用冒泡排序后的数列是"</span>);</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; num.length; i++){</div><div class="line">			System.out.println(num[i]+<span class="string">" "</span> );</div><div class="line">		}</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">	}</div><div class="line">}</div><div class="line">输出以及过程如下：</div><div class="line"><span class="comment">/*</span></div><div class="line">705,826,680,654,694</div><div class="line">705,680,654,694,826  第一轮</div><div class="line">680,654,694,705,826  第二轮</div><div class="line">654,680,694,705,826</div><div class="line">654,680,694,705,826</div><div class="line">*/</div></pre></td></tr></table></figure>
-
-<hr>
-<p>最简单的也是基础的也是最会被问的，与诸君共勉。</p>
-]]></content>
-    <summary type="html"><![CDATA[<h2 id="实现原理">实现原理</h2>
-<p>冒泡排序是最基础的排序算法，就像水底的气泡一个个冒出来一样。<br>冒泡排序算法的运作如下：（从后往前）—-参考百科<br>]]></summary>
-    
-      <category term="算法基础" scheme="http://zhushiqing.github.io/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/"/>
     
       <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
     
