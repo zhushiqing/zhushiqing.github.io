@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>个人简介 | SunnyZhu&#39;blog</title>
+  <title> 设计模式1-单例模式 | SunnyZhu&#39;blog</title>
   <meta name="author" content="zhushiqing">
   
   <meta name="description" content="zsq66zsq">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="个人简介"/>
+  <meta property="og:title" content=" 设计模式1-单例模式"/>
   <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
 
   
@@ -199,33 +199,55 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="page">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
       
+        <div class="icon"></div>
+        <time datetime="2014-11-12T11:09:01.000Z"><a href="/2014/11/12/pattern1/">11月 12 2014</a></time>
+      
       
   
-    <h1 class="title">个人简介</h1>
+    <h1 class="title"> 设计模式1-单例模式</h1>
   
 
     </header>
     <div class="entry">
       
-        <h1 id="About_me：">About me：</h1>
-<p>男，爱好女，身不高，体不重，研究生在读。一个伪宅，一个喜欢动漫，喜欢旅行，喜欢雨天的骚年。</p>
-<h2 id="Zones"><strong>Zones</strong></h2>
-<p> <a href="http://music.163.com/#/my/m/music/playlist?id=11901041" target="_blank" rel="external">网易云音乐</a><br> <a href="http://user.qzone.qq.com/417707765" target="_blank" rel="external">QQ空间</a></p>
-<h2 id="SNS"><strong>SNS</strong></h2>
-<p> <a href="http://weibo.com/1906241244/profile?topnav=1&amp;wvr=5&amp;user=1" target="_blank" rel="external">新浪微博</a><br> <a href="http://www.douban.com/people/67456996/" target="_blank" rel="external">豆瓣</a><br> <a href="http://www.v2ex.com/member/zhushiqing" target="_blank" rel="external">V2EX</a><br> <a href="http://blog.csdn.net/zsq66zsq" target="_blank" rel="external">CSDN</a></p>
-<h2 id="Project"><strong>Project</strong></h2>
-<p> <a href="https://github.com/zhushiqing" target="_blank" rel="external">Github</a></p>
+        <h2 id="设计模式（Design_Pattern）">设计模式（Design Pattern）</h2>
+<p>是一套被反复使用、多数人知晓、</p>
+<p>经过分类编目的、代码设计经验的总结。</p>
+<h3 id="目的：">目的：</h3>
+<p>使用设计模式是为了可重用性代码、让代码更容易的被他人理解、保证代码的可靠性。</p>
+<a id="more"></a>
+
+<p>有些东西只能有一个，比如古代的皇帝，现在的一夫一妻制。</p>
+<p>在java中有些对象我们只需要一个，比如：</p>
+<p>配置文件、工具类、线程池、缓存、日志对象等</p>
+<hr>
+<p>如果创造出多个实例，就会导致许多问题，比如占用过多的资源，不一致的结果。</p>
+<hr>
+<p>常用的单例模式：</p>
+<h3 id="饿汉模式">饿汉模式</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> cn.zju.singleton;</div><div class="line"><span class="javadoc">/**</span></div><div class="line"> * 饿汉：在类加载的时候就实例化，需要早些吃饱。</div><div class="line"> * </div><div class="line"> *<span class="javadoctag"> @author</span> zhushiqing</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>{</div><div class="line"></div><div class="line">	<span class="comment">//1、将构造方法私有化，不允许外部直接创建对象</span></div><div class="line">	<span class="keyword">private</span> <span class="title">Singleton</span>(){</div><div class="line">		</div><div class="line">	}</div><div class="line">	<span class="comment">//2、创建类的唯一实例,private static 修饰</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();</div><div class="line">	</div><div class="line">	<span class="comment">//3、提供获取类实例的方法</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span>(){</div><div class="line">		<span class="keyword">return</span> instance;</div><div class="line">	}</div><div class="line">	</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="懒汉模式">懒汉模式</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> cn.zju.singleton;</div><div class="line"><span class="javadoc">/**</span></div><div class="line"> * 懒汉模式 线程不安全</div><div class="line"> *<span class="javadoctag"> @author</span> zhushiqing</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton2</span> </span>{</div><div class="line"></div><div class="line">	<span class="comment">//1、将构造方法私有化，不允许外部实例化</span></div><div class="line">	<span class="keyword">private</span> <span class="title">Singleton2</span>(){}</div><div class="line">	</div><div class="line">	<span class="comment">//2、声明类的唯一实例，使用private static修饰</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton2 instance;</div><div class="line">	</div><div class="line">	<span class="comment">//3、提供一个用户获取实例的方法，使用public static修饰</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton2 <span class="title">getInstance</span>(){</div><div class="line">		<span class="keyword">if</span>(instance == <span class="keyword">null</span>)</div><div class="line">			instance = <span class="keyword">new</span> Singleton2();</div><div class="line">		<span class="keyword">return</span> instance;</div><div class="line">	} </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="两者区别：">两者区别：</h3>
+<p>饿汉模式：加载类的加载比较慢，但是运行时获取对象速度比较快，在类加载的时候就被创建 线程安全的<br>懒汉模式：加载类的时候比较快，但是运行时获取对象比较慢。 线程不安全的 </p>
 
       
     </div>
     <footer>
       
         
+  
+  <div class="categories">
+    <a href="/categories/Pattern/">Pattern</a>
+  </div>
+
         
         <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
@@ -240,13 +262,17 @@
 
 <nav id="pagination" >
     
+    <a href="/2014/11/13/linux入门/" class="alignleft prev" >上一页</a>
+    
+    
+    <a href="/2014/11/03/collection/" class="alignright next" >下一页</a>
     
     <div class="clearfix"></div>
 </nav>
 <section id="comment">
 
 <!-- 多说评论框 start -->	
-<div class="ds-thread" data-thread-key="/about/index.html" data-title="个人简介" data-url="http://zhushiqing.github.io/about/index.html"></div>
+<div class="ds-thread" data-thread-key="/2014/11/12/pattern1/" data-title=" 设计模式1-单例模式" data-url="http://zhushiqing.github.io/2014/11/12/pattern1/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->

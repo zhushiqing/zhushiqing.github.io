@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-11-13T03:07:21.026Z</updated>
+  <updated>2014-11-13T03:08:48.212Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -48,6 +48,46 @@
 </ul>
 ]]></content>
     
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ 设计模式1-单例模式]]></title>
+    <link href="http://zhushiqing.github.io/2014/11/12/pattern1/"/>
+    <id>http://zhushiqing.github.io/2014/11/12/pattern1/</id>
+    <published>2014-11-12T11:09:01.000Z</published>
+    <updated>2014-11-12T11:40:03.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="设计模式（Design_Pattern）">设计模式（Design Pattern）</h2>
+<p>是一套被反复使用、多数人知晓、</p>
+<p>经过分类编目的、代码设计经验的总结。</p>
+<h3 id="目的：">目的：</h3>
+<p>使用设计模式是为了可重用性代码、让代码更容易的被他人理解、保证代码的可靠性。</p>
+<a id="more"></a>
+
+<p>有些东西只能有一个，比如古代的皇帝，现在的一夫一妻制。</p>
+<p>在java中有些对象我们只需要一个，比如：</p>
+<p>配置文件、工具类、线程池、缓存、日志对象等</p>
+<hr>
+<p>如果创造出多个实例，就会导致许多问题，比如占用过多的资源，不一致的结果。</p>
+<hr>
+<p>常用的单例模式：</p>
+<h3 id="饿汉模式">饿汉模式</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> cn.zju.singleton;</div><div class="line"><span class="javadoc">/**</span></div><div class="line"> * 饿汉：在类加载的时候就实例化，需要早些吃饱。</div><div class="line"> * </div><div class="line"> *<span class="javadoctag"> @author</span> zhushiqing</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>{</div><div class="line"></div><div class="line">	<span class="comment">//1、将构造方法私有化，不允许外部直接创建对象</span></div><div class="line">	<span class="keyword">private</span> <span class="title">Singleton</span>(){</div><div class="line">		</div><div class="line">	}</div><div class="line">	<span class="comment">//2、创建类的唯一实例,private static 修饰</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();</div><div class="line">	</div><div class="line">	<span class="comment">//3、提供获取类实例的方法</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span>(){</div><div class="line">		<span class="keyword">return</span> instance;</div><div class="line">	}</div><div class="line">	</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="懒汉模式">懒汉模式</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> cn.zju.singleton;</div><div class="line"><span class="javadoc">/**</span></div><div class="line"> * 懒汉模式 线程不安全</div><div class="line"> *<span class="javadoctag"> @author</span> zhushiqing</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton2</span> </span>{</div><div class="line"></div><div class="line">	<span class="comment">//1、将构造方法私有化，不允许外部实例化</span></div><div class="line">	<span class="keyword">private</span> <span class="title">Singleton2</span>(){}</div><div class="line">	</div><div class="line">	<span class="comment">//2、声明类的唯一实例，使用private static修饰</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton2 instance;</div><div class="line">	</div><div class="line">	<span class="comment">//3、提供一个用户获取实例的方法，使用public static修饰</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton2 <span class="title">getInstance</span>(){</div><div class="line">		<span class="keyword">if</span>(instance == <span class="keyword">null</span>)</div><div class="line">			instance = <span class="keyword">new</span> Singleton2();</div><div class="line">		<span class="keyword">return</span> instance;</div><div class="line">	} </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="两者区别：">两者区别：</h3>
+<p>饿汉模式：加载类的加载比较慢，但是运行时获取对象速度比较快，在类加载的时候就被创建 线程安全的<br>懒汉模式：加载类的时候比较快，但是运行时获取对象比较慢。 线程不安全的 </p>
+]]></content>
+    <summary type="html"><![CDATA[<h2 id="设计模式（Design_Pattern）">设计模式（Design Pattern）</h2>
+<p>是一套被反复使用、多数人知晓、</p>
+<p>经过分类编目的、代码设计经验的总结。</p>
+<h3 id="目的：">目的：</h3>
+<p>使用设计模式是为了可重用性代码、让代码更容易的被他人理解、保证代码的可靠性。</p>
+]]></summary>
+    
+      <category term="Pattern" scheme="http://zhushiqing.github.io/categories/Pattern/"/>
     
   </entry>
   
@@ -848,41 +888,6 @@
 </blockquote>
 <hr>
 ]]></summary>
-    
-      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[算法之快排（java版本）]]></title>
-    <link href="http://zhushiqing.github.io/2014/07/24/Algorithm2/"/>
-    <id>http://zhushiqing.github.io/2014/07/24/Algorithm2/</id>
-    <published>2014-07-24T00:01:45.000Z</published>
-    <updated>2014-08-26T01:39:27.000Z</updated>
-    <content type="html"><![CDATA[<p>快排神马的，就是各路考官最爱问的东西：<br><a id="more"></a></p>
-<p>在我自己的理解中，快排是这样的：</p>
-<h2 id="实现原理">实现原理</h2>
-<blockquote>
-<ul>
-<li>1.先选择数组中的一个数，作为一个基准（一般情况下选第一个）</li>
-<li>2.然后对整个数组进行第一次遍历，把小于基准的数扔到及基准数的左边，大于的数扔到右边。</li>
-<li>3.一遍遍历结束后，基准左边的数都小于基准，右边都大于基准，然后以基准为界可以得到两个新数组，对新数组重复1、2步骤。</li>
-<li>4.不断递归调用之后得到的数组就是有序的。</li>
-</ul>
-</blockquote>
-<h2 id="时间复杂度">时间复杂度</h2>
-<p>像一般java中Array.sort底层实现就是采用的快排，一般快排的效率都是蛮高的，但是快排最坏的情况下时间复杂度也为O(n^2)<br>,比说一组数组本身就是有序的，倒序，然后基准为第一个数，这样用快排排数组就是最坏情况下的时间复杂度，当然一般情况下平均事件复杂度都为：O(nlog(n))</p>
-<h2 id="代码实现">代码实现</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuicklySort</span> </span>{</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMid</span>(<span class="keyword">int</span>[] num,<span class="keyword">int</span> low,<span class="keyword">int</span> high){</div><div class="line">		<span class="keyword">int</span> temp = num[low];</div><div class="line">		<span class="keyword">while</span>(low &lt; high){</div><div class="line">			<span class="keyword">while</span>(low &lt; high && num[high] &gt;= temp){</div><div class="line">				high--;</div><div class="line">			}</div><div class="line">			num[low] = num [high];</div><div class="line">			<span class="keyword">while</span>(low &lt; high && num[low] &lt;= temp){</div><div class="line">				low ++;</div><div class="line">			}</div><div class="line">			num[high] = num[low];</div><div class="line">		}</div><div class="line">		num [low] = temp;</div><div class="line">		<span class="keyword">return</span> low;</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">QuickSort</span>(<span class="keyword">int</span>[] num,<span class="keyword">int</span> low,<span class="keyword">int</span> high){</div><div class="line">		<span class="keyword">if</span>(low &lt; high){</div><div class="line">			<span class="keyword">int</span> mid = getMid(num, low, high);</div><div class="line">			QuickSort(num,mid+<span class="number">1</span>,high);</div><div class="line">			QuickSort(num,low,mid-<span class="number">1</span>);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span>(<span class="keyword">int</span>[] num){</div><div class="line">		<span class="keyword">if</span>(num.length &gt; <span class="number">0</span>){</div><div class="line">			QuickSort(num,<span class="number">0</span>,num.length-<span class="number">1</span>);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="annotation">@Test</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DoSort</span>(){</div><div class="line">		<span class="keyword">int</span> num[] = {<span class="number">1</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">11</span>};</div><div class="line">		sort(num);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num.length; i++) {</div><div class="line">			System.out.println(num[i]);</div><div class="line">		}</div><div class="line">	}</div></pre></td></tr></table></figure>
-
-<h3 id="其实针对最坏时间复杂度其实还有更好的解法：随机快排">其实针对最坏时间复杂度其实还有更好的解法：随机快排</h3>
-<hr>
-<p>随机定义那个基准数，就是大家所称的随机化快排，也是快排的一种变种，<br>我记得我曾看到一句戏言，这样的随机化快排遇到最坏的时间复杂度的几率只有1/(2^n),只够满足人一生的人品需求。</p>
-<p>还有就是一种就是平衡化快排，就是把基准数尽量可能的取为中值—-即每次取值在第一个数，中间那个数，最后一个数做<br>比较，据说这样能提高尽两倍的性能，实际上我也没尝试过，不过算法书上这样写应该没错把= =。</p>
-<hr>
-<p>最后说一句：算法这东西都是靠积累的，每天都要努力！come on everyone！</p>
-]]></content>
-    <summary type="html"><![CDATA[<p>快排神马的，就是各路考官最爱问的东西：<br>]]></summary>
     
       <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
     
