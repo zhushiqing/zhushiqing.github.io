@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-11-13T03:08:48.212Z</updated>
+  <updated>2014-12-10T07:47:26.886Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -13,6 +13,60 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Java基础算法-排序-选择排序]]></title>
+    <link href="http://zhushiqing.github.io/2014/12/10/Algorithm5/"/>
+    <id>http://zhushiqing.github.io/2014/12/10/Algorithm5/</id>
+    <published>2014-12-10T07:40:10.000Z</published>
+    <updated>2014-12-10T07:47:16.000Z</updated>
+    <content type="html"><![CDATA[<p>简单选择排序：</p>
+<h2 id="原理">原理</h2>
+<p>简单选择排序，把数组分为有序区间与无序区间， 开始所有的数都属于无序区间，然后在无序区间里面找出min/max，然后插入有序区间，挨个轮换下去</p>
+<p><a id="more"></a></p>
+<h2 id="时间复杂度">时间复杂度</h2>
+<p>时间复杂度 平均 ： O（n^2） 最坏 O（n^2）</p>
+<h2 id="代码实现">代码实现</h2>
+<p>···java</p>
+<p>package cn.zju.algorithms.sort;</p>
+<p>public class SelectSort {</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {
+    <span class="keyword">int</span>[] arr = {<span class="number">3</span> , <span class="number">2</span> , <span class="number">1</span>, <span class="number">10</span> , <span class="number">8</span> , <span class="number">9</span> , <span class="number">1</span>};
+    selectSort(arr);
+    <span class="keyword">for</span>(<span class="keyword">int</span> num : arr){
+        System.<span class="keyword">out</span>.print(num + <span class="string">" "</span>);
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectSort</span>(<span class="keyword">int</span>[] arr){
+    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; arr.length-<span class="number">1</span> ; i++){
+        <span class="keyword">int</span> minIndex = i;
+        <span class="keyword">for</span>( <span class="keyword">int</span> j = i + <span class="number">1</span>;j &lt;arr.length ; j++){
+            <span class="keyword">if</span>(arr[minIndex] &gt; arr[j])
+                minIndex = j;
+        }
+        swap(arr,i, minIndex);
+    }
+
+}
+
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span>(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> i , <span class="keyword">int</span> j){
+    <span class="keyword">int</span> temp = <span class="number">0</span>;
+    temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp; 
+}
+</code></pre><p>}</p>
+<p>···</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>简单选择排序：</p>
+<h2 id="原理">原理</h2>
+<p>简单选择排序，把数组分为有序区间与无序区间， 开始所有的数都属于无序区间，然后在无序区间里面找出min/max，然后插入有序区间，挨个轮换下去</p>
+<p>]]></summary>
+    
+      <category term="Algorithm" scheme="http://zhushiqing.github.io/categories/Algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[]]></title>
@@ -56,12 +110,12 @@
     <link href="http://zhushiqing.github.io/2014/11/12/pattern1/"/>
     <id>http://zhushiqing.github.io/2014/11/12/pattern1/</id>
     <published>2014-11-12T11:09:01.000Z</published>
-    <updated>2014-11-12T11:40:03.000Z</updated>
+    <updated>2014-11-26T14:32:52.000Z</updated>
     <content type="html"><![CDATA[<h2 id="设计模式（Design_Pattern）">设计模式（Design Pattern）</h2>
 <p>是一套被反复使用、多数人知晓、</p>
 <p>经过分类编目的、代码设计经验的总结。</p>
 <h3 id="目的：">目的：</h3>
-<p>使用设计模式是为了可重用性代码、让代码更容易的被他人理解、保证代码的可靠性。</p>
+<p>单例模式是一种常用的软件设计模式。在它的核心结构中只包含一个被称为单例类的特殊类。通过单例模式可以保证系统中一个类只有一个实例而且该实例易于外界访问，从而方便对实例个数的控制并节约系统资源。如果希望在系统中某个类的对象只能存在一个，单例模式是最好的解决方案。</p>
 <a id="more"></a>
 
 <p>有些东西只能有一个，比如古代的皇帝，现在的一夫一妻制。</p>
@@ -84,7 +138,7 @@
 <p>是一套被反复使用、多数人知晓、</p>
 <p>经过分类编目的、代码设计经验的总结。</p>
 <h3 id="目的：">目的：</h3>
-<p>使用设计模式是为了可重用性代码、让代码更容易的被他人理解、保证代码的可靠性。</p>
+<p>单例模式是一种常用的软件设计模式。在它的核心结构中只包含一个被称为单例类的特殊类。通过单例模式可以保证系统中一个类只有一个实例而且该实例易于外界访问，从而方便对实例个数的控制并节约系统资源。如果希望在系统中某个类的对象只能存在一个，单例模式是最好的解决方案。</p>
 ]]></summary>
     
       <category term="Pattern" scheme="http://zhushiqing.github.io/categories/Pattern/"/>
@@ -854,40 +908,6 @@
 ]]></summary>
     
       <category term="排序算法" scheme="http://zhushiqing.github.io/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[算法之插入排序（java版本）]]></title>
-    <link href="http://zhushiqing.github.io/2014/07/25/Algorithm4/"/>
-    <id>http://zhushiqing.github.io/2014/07/25/Algorithm4/</id>
-    <published>2014-07-25T01:33:11.000Z</published>
-    <updated>2014-08-24T04:41:38.000Z</updated>
-    <content type="html"><![CDATA[<p>插入排序也是最常见的排序之一，他分为以下几种   </p>
-<blockquote>
-<p>1 直接插入排序<br>2 二分插入排序<br>3 希尔插入排序<br>4 链表插入排序</p>
-</blockquote>
-<hr>
-<a id="more"></a>
-
-
-<h2 id="实现原理">实现原理</h2>
-<p>跟抓牌一样，自己先定义一个有序区域，把抓到的牌放到已经排好序的牌堆里面，直到所有牌都抓完，有序区域就变成了整个<br>牌。<br>也就是说假设前面(n-1) [n&gt;=2]个数已经是排<br>好顺序的，现在要把第n个数插到前面的有序数中，使得这n个数<br>也是排好顺序的。如此反复循环，直到全部排好顺序</p>
-<h2 id="时间复杂度">时间复杂度</h2>
-<p>一般来说，最好情况下的插入排序时间复杂度为O(n),平均以及最坏的时间复杂度为O(n^2),而且插入排序是最稳定的排序<br>算法，在数据量小的情况下，插入排序的效率挺高的- -。</p>
-<p>下面让我用java代码实现下直接插入排序。</p>
-<h2 id="代码实现直接排序">代码实现直接排序</h2>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Insertion</span> </span>{  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span>(<span class="keyword">int</span> []num){  </div><div class="line">    	<span class="keyword">int</span> temp = <span class="number">0</span>;</div><div class="line">       	</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;num.length;i++){</div><div class="line">       		<span class="keyword">int</span> j=i-<span class="number">1</span>;</div><div class="line">      		temp=a[i];</div><div class="line">		<span class="keyword">while</span>(j &gt;= <span class="number">0</span>&&temp &lt; a[j]){</div><div class="line">       			a[j+<span class="number">1</span>] = a[j];                <span class="comment">//将大于temp的值整体后移一个单位</span></div><div class="line">       			j--;</div><div class="line">       		}</div><div class="line">       		a[j+<span class="number">1</span>] = temp;</div><div class="line">    	}</div><div class="line">    }  </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String []args){  </div><div class="line">        <span class="keyword">int</span>[] num={<span class="number">4</span>,<span class="number">9</span>,<span class="number">23</span>,<span class="number">1</span>,<span class="number">45</span>,<span class="number">27</span>,<span class="number">5</span>,<span class="number">2</span>};  </div><div class="line">        insertionSort(num);  </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;num.length;i++)  </div><div class="line">            System.out.println(<span class="string">"插入排序后："</span>+num[i]);  </div><div class="line">    }  </div><div class="line">}</div></pre></td></tr></table></figure>
-
-]]></content>
-    <summary type="html"><![CDATA[<p>插入排序也是最常见的排序之一，他分为以下几种   </p>
-<blockquote>
-<p>1 直接插入排序<br>2 二分插入排序<br>3 希尔插入排序<br>4 链表插入排序</p>
-</blockquote>
-<hr>
-]]></summary>
     
       <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
     
