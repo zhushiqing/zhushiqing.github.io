@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-12-10T07:49:41.634Z</updated>
+  <updated>2014-12-10T07:53:08.280Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -862,11 +862,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[二分插入排序(java版本)]]></title>
+    <title><![CDATA[Java基础算法-排序-二分插入排序]]></title>
     <link href="http://zhushiqing.github.io/2014/07/27/binaryinsertsort/"/>
     <id>http://zhushiqing.github.io/2014/07/27/binaryinsertsort/</id>
     <published>2014-07-27T12:31:41.000Z</published>
-    <updated>2014-08-29T00:56:59.000Z</updated>
+    <updated>2014-12-10T07:51:44.000Z</updated>
     <content type="html"><![CDATA[<h2 id="二分插入排序属于插入排序的一种">二分插入排序属于插入排序的一种</h2>
 <h2><a id="more"></a></h2>
 <h2 id="实现原理">实现原理</h2>
@@ -887,11 +887,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[算法之简单选择排序（java版本）]]></title>
+    <title><![CDATA[Java基础算法-排序-简单选择排序]]></title>
     <link href="http://zhushiqing.github.io/2014/07/25/selectSort/"/>
     <id>http://zhushiqing.github.io/2014/07/25/selectSort/</id>
     <published>2014-07-25T12:22:30.000Z</published>
-    <updated>2014-08-25T12:28:05.000Z</updated>
+    <updated>2014-12-10T07:52:41.000Z</updated>
     <content type="html"><![CDATA[<h2 id="排序算法之简单排序算法">排序算法之简单排序算法</h2>
 <a id="more"></a>
 

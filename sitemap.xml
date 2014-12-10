@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://zhushiqing.github.io/2014/07/25/selectSort/</loc>
+    <lastmod>2014-12-10T07:52:41.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://zhushiqing.github.io/2014/07/27/binaryinsertsort/</loc>
+    <lastmod>2014-12-10T07:51:44.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://zhushiqing.github.io/2014/12/10/Algorithm5/</loc>
     <lastmod>2014-12-10T07:49:32.000Z</lastmod>
   </url>
@@ -69,16 +79,6 @@
   <url>
     <loc>http://zhushiqing.github.io/2014/08/29/day140828/</loc>
     <lastmod>2014-08-29T02:12:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://zhushiqing.github.io/2014/07/27/binaryinsertsort/</loc>
-    <lastmod>2014-08-29T00:56:59.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://zhushiqing.github.io/2014/07/25/selectSort/</loc>
-    <lastmod>2014-08-25T12:28:05.000Z</lastmod>
   </url>
   
   <url>
