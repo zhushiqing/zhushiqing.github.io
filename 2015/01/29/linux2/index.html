@@ -1,0 +1,442 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在排除服务器时候常用的linux命令(转) | SunnyZhu&#39;blog</title>
+  <meta name="author" content="zhushiqing">
+  
+  <meta name="description" content="zsq66zsq">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="在排除服务器时候常用的linux命令(转)"/>
+  <meta property="og:site_name" content="SunnyZhu&#39;blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="SunnyZhu&#39;blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">SunnyZhu&#39;blog</a></h1>
+  <h2><a href="/">不要让自己的未来后悔，所以，努力吧！</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">存档</a></li>
+    
+      <li><a href="/about">介绍</a></li>
+    
+	<li> <a href="/atom.xml">RSS</a> </li>
+	<li>
+		<a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a>
+	</li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-29T09:39:43.000Z"><a href="/2015/01/29/linux2/">1月 29 2015</a></time>
+      
+      
+  
+    <h1 class="title">在排除服务器时候常用的linux命令(转)</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><a id="more"></a></p>
+<h2 id="1_ping">1 ping</h2>
+<p>功能是检测主机，执行ping指令会使用ICMP传输协议，发出要求回应的信息，若远端主机的网络功能没有问题，<br>就会回应该信息，因而得知该主机运作正常。</p>
+<h2 id="2_netstat:">2 netstat:</h2>
+<p>显示与IP、TCP、UDP和ICMP协议相关的统计数据，一般用于检验本机各端口的网络连接情况。</p>
+<h3 id="·netstat_–s">·netstat –s</h3>
+<p>本选项能够按照各个协议分别显示其统计数据。如果我们的应用程序（如Web浏览器）运行速度比较慢，或者不能显示Web页之类的数据，那么我们就可以用本选项来查看一下所显示的信息。<br>我们需要仔细查看统计数据的各行，找到出错的关键字，进而确定问题所在。</p>
+<h3 id="·netstat_–e">·netstat –e</h3>
+<p>本选项用于显示关于以太网的统计数据。它列出的项目包括传送的数据报的总字节数、错误数、删除数、数据报的数量和广播的数量。</p>
+<h3 id="·netstat_–a">·netstat –a</h3>
+<p>本选项显示一个所有的有效连接信息列表，包括已建立的连接（ESTABLISHED），也包括监听连接请（LISTENING）的那些连接。</p>
+<h3 id="·netstat_–n">·netstat –n</h3>
+<p>显示所有已建立的有效连接。</p>
+<h2 id="3_hostname">3 hostname</h2>
+<p>显示或设置系统的主机名；如果无任何选项和主机名，则用于显示系统的主机名。<br>在看这个命令的时候想起了windows中修改host文件来进行测试，这里顺便了解了一下host文件的作用。</p>
+<p>Hosts文件是一个纯文本的文件，用普通的文本编辑软件如记事本等都能打开。 </p>
+<p>Hosts文件的格式:<br>这个文件包含IP地址到HOST name(主机名)的映射关系.每一条独自占有一行.<br>IP地址应该放在第一位,后面应该紧跟着Host name. IP地址与Host name之间应该被最少一个空格隔开.对于每行的映射说明，用“#”分割后用文字说明。<br>Hosts文件在Windows中的用途:<br>访问某个网站通常是根据域名访问，比如：<a href="http://www.9usb.net.我们在浏览器中输入以上域名后，后台就首先通过DNS服务器把网络域名www.9usb.net解析成173.XXX.XXX.XXX的IP地址后，我们的计算机才能访问。要是对于每个域名请求我们都要等待域名服务器解析后返回IP信息，这样访问网络的效率就会降低。" target="_blank" rel="external">http://www.9usb.net.我们在浏览器中输入以上域名后，后台就首先通过DNS服务器把网络域名www.9usb.net解析成173.XXX.XXX.XXX的IP地址后，我们的计算机才能访问。要是对于每个域名请求我们都要等待域名服务器解析后返回IP信息，这样访问网络的效率就会降低。</a><br>Hosts文件起作用的地方就是在由域名转换成IP的过程中。hosts文件在本地保存了一个域名和IP地址的映射，能提高解析效率。Windows系统在进行DNS请求以前，Windows系统会先检查Hosts文件中是否有这个地址映射关系，如果有则调用这个IP地址映射，如果没有再向已知的DNS服务器提出域名解析。<br>Hosts的请求级别比DNS高。 </p>
+<p>Host文件在具体使用中的作用<br>1.绕开DNS请求，节省域名解析时间<br>对于要经常访问的网站，我们可以通过在Hosts中配置域名和IP的映射关系，这样当我们输入域名计算机就能很快解析出IP，而不用请求网络上的DNS服务器。在本地进行域名解析比请求DNS服务器进行转换要省时间，这大大加快了访问速度。<br>2.方便局域网用户<br>通常局域网一般不会架设DNS服务器，访问某些服务要输入难记的IP地址，这就比较不方便。现在可以分别给这些服务器取个容易记住的名字，然后在Hosts中建立IP映射，这样以后访问的时候我们输入这个服务器的名字就OK了。<br>3、屏蔽网站和解屏蔽网站<br>4.顺利连接系统 </p>
+<h2 id="4_uptime">4 uptime</h2>
+<p>linux系统中的uptime命令主要用于获取主机运行时间和查询linux系统负载等信息。<br>uptime命令可以显示系统已经运行了多长时间，信息显示依次为：现在时间、系统已经运行了多长时间、目前有多少登陆用户、系统在过去的1分钟、5分钟和15分钟内的平均负载。<br>uptime命令用法十分简单：直接输入uptime即可.<br>例如： 17:07:22 up 79 days, 17:57,  1 user,  load average: 0.08, 0.08, 0.02</p>
+<h2 id="5_TOP">5 TOP</h2>
+<p>TOP显示的内容详解</p>
+<p><img src="/image/linux-top.jpg" alt="测试"></p>
+<p>在TOP命令运行的过程中，点击下面的键，可以进行进一步的显示。</p>
+<h3 id="（1）u：指定显示用户进程。">（1）u：指定显示用户进程。</h3>
+<h3 id="（2）1_：显示每个CPU的统计信息。">（2）1 ：显示每个CPU的统计信息。</h3>
+<h3 id="（3）P：按%CPU使用率排行。shift+p。">（3）P：按%CPU使用率排行。shift+p。</h3>
+<h3 id="（4）M：按%MEM排行。shift+m。">（4）M：按%MEM排行。shift+m。</h3>
+<h3 id="（5）：立即刷新。">（5）<space>：立即刷新。</space></h3>
+<h3 id="（6）-H_:_显示线程。当这个设定开启时，将显示所有进程产生的线程。">（6）-H : 显示线程。当这个设定开启时，将显示所有进程产生的线程。</h3>
+<h3 id="（7）-p_:_监控指定的进程。当监控多个进程时，进程ID以逗号分隔。这个选项只能在命令行下使用。">（7）-p : 监控指定的进程。当监控多个进程时，进程ID以逗号分隔。这个选项只能在命令行下使用。</h3>
+<p> <img src="/image/linux-top2.jpg" alt=""></p>
+<hr>
+<p>查看java进程中各个线程占用CPU以及内存情况<br>top -H -p <code>pgrep java -u admin</code></p>
+<p>加入看到8440这个线程有异常，进制转换<br>printf ‘0x%x\n’ 8440</p>
+<p>看这个线程在做什么事情<br>sudo -u admin /opt/taobao/java/bin/jstack <code>pgrep java -u admin</code> | grep -C 20 0x20f8 –color</p>
+<hr>
+<h2 id="6_sar">6 sar</h2>
+<p>sar 的主要作用：<br>主要负责收集、汇报与存储系统运行信息的。有两个参数非常非常常用，就是“时间间隔”和“输出次数”。默认输出CPU的信息，但是内存、Load、IO的情况都可以查看<br>1、把sar输出的信息保存到文件中，只要  -o filename即可，不过在看次文件的时候，需要sar  -f  filename   否则通过cat看到的是乱码<br>2、CPU是多核的情况下，查看每一下的情况已经统计情况，<br>    sar -P ALL   显示每一核的情况已经总体情况<br>    sar -P 数字  显示特定CPU的情况</p>
+<p>3、查看历史的sar的情况<br>     sar   -u(r/q/) -f    /var/log/sa/sa01    最后一个为具体的日志（sa+日期中的天数）<br>4、sar -q  查看load的情况</p>
+<p>5、sar -r  查看内存</p>
+<p>6、sar -n  查看网络情况</p>
+<h2 id="7_vmstat">7 vmstat</h2>
+<h2 id="8_ps">8 ps</h2>
+<h2 id="9_grep/egrep/fgrep">9 grep/egrep/fgrep</h2>
+<h2 id="10_awk">10 awk</h2>
+<h2 id="11_kill">11 kill</h2>
+<h2 id="12_mapstat">12 mapstat</h2>
+<h2 id="13_iostat">13 iostat</h2>
+<h2 id="14_df/du">14 df/du</h2>
+<h2 id="15_系统配置相关：">15 系统配置相关：</h2>
+<p>查看内核/操作系统/CPU信息： uname -a</p>
+<p>查看操作系统版本： head -1 /etc/issue</p>
+<p>查看网卡信息：cat  /sbin/ifconfig</p>
+<p>查看cpu配置： cat /proc/cpuinfo</p>
+<p>查看mem配置：cat /proc/meminfo</p>
+<p>查看环境变量 资源: env </p>
+<p>查看各分区使用情况:  df -h</p>
+<p>查看指定目录的大小: du -sh</p>
+<p>查看系统负载 磁盘和分区: cat /proc/loadavg </p>
+<p>查看挂接的分区状态:  mount | column -t </p>
+<p>查看hosts配置：cat /etc/hosts</p>
+<p>查看所有网络接口的属性： ifconfig </p>
+<p>查看路由表： route -n</p>
+<p>查看tcp协议配置(ipv4):  /proc/sys/net/ipv4</p>
+<p>性能分析相关工具：</p>
+<p>ps，pstree： 命令是系统分析最常用的基本命令，ps命令提供了一个正在运行的进程的列表，列出进程的数量取决于命令所附加的参数。</p>
+<p>uptime： 查看系统运行时间、用户数、负载</p>
+<p>top ：实时显示cpu负载、进程资源占用</p>
+<p>vmstat：整体性能监控，cpu，mem，页面io等。</p>
+<p>free： free命令显示系统的所有内存的使用情况，包括空闲内存、被使用的内存和交换内存空间。Free命令显示也包括一些内核使用的缓存和缓冲区的信息。<br>-m  以M形式展示数据<br>-g 以G形式展示数据</p>
+<p>pmap： pmap命令显示一个或者多个进程使用内存的数量，你可以用这个工具来确定服务器上哪个进程占用了过多的内存从而导致内存瓶颈。</p>
+<p>iostat：iostat是sysstat包的一部分。Iostat显示自系统启动后的平均CPU时间（与uptime类似），它也可以显示磁盘子系统的使用情况，iostat可以用来监测CPU利用率和磁盘利用率。</p>
+<p>sar： sar也是sysstat安装包的一部分。sar命令用于收集、报告和保存系统的信息。</p>
+<p>mpstat： mpstat命令也是sysstat包的一部分。Mpstat命令用于监测一个多CPU系统中每个可用CPU的情况。Mpstat命令可以显示每个CPU或者所有CPU的运行情况</p>
+<p>ulimit： 可以通过ulimit来控制系统资源的使用。</p>
+<p>java应用性能分析：</p>
+<p>jmap(配合jhat分析heapdump)、jstat、jconsole、jvisualvm、jprofiler、visualGC等等多种多样。</p>
+<p>查看进程和端口号相关netstat：</p>
+<p>Netstat 用于显示与IP、TCP、UDP和ICMP协议相关的统计数据，一般用于检验本机各端口的网络连接情况。<br>通过netstat可以查看网络连接、端口号等占用情况</p>
+<p>查看TCP/UDP端口：netstat -tuoln</p>
+<p>查看进程名运行的端口号：netstat -anp|grep 进程名<br>当需要监控某个服务的端口号时可以首先获取该服务的监听端口号，如tomact进程<br>netstat -anp|grep tomcat</p>
+<p> 根据端口查看运行的进程：<br>netstat -anp|grep 端口号  或  lsof -i:端口号<br>通常用于查看某个端口号下建立的连接数，如8083端口号下的连接数统计：<br>netstat -anp|grep：8083|wc -l </p>
+<p>netstat -tln 查看服务监听端口</p>
+<p>查看进程   ps aux</p>
+<p>查看指定服务的进程号,如tomcat服务： ps aux|grep tomcat</p>
+<p>结束进程   kill -15 pid 立即释放资源； kill -9 pid 不会立即释放资源 </p>
+<p>查看特定文件中特定文本的个数<br>egrep -o “[A-Z|a-z]\w*””Exception” map.log | sort | uniq -c | sort –nr   </p>
+<p>最后制定定时执行任务，合理利用空闲时间：</p>
+<p>crontab -e: 设置计划任务；</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/linux/">linux</a>
+  </div>
+
+        
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+<nav id="pagination" >
+    
+    
+    <a href="/2014/12/10/Algorithm5/" class="alignright next" >下一页</a>
+    
+    <div class="clearfix"></div>
+</nav>
+<section id="comment">
+
+<!-- 多说评论框 start -->	
+<div class="ds-thread" data-thread-key="/2015/01/29/linux2/" data-title="在排除服务器时候常用的linux命令(转)" data-url="http://zhushiqing.github.io/2015/01/29/linux2/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zhushiqing"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:zhushiqing.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Algorithms/">Algorithms</a><small>8</small></li>
+  
+    <li><a href="/categories/DataBase/">DataBase</a><small>1</small></li>
+  
+    <li><a href="/categories/Java/">Java</a><small>8</small></li>
+  
+    <li><a href="/categories/Pattern/">Pattern</a><small>1</small></li>
+  
+    <li><a href="/categories/blog/">blog</a><small>4</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>1</small></li>
+  
+    <li><a href="/categories/python/">python</a><small>1</small></li>
+  
+    <li><a href="/categories/工作/">工作</a><small>1</small></li>
+  
+    <li><a href="/categories/杂七杂八/">杂七杂八</a><small>1</small></li>
+  
+    <li><a href="/categories/面试/">面试</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">个人简介</h3>
+<ul class="entry">
+姓名：<a href="/about/index.html">朱适卿</a><br/>
+别名：朱自清<br/>
+现状：ZJU在读研究生<br/>
+QQ：417707765
+</ul>
+</div>
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1906241244&verifier=77b05fd2&dpc=1"></iframe>
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://liyi.it/" title="李毅">大帝</a>              <a href="http://tankpt.github.io/" title="王天一">tankpt</a></li>
+
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 zhushiqing
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="http://libs.useso.com/js/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

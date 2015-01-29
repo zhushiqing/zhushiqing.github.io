@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不要让自己的未来后悔，所以，努力吧！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://zhushiqing.github.io/"/>
-  <updated>2014-12-10T07:53:08.280Z</updated>
+  <updated>2015-01-29T10:14:28.985Z</updated>
   <id>http://zhushiqing.github.io/</id>
   
   <author>
@@ -13,6 +13,109 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[在排除服务器时候常用的linux命令(转)]]></title>
+    <link href="http://zhushiqing.github.io/2015/01/29/linux2/"/>
+    <id>http://zhushiqing.github.io/2015/01/29/linux2/</id>
+    <published>2015-01-29T09:39:43.000Z</published>
+    <updated>2015-01-29T10:12:23.000Z</updated>
+    <content type="html"><![CDATA[<p><a id="more"></a></p>
+<h2 id="1_ping">1 ping</h2>
+<p>功能是检测主机，执行ping指令会使用ICMP传输协议，发出要求回应的信息，若远端主机的网络功能没有问题，<br>就会回应该信息，因而得知该主机运作正常。</p>
+<h2 id="2_netstat:">2 netstat:</h2>
+<p>显示与IP、TCP、UDP和ICMP协议相关的统计数据，一般用于检验本机各端口的网络连接情况。</p>
+<h3 id="·netstat_–s">·netstat –s</h3>
+<p>本选项能够按照各个协议分别显示其统计数据。如果我们的应用程序（如Web浏览器）运行速度比较慢，或者不能显示Web页之类的数据，那么我们就可以用本选项来查看一下所显示的信息。<br>我们需要仔细查看统计数据的各行，找到出错的关键字，进而确定问题所在。</p>
+<h3 id="·netstat_–e">·netstat –e</h3>
+<p>本选项用于显示关于以太网的统计数据。它列出的项目包括传送的数据报的总字节数、错误数、删除数、数据报的数量和广播的数量。</p>
+<h3 id="·netstat_–a">·netstat –a</h3>
+<p>本选项显示一个所有的有效连接信息列表，包括已建立的连接（ESTABLISHED），也包括监听连接请（LISTENING）的那些连接。</p>
+<h3 id="·netstat_–n">·netstat –n</h3>
+<p>显示所有已建立的有效连接。</p>
+<h2 id="3_hostname">3 hostname</h2>
+<p>显示或设置系统的主机名；如果无任何选项和主机名，则用于显示系统的主机名。<br>在看这个命令的时候想起了windows中修改host文件来进行测试，这里顺便了解了一下host文件的作用。</p>
+<p>Hosts文件是一个纯文本的文件，用普通的文本编辑软件如记事本等都能打开。 </p>
+<p>Hosts文件的格式:<br>这个文件包含IP地址到HOST name(主机名)的映射关系.每一条独自占有一行.<br>IP地址应该放在第一位,后面应该紧跟着Host name. IP地址与Host name之间应该被最少一个空格隔开.对于每行的映射说明，用“#”分割后用文字说明。<br>Hosts文件在Windows中的用途:<br>访问某个网站通常是根据域名访问，比如：<a href="http://www.9usb.net.我们在浏览器中输入以上域名后，后台就首先通过DNS服务器把网络域名www.9usb.net解析成173.XXX.XXX.XXX的IP地址后，我们的计算机才能访问。要是对于每个域名请求我们都要等待域名服务器解析后返回IP信息，这样访问网络的效率就会降低。" target="_blank" rel="external">http://www.9usb.net.我们在浏览器中输入以上域名后，后台就首先通过DNS服务器把网络域名www.9usb.net解析成173.XXX.XXX.XXX的IP地址后，我们的计算机才能访问。要是对于每个域名请求我们都要等待域名服务器解析后返回IP信息，这样访问网络的效率就会降低。</a><br>Hosts文件起作用的地方就是在由域名转换成IP的过程中。hosts文件在本地保存了一个域名和IP地址的映射，能提高解析效率。Windows系统在进行DNS请求以前，Windows系统会先检查Hosts文件中是否有这个地址映射关系，如果有则调用这个IP地址映射，如果没有再向已知的DNS服务器提出域名解析。<br>Hosts的请求级别比DNS高。 </p>
+<p>Host文件在具体使用中的作用<br>1.绕开DNS请求，节省域名解析时间<br>对于要经常访问的网站，我们可以通过在Hosts中配置域名和IP的映射关系，这样当我们输入域名计算机就能很快解析出IP，而不用请求网络上的DNS服务器。在本地进行域名解析比请求DNS服务器进行转换要省时间，这大大加快了访问速度。<br>2.方便局域网用户<br>通常局域网一般不会架设DNS服务器，访问某些服务要输入难记的IP地址，这就比较不方便。现在可以分别给这些服务器取个容易记住的名字，然后在Hosts中建立IP映射，这样以后访问的时候我们输入这个服务器的名字就OK了。<br>3、屏蔽网站和解屏蔽网站<br>4.顺利连接系统 </p>
+<h2 id="4_uptime">4 uptime</h2>
+<p>linux系统中的uptime命令主要用于获取主机运行时间和查询linux系统负载等信息。<br>uptime命令可以显示系统已经运行了多长时间，信息显示依次为：现在时间、系统已经运行了多长时间、目前有多少登陆用户、系统在过去的1分钟、5分钟和15分钟内的平均负载。<br>uptime命令用法十分简单：直接输入uptime即可.<br>例如： 17:07:22 up 79 days, 17:57,  1 user,  load average: 0.08, 0.08, 0.02</p>
+<h2 id="5_TOP">5 TOP</h2>
+<p>TOP显示的内容详解</p>
+<p><img src="/image/linux-top.jpg" alt="测试"></p>
+<p>在TOP命令运行的过程中，点击下面的键，可以进行进一步的显示。</p>
+<h3 id="（1）u：指定显示用户进程。">（1）u：指定显示用户进程。</h3>
+<h3 id="（2）1_：显示每个CPU的统计信息。">（2）1 ：显示每个CPU的统计信息。</h3>
+<h3 id="（3）P：按%CPU使用率排行。shift+p。">（3）P：按%CPU使用率排行。shift+p。</h3>
+<h3 id="（4）M：按%MEM排行。shift+m。">（4）M：按%MEM排行。shift+m。</h3>
+<h3 id="（5）：立即刷新。">（5）<space>：立即刷新。</space></h3>
+<h3 id="（6）-H_:_显示线程。当这个设定开启时，将显示所有进程产生的线程。">（6）-H : 显示线程。当这个设定开启时，将显示所有进程产生的线程。</h3>
+<h3 id="（7）-p_:_监控指定的进程。当监控多个进程时，进程ID以逗号分隔。这个选项只能在命令行下使用。">（7）-p : 监控指定的进程。当监控多个进程时，进程ID以逗号分隔。这个选项只能在命令行下使用。</h3>
+<p> <img src="/image/linux-top2.jpg" alt=""></p>
+<hr>
+<p>查看java进程中各个线程占用CPU以及内存情况<br>top -H -p <code>pgrep java -u admin</code></p>
+<p>加入看到8440这个线程有异常，进制转换<br>printf ‘0x%x\n’ 8440</p>
+<p>看这个线程在做什么事情<br>sudo -u admin /opt/taobao/java/bin/jstack <code>pgrep java -u admin</code> | grep -C 20 0x20f8 –color</p>
+<hr>
+<h2 id="6_sar">6 sar</h2>
+<p>sar 的主要作用：<br>主要负责收集、汇报与存储系统运行信息的。有两个参数非常非常常用，就是“时间间隔”和“输出次数”。默认输出CPU的信息，但是内存、Load、IO的情况都可以查看<br>1、把sar输出的信息保存到文件中，只要  -o filename即可，不过在看次文件的时候，需要sar  -f  filename   否则通过cat看到的是乱码<br>2、CPU是多核的情况下，查看每一下的情况已经统计情况，<br>    sar -P ALL   显示每一核的情况已经总体情况<br>    sar -P 数字  显示特定CPU的情况</p>
+<p>3、查看历史的sar的情况<br>     sar   -u(r/q/) -f    /var/log/sa/sa01    最后一个为具体的日志（sa+日期中的天数）<br>4、sar -q  查看load的情况</p>
+<p>5、sar -r  查看内存</p>
+<p>6、sar -n  查看网络情况</p>
+<h2 id="7_vmstat">7 vmstat</h2>
+<h2 id="8_ps">8 ps</h2>
+<h2 id="9_grep/egrep/fgrep">9 grep/egrep/fgrep</h2>
+<h2 id="10_awk">10 awk</h2>
+<h2 id="11_kill">11 kill</h2>
+<h2 id="12_mapstat">12 mapstat</h2>
+<h2 id="13_iostat">13 iostat</h2>
+<h2 id="14_df/du">14 df/du</h2>
+<h2 id="15_系统配置相关：">15 系统配置相关：</h2>
+<p>查看内核/操作系统/CPU信息： uname -a</p>
+<p>查看操作系统版本： head -1 /etc/issue</p>
+<p>查看网卡信息：cat  /sbin/ifconfig</p>
+<p>查看cpu配置： cat /proc/cpuinfo</p>
+<p>查看mem配置：cat /proc/meminfo</p>
+<p>查看环境变量 资源: env </p>
+<p>查看各分区使用情况:  df -h</p>
+<p>查看指定目录的大小: du -sh</p>
+<p>查看系统负载 磁盘和分区: cat /proc/loadavg </p>
+<p>查看挂接的分区状态:  mount | column -t </p>
+<p>查看hosts配置：cat /etc/hosts</p>
+<p>查看所有网络接口的属性： ifconfig </p>
+<p>查看路由表： route -n</p>
+<p>查看tcp协议配置(ipv4):  /proc/sys/net/ipv4</p>
+<p>性能分析相关工具：</p>
+<p>ps，pstree： 命令是系统分析最常用的基本命令，ps命令提供了一个正在运行的进程的列表，列出进程的数量取决于命令所附加的参数。</p>
+<p>uptime： 查看系统运行时间、用户数、负载</p>
+<p>top ：实时显示cpu负载、进程资源占用</p>
+<p>vmstat：整体性能监控，cpu，mem，页面io等。</p>
+<p>free： free命令显示系统的所有内存的使用情况，包括空闲内存、被使用的内存和交换内存空间。Free命令显示也包括一些内核使用的缓存和缓冲区的信息。<br>-m  以M形式展示数据<br>-g 以G形式展示数据</p>
+<p>pmap： pmap命令显示一个或者多个进程使用内存的数量，你可以用这个工具来确定服务器上哪个进程占用了过多的内存从而导致内存瓶颈。</p>
+<p>iostat：iostat是sysstat包的一部分。Iostat显示自系统启动后的平均CPU时间（与uptime类似），它也可以显示磁盘子系统的使用情况，iostat可以用来监测CPU利用率和磁盘利用率。</p>
+<p>sar： sar也是sysstat安装包的一部分。sar命令用于收集、报告和保存系统的信息。</p>
+<p>mpstat： mpstat命令也是sysstat包的一部分。Mpstat命令用于监测一个多CPU系统中每个可用CPU的情况。Mpstat命令可以显示每个CPU或者所有CPU的运行情况</p>
+<p>ulimit： 可以通过ulimit来控制系统资源的使用。</p>
+<p>java应用性能分析：</p>
+<p>jmap(配合jhat分析heapdump)、jstat、jconsole、jvisualvm、jprofiler、visualGC等等多种多样。</p>
+<p>查看进程和端口号相关netstat：</p>
+<p>Netstat 用于显示与IP、TCP、UDP和ICMP协议相关的统计数据，一般用于检验本机各端口的网络连接情况。<br>通过netstat可以查看网络连接、端口号等占用情况</p>
+<p>查看TCP/UDP端口：netstat -tuoln</p>
+<p>查看进程名运行的端口号：netstat -anp|grep 进程名<br>当需要监控某个服务的端口号时可以首先获取该服务的监听端口号，如tomact进程<br>netstat -anp|grep tomcat</p>
+<p> 根据端口查看运行的进程：<br>netstat -anp|grep 端口号  或  lsof -i:端口号<br>通常用于查看某个端口号下建立的连接数，如8083端口号下的连接数统计：<br>netstat -anp|grep：8083|wc -l </p>
+<p>netstat -tln 查看服务监听端口</p>
+<p>查看进程   ps aux</p>
+<p>查看指定服务的进程号,如tomcat服务： ps aux|grep tomcat</p>
+<p>结束进程   kill -15 pid 立即释放资源； kill -9 pid 不会立即释放资源 </p>
+<p>查看特定文件中特定文本的个数<br>egrep -o “[A-Z|a-z]\w*””Exception” map.log | sort | uniq -c | sort –nr   </p>
+<p>最后制定定时执行任务，合理利用空闲时间：</p>
+<p>crontab -e: 设置计划任务；</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>]]></summary>
+    
+      <category term="linux" scheme="http://zhushiqing.github.io/categories/linux/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Java基础算法-排序-选择排序]]></title>
@@ -65,43 +168,6 @@
 <p>]]></summary>
     
       <category term="Algorithms" scheme="http://zhushiqing.github.io/categories/Algorithms/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[]]></title>
-    <link href="http://zhushiqing.github.io/2014/11/13/linux%E5%85%A5%E9%97%A8/"/>
-    <id>http://zhushiqing.github.io/2014/11/13/linux入门/</id>
-    <published>2014-11-13T03:02:12.000Z</published>
-    <updated>2014-11-13T03:02:12.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="Linux入门">Linux入门</h1>
-<p>Linux分为内核版与发行版，发行版是基于内核版上进行二次开发从而得出的版本</p>
-<p>进程 unix→minix→linux</p>
-<p>redhat：centOS</p>
-<p>fedaro</p>
-<p>linux一般作为稳定的服务器，图形界面会占用系统资源，字符界面最好</p>
-<p>linux严格区分大小写</p>
-<p>linux所有都以文件形式存储，一切都是文件</p>
-<h2 id="linux常用命令：">linux常用命令：</h2>
-<ul>
-<li>命令的基本格式：命令 [选项] [参数]</li>
-<li><p>文件处理的命令：</p>
-<ul>
-<li><p>目录处理命令：</p>
-<ul>
-<li>创建目录 mddir -p xxx  递归创建 如果不加-p就一个目录</li>
-<li>cd  cd .. cd . cd ~ cd - 上一次访问</li>
-<li>rmdir : 删除空目录 rm -rf</li>
-<li>cp -r 复制目录 cp复制文件  -p 连带文件属性复制 -d 若源文件是链接文件，则复制链接属性， -a 相当于-pdr</li>
-<li>mv 源文件或者目录 剪切 也是改名 源文件跟目标文件在同一目录下</li>
-</ul>
-</li>
-<li></li>
-</ul>
-</li>
-</ul>
-]]></content>
-    
     
   </entry>
   
